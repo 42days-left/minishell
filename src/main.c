@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/28 21:11:22 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:59:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "../include/minishell.h"
 
 #define		SPACE	1
-# define	DO_QUOTE	"\""
 
 int	old_parse(char *script)
 {
@@ -69,16 +68,47 @@ int	old_parse(char *script)
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @example $prompt : 'hello "hola world" world' -> one set. not two.
+ */
+int	convert_quote(char *script)
+{
+	char	in_quote;
+
+	printf(BLUE"START CONVERT\n"RESET);
+	while (*script != '\0')
+	{
+		script++;
+		if (*script == '\"' || *script == '\'')
+		{
+			in_quote = *script;
+			printf("in_quote : [%c]\n", in_quote);
+			script++;
+			while (*script != '\0' && *script != in_quote)
+			{
+				printf("CHANGE\n");
+				*script = *script * -1;
+				script++;
+			}
+			if (*script == '\0')
+				return (EXIT_FAILURE);
+		}
+	}
+	return (EXIT_SUCCESS);
+
+}
+
 int	tokenizer(char *script, char ***strs)
 {
 	int	i;
-	//convert_quote
-	//convert_symbols
+	if (convert_quote(script) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	//convert_symbols()
 	*strs = ft_split(script, ' ');
 	i = 0;
 	while ((*strs)[i])
 	{
-		/* revert_quote */
+		/* revert_quote() */
 		printf("[%s]\n", (*strs)[i]);
 		i++;
 	}
