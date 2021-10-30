@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/30 15:59:57 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/10/30 17:30:43 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,32 +75,43 @@ int	convert_quote(char *script)
 {
 	char	in_quote;
 
-	printf(BLUE"START CONVERT\n"RESET);
 	while (*script != '\0')
 	{
-		script++;
 		if (*script == '\"' || *script == '\'')
 		{
 			in_quote = *script;
-			printf("in_quote : [%c]\n", in_quote);
 			script++;
 			while (*script != '\0' && *script != in_quote)
 			{
-				printf("CHANGE\n");
 				*script = *script * -1;
 				script++;
 			}
 			if (*script == '\0')
 				return (EXIT_FAILURE);
 		}
+		script++;
 	}
 	return (EXIT_SUCCESS);
+}
 
+int	reconvert_quote(char *str)
+{
+	if (*str == '\"' || *str == '\'')
+	{
+		str++;
+		while (*str != '\0' && *str < 0)
+		{
+			*str = *str * -1;
+			str++;
+		}
+	}
+	return (0);
 }
 
 int	tokenizer(char *script, char ***strs)
 {
 	int	i;
+
 	if (convert_quote(script) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	//convert_symbols()
@@ -108,7 +119,7 @@ int	tokenizer(char *script, char ***strs)
 	i = 0;
 	while ((*strs)[i])
 	{
-		/* revert_quote() */
+		reconvert_quote((*strs)[i]);
 		printf("[%s]\n", (*strs)[i]);
 		i++;
 	}
@@ -140,7 +151,7 @@ int	main(void)
 	while(1)
 	{
 		/* readline함수가 호출되면 인자(prompt : )를 터미널에 출력하고 저장할 라인을 입력받는다 */
-		str = readline("prompt : ");/* read함수는 저장한 문자열의 메모리주소를 반환한다 */
+		str = readline(MAGENTA"minihell"RESET": ");/* read함수는 저장한 문자열의 메모리주소를 반환한다 */
 		if (str)/* 입력이 된다면 (주소가 존재한다면) */
 		{
 			printf("input : %s\n", str);/* 주소안에 문자열을 출력해보자 */
