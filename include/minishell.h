@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/28 17:17:42 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/10/31 14:26:22 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 # define	COMMAND	1
 # define	WORD	2
 # define	PIPE	3
+
+# define	TRUE	1
+# define	FALSE	0
 
 typedef struct s_lst
 {
