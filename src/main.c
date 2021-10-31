@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/30 17:30:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/10/31 00:29:56 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,58 +15,6 @@
 # include "../include/minishell.h"
 
 #define		SPACE	1
-
-int	old_parse(char *script)
-{
-	t_lst	*head;
-	char	**str;
-	int		i;
-	int		j;
-
-	str = ft_split(script, ' ');
-	/* SPACE를 추가 하기 어려움
-	-> linked list로 구현 예정 */
-	i = 0;
-	while (str[i] != NULL)
-	{
-		j = 0;
-		while (str[i][j] != '\0')
-		{
-			// if (ft_strchr(DO_QUOTE, str[i][j]) != NULL)
-			if (str[i][j] == '\"')
-			{
-				printf("DOUBLE IN %d\n", j);
-				j++;
-				while (str[i][j] != '\0' && str[i][j] != '\"')
-				{
-					printf("%d - %c\n", j, str[i][j]);
-					if (str[i][j] == ' ')
-					{
-						str[i][j] = SPACE;
-						printf("SPACE CHANGE\n");
-					}
-					j++;
-				}
-			}
-			else
-				j++;
-		}
-		i++;
-	}
-	j = 0;
-	head = NULL;
-	while (j < i)
-	{
-		printf("[%d]-[%s]\n", j, str[j]);
-		lst_add_back(&head, lst_new(str[j]));
-		j++;
-	}
-	printf("value : %s\n", script);
-	print_lst_nul(head);
-	printf("insert_TEST\n");
-
-	return (EXIT_SUCCESS);
-}
 
 /**
  * @example $prompt : 'hello "hola world" world' -> one set. not two.
@@ -108,13 +56,61 @@ int	reconvert_quote(char *str)
 	return (0);
 }
 
+/**
+ * @example 'echo|sleep 3' -> 'echo | sleep 3'
+ */
+int	convert_symbols(char *script)
+{
+
+	while (*script != '\0')
+	{
+		if (ft_strchr("|<>", *script))
+		{
+			printf("SYMBOLS!\n");
+			/* 1. Add space Here*/
+			/* Buffer? */
+			/* 2. n-split -> join */
+		}
+		script++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	split_symbols(char *str)
+{
+	int	i;
+
+	while (*str != '\0')
+	{
+		if (ft_strchr("|<>", *str))
+		{
+			printf("",)
+		}
+
+		str++;
+	}
+	str = ft_split()
+
+	if (*str == '\"' || *str == '\'')
+	{
+		str++;
+		while (*str != '\0' && *str < 0)
+		{
+			*str = *str * -1;
+			str++;
+		}
+	}
+}
+
 int	tokenizer(char *script, char ***strs)
 {
 	int	i;
 
 	if (convert_quote(script) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	//convert_symbols()
+	convert_symbols(script);
+	count_symbols(script);
+	//스크립트 심볼에 ' '을 삽입하기 위해 버퍼가 필요한 시점
 	*strs = ft_split(script, ' ');
 	i = 0;
 	while ((*strs)[i])
@@ -134,7 +130,8 @@ int	parse(char *script)
 	//t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
 
-	tokenizer(script, &strs);
+	if(!tokenizer(script, &strs))
+		return (EXIT_FAILURE);
 	//lexer(script, tokens);
 	//relace_env();
 	//parser();
@@ -154,7 +151,7 @@ int	main(void)
 		str = readline(MAGENTA"minihell"RESET": ");/* read함수는 저장한 문자열의 메모리주소를 반환한다 */
 		if (str)/* 입력이 된다면 (주소가 존재한다면) */
 		{
-			printf("input : %s\n", str);/* 주소안에 문자열을 출력해보자 */
+			printf("input\t: %s\n", str);/* 주소안에 문자열을 출력해보자 */
 			parse(str);
 		}
 		else/* str = NULL 이라면 (EOF, cntl + D)*/
