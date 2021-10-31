@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/31 00:29:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/10/31 13:57:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 # include "../include/minishell.h"
 
-#define		SPACE	1
+#define		SPACE		1
+#define		BUF_SIZE	100000
 
 /**
  * @example $prompt : 'hello "hola world" world' -> one set. not two.
@@ -58,24 +59,36 @@ int	reconvert_quote(char *str)
 
 /**
  * @example 'echo|sleep 3' -> 'echo | sleep 3'
+ * base on @ycha
  */
-int	convert_symbols(char *script)
+int	convert_symbols(char *script, char *buf)
 {
 
 	while (*script != '\0')
 	{
+		if (ft_strchr("()?;\\", *script))
+			return (EXIT_FAILURE);
 		if (ft_strchr("|<>", *script))
 		{
-			printf("SYMBOLS!\n");
+			printf("FOUND SYMBOLS!\n");
 			/* 1. Add space Here*/
 			/* Buffer? */
 			/* 2. n-split -> join */
+			*buf++ = ' ';
+			*buf++ = *script;
+			if (*script == *(script + 1))
+				*buf = *script++;
+			*buf = ' ';
 		}
+		else
+			*buf = *script;
+		buf++;
 		script++;
 	}
+	*buf = '\0';
 	return (EXIT_SUCCESS);
 }
-
+/*
 int	split_symbols(char *str)
 {
 	int	i;
@@ -84,12 +97,10 @@ int	split_symbols(char *str)
 	{
 		if (ft_strchr("|<>", *str))
 		{
-			printf("",)
 		}
-
 		str++;
 	}
-	str = ft_split()
+	str = ft_split();
 
 	if (*str == '\"' || *str == '\'')
 	{
@@ -100,18 +111,19 @@ int	split_symbols(char *str)
 			str++;
 		}
 	}
-}
+}*/
 
 int	tokenizer(char *script, char ***strs)
 {
-	int	i;
+	int		i;
+	char	buf[BUF_SIZE];
 
 	if (convert_quote(script) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	convert_symbols(script);
-	count_symbols(script);
+	convert_symbols(script, buf);
+	//count_symbols(script);
 	//스크립트 심볼에 ' '을 삽입하기 위해 버퍼가 필요한 시점
-	*strs = ft_split(script, ' ');
+	*strs = ft_split(buf, ' ');
 	i = 0;
 	while ((*strs)[i])
 	{
