@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/31 14:26:22 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/10/31 16:07:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 # include "color.h"
 # include "../lib/include/libft.h"
+
+# include "env.h"
 
 /* TYPE */
 # define	SCRIPT	0
