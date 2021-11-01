@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 19:57:11 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/01 20:14:25 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_lst	*lst_new(void *value)	//int value 아님 암튼 아님;
 {
 	t_lst	*new;
 
-	printf("asdf\n");
 	new = (t_lst *)malloc(sizeof(t_lst));
 	if (new == NULL)
 	{

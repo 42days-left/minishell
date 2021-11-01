@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/01 19:08:47 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/01 20:15:06 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int lexer(char **strs, t_lst *tokens)
 	char *value;
 
 	i = 0;
-	printf("-------1-------");
 	while(strs[i])
 	{
 		type = get_type(strs[i]);
@@ -66,7 +65,6 @@ int lexer(char **strs, t_lst *tokens)
 		//type value 값을 tokens리스트에 넣을 노드를 생성한다.
 	//	printf("type: %d, value: %s\n", type, value);
 		i++;
-		printf("lst_add_back_token\n");
 	}
 	
 //	t_token *sample;

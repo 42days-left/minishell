@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 19:57:05 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/01 20:20:30 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,18 +144,17 @@ int	parse(char *script)
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
 	tokens = lst_init();
+	
 	printf("HELLO\n");
+	
 	lexer(strs, tokens);
 	
 	t_token *sample;
-//	while(tokens)
-//	{
-		printf("--------tokenst-----\n");
-		sample = tokens->value;
-		printf("tokens->value\n");
-		printf("type: %d, value: %s\n", sample->type, sample->value);
-//		tokens = tokens->next;
-//	}
+	sample = tokens->value;
+	printf("tokens->value \n");
+
+	//printf("type: %d, value: %s\n", sample->type, sample->value);
+	
 	printf("BYE\n");
 	//relace_env();
 	//parser();
