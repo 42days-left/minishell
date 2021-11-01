@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/31 00:29:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 14:03:40 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ int	split_symbols(char *str)
 	{
 		if (ft_strchr("|<>", *str))
 		{
-			printf("",)
+			printf("");
 		}
 
 		str++;
 	}
-	str = ft_split()
+	str = ft_split();
 
 	if (*str == '\"' || *str == '\'')
 	{
