@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 12:14:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 14:29:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	reconvert_quote(char *str)
  */
 int	convert_symbols(char *script, char *buf)
 {
-
 	while (*script != '\0')
 	{
 		if (ft_strchr("()?;\\", *script))

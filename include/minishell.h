@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/31 16:07:27 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 14:30:47 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@
 # define	COMMAND	1
 # define	WORD	2
 # define	PIPE	3
+# define	REDIR_L 4
+# define	REDIR_R 5
+# define	D_REDIR_L 6
+# define	D_REDIR_R 7
 
 # define	TRUE	1
 # define	FALSE	0
@@ -49,7 +53,15 @@ t_lst	*lst_new(void *value);
 void	lst_insert(t_lst *before, t_lst *new);
 void	lst_add_front(t_lst **lst, t_lst *new);
 void	lst_add_back(t_lst **lst, t_lst *new);
+void	lst_add_back_token(t_lst **lst, t_token *new);
 void	print_lst_nul(t_lst *head);
+
+typedef struct	s_token
+{
+	int			type;
+	char		*value;
+}				t_token;
+
 
 #endif
 
