@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/01 16:28:02 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/01 16:44:40 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,14 @@ int lexer(char **strs, t_lst *tokens)
 		lst_add_back_token(&tokens, init_token(type, value));
 		//type value 값을 tokens리스트에 넣을 노드를 생성한다.
 	//	printf("type: %d, value: %s\n", type, value);
-		}
-	while(tokens)
+	}
+	t_token *sample;
+
+	while(1)
 	{
-		printf("type: %d, value: %s\n", *(tokens->value).type, *(tokens->value)->value);
+		printf("-11-------");
+		sample = tokens->value;
+		printf("type: %d, value: %s\n", sample->type, sample->value);
 		tokens = tokens->next;
 	}
 	return(1);

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 16:28:23 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/01 16:47:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,9 @@ int	parse(char *script)
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
 	tokens = lst_init();
+	printf("HELLO\n");
 	lexer(strs, tokens);
+	printf("BYE\n");
 	//relace_env();
 	//parser();
 	return (EXIT_SUCCESS);
@@ -249,7 +251,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	print_envp(envp);
+	//print_envp(envp);
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
