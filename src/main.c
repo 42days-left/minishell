@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 18:43:24 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/01 19:57:05 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,14 @@ int	parse(char *script)
 	lexer(strs, tokens);
 	
 	t_token *sample;
-	while(tokens)
-	{
-		printf("--------tokenst-----");
+//	while(tokens)
+//	{
+		printf("--------tokenst-----\n");
 		sample = tokens->value;
+		printf("tokens->value\n");
 		printf("type: %d, value: %s\n", sample->type, sample->value);
-		tokens = tokens->next;
-	}
+//		tokens = tokens->next;
+//	}
 	printf("BYE\n");
 	//relace_env();
 	//parser();
