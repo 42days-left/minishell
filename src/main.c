@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 14:29:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 16:28:23 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,13 @@ int	tokenizer(char *script, char ***strs)
  */
 int	parse(char *script)
 {
-	//t_lst	*tokens;
+	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
 
-	if(!tokenizer(script, &strs))
+	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
-	//lexer(script, tokens);
+	tokens = lst_init();
+	lexer(strs, tokens);
 	//relace_env();
 	//parser();
 	return (EXIT_SUCCESS);
@@ -161,7 +162,7 @@ int	print_envp(char **envp)
 	return (0);
 }
 
-
+/*
 t_env	*new_env_node(char *key, char *value)
 {
 	t_env	*new;
@@ -241,7 +242,7 @@ int	get_envp(char **envp)
 	}
 
 }
-
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	char *str;
