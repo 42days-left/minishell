@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 15:39:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 17:23:54 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	parse(char *script)
 	//t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
 
-	if(!tokenizer(script, &strs))
+	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
 	//lexer(script, tokens);
 	//relace_env();
@@ -39,6 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	print_envp(envp);
+	get_envp(envp);
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 16:06:29 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 15:48:49 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 17:31:15 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ t_env	*env_lst_last(t_env *lst);
 void	env_add_back(t_env **lst, t_env *new);
 char	*search_env_lst(t_env **lst, char *key);
 char	*get_env_key_value(char *str);
-int		get_envp(char **envp);
+t_env	*get_envp(char **envp);
 
 #endif

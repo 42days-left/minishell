@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 15:50:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 18:33:28 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ int	print_envp(char **envp)
 	}
 	printf(RED"----------[PRINT ENVP END]----------\n"RESET);
 	return (0);
+}
+
+void	print_envp_lst(t_env *head)
+{
+	t_env	*curr;
+	int		i;
+
+	curr = head;
+	i = 0;
+	while (curr->next != NULL)
+	{
+		printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);
+		curr = curr->next;
+		i++;
+	}
+	printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);
+	printf("=== ENV PRINT "GREEN"DONE"RESET" ===\n");
 }
 
 t_env	*new_env_node(char *key, char *value)
@@ -51,7 +68,7 @@ t_env	*env_lst_last(t_env *lst)
 
 void	env_add_back(t_env **lst, t_env *new)
 {
-	t_lst	*last;
+	t_env	*last;
 
 	if (lst == NULL || new == NULL)
 		return ;
@@ -67,12 +84,32 @@ void	env_add_back(t_env **lst, t_env *new)
 
 char	*search_env_lst(t_env **lst, char *key)
 {
-
+	return (0);
 }
 
-char	*get_env_key_value(char *str)
+/*char	*get_env_key_value(char *str)
 {
-	char	return_box[2];
+	char	**return_box;
+	char	*curr;
+
+	return_box = malloc(sizeof(char *) * 2);
+	curr = str;
+	while (*curr != '\0')
+	{
+		if (*curr == '=')
+		{
+			*curr = '\0';
+			return_box[KEY] = ft_strdup(str);
+			return_box[VALUE] = ft_strdup(curr + 1);
+			return (*return_box);
+		}
+		curr++;
+	}
+	return (0);
+}*/
+
+t_env	*get_env_line(char *str)
+{
 	char	*curr;
 
 	curr = str;
@@ -81,25 +118,27 @@ char	*get_env_key_value(char *str)
 		if (*curr == '=')
 		{
 			*curr = '\0';
-			return_box[KEY] = ft_strdup(*str);
-			return_box[VALUE] = ft_strdup(*(curr + 1));
-			return (return_box);
+			return (new_env_node(ft_strdup(str), ft_strdup(curr + 1)));
 		}
 		curr++;
 	}
+	return (0);
 }
 
-int	get_envp(char **envp)
+t_env	*get_envp(char **envp)
 {
 	int		i;
+	char	**box;
+	t_env	*env_lst;
 
-	while (*envp != NULL)
+	env_lst = NULL;
+	i = 0;
+	while (envp[i])
 	{
-		i = 0;
-		while (**envp != '=')
-			i++;
-
-		envp++;
+		env_add_back(&env_lst, get_env_line(envp[i]));
+		i++;
 	}
-
+	printf(GREEN"get_envp DONE\n"RESET);
+	print_envp_lst(env_lst);
+	return (env_lst);
 }
