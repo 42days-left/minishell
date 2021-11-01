@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/01 14:07:03 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/01 14:16:43 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int lexer(char **strs, t_lst *tokens)
 		}
 		else
 			return (0); //error check pls here!
-		lst_add_back_token(tokens, init_token(type, value));
+		lst_add_back_token(&tokens, init_token(type, value));
 		//type value 값을 tokens리스트에 넣을 노드를 생성한다.
 		}
 	return(1);
