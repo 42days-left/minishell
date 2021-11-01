@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/31 17:10:38 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 12:14:08 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,17 +212,19 @@ char	*search_env_lst(t_env **lst, char *key)
 char	*get_env_key_value(char *str)
 {
 	char	return_box[2];
+	char	*curr;
 
-	while (*str != '\0')
+	curr = str;
+	while (*curr != '\0')
 	{
-		if (*str == '=')
+		if (*curr == '=')
 		{
-			*str = '\0';
+			*curr = '\0';
 			return_box[KEY] = ft_strdup(*str);
-			return_box[VALUE] = ft_strdup(*(str + 1));
+			return_box[VALUE] = ft_strdup(*(curr + 1));
 			return (return_box);
 		}
-		str++;
+		curr++;
 	}
 }
 
