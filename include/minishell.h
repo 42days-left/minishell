@@ -6,28 +6,21 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 14:30:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/01 15:40:10 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/* readline함수를 사용하기위한 헤더 */
-# include <readline/readline.h>
 
-/* add_history함수를 사용하기위한 헤더 */
-# include <readline/history.h>
-
-/* printf함수를 사용하기위한 헤더 */
-# include <stdio.h>
-
-/* free함수를 사용하기위한 헤더 */
-# include <stdlib.h>
+# include <readline/readline.h> /* readline함수를 사용하기위한 헤더 */
+# include <readline/history.h> /* add_history함수를 사용하기위한 헤더 */
+# include <stdio.h> /* printf함수를 사용하기위한 헤더 */
+# include <stdlib.h> /* free함수를 사용하기위한 헤더 */
 
 # include "color.h"
 # include "../lib/include/libft.h"
-
 # include "env.h"
 
 /* TYPE */
@@ -49,19 +42,18 @@ typedef struct s_lst
 	struct s_lst	*next;
 }					t_lst;
 
-t_lst	*lst_new(void *value);
-void	lst_insert(t_lst *before, t_lst *new);
-void	lst_add_front(t_lst **lst, t_lst *new);
-void	lst_add_back(t_lst **lst, t_lst *new);
-void	lst_add_back_token(t_lst **lst, t_token *new);
-void	print_lst_nul(t_lst *head);
-
 typedef struct	s_token
 {
 	int			type;
 	char		*value;
 }				t_token;
 
+t_lst	*lst_new(void *value);
+void	lst_insert(t_lst *before, t_lst *new);
+void	lst_add_front(t_lst **lst, t_lst *new);
+void	lst_add_back(t_lst **lst, t_lst *new);
+void	lst_add_back_token(t_lst **lst, t_token *new);
+void	print_lst_nul(t_lst *head);
 
 #endif
 
