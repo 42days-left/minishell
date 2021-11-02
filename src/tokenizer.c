@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:35:03 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 16:10:27 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/02 11:56:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	convert_symbols(char *script, char *buf)
 			*buf++ = ' ';
 			*buf++ = *script;
 			if (*script == *(script + 1))
-				*buf = *script++;
+				*buf++ = *script++;
 			*buf = ' ';
 		}
 		else
