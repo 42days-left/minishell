@@ -76,7 +76,7 @@ int	convert_symbols(char *script, char *buf)
 			*buf++ = ' ';
 			*buf++ = *script;
 			if (*script == *(script + 1))
-				*buf = *script++;
+				*buf++ = *script++;
 			*buf = ' ';
 		}
 		else
@@ -136,6 +136,33 @@ int	tokenizer(char *script, char ***strs)
 /**
  * @param script string entered at the prompt
  */
+
+int print_token(t_token *token)
+{
+	char  *c;
+
+	if (token->type == PIPE)
+		c = "PIPE";
+	else
+		c = "else";
+	printf("type: %s, value: %s\n", c, token->arg);
+	return (1);
+}
+
+
+int print_token_list(t_lst *tokens)
+{
+	t_lst *node;
+
+	node = tokens->next;
+	while(node)
+	{
+		print_token(node->value);
+		node = node->next;
+	}
+	return (1);
+}
+
 int	parse(char *script)
 {
 	t_lst	*tokens;
@@ -144,18 +171,10 @@ int	parse(char *script)
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
 	tokens = lst_init();
-	
-	printf("HELLO\n");
-	
 	lexer(strs, tokens);
 	
-	t_token *sample;
-	sample = tokens->value;
-	printf("tokens->value \n");
-
-	//printf("type: %d, value: %s\n", sample->type, sample->value);
+	print_token_list(tokens);
 	
-	printf("BYE\n");
 	//relace_env();
 	//parser();
 	return (EXIT_SUCCESS);

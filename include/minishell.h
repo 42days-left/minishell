@@ -52,7 +52,7 @@ typedef struct s_lst
 typedef struct	s_token
 {
 	int			type;
-	char		*value;
+	char		*arg;
 }				t_token;
 
 t_lst	*lst_new(void *value);

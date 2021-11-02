@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-t_token *init_token(int type, char *value)
+t_token *init_token(int type, char *arg)
 {
 	t_token *token;
 
@@ -20,7 +20,7 @@ t_token *init_token(int type, char *value)
 	if (!token)
 		return (0); //error check
 	token->type = type;
-	token->value = value;
+	token->arg = arg;
 	return (token);
 }
 
@@ -44,26 +44,27 @@ int lexer(char **strs, t_lst *tokens)
 {
 	int	i;
 	int	type;
-	char *value;
+	char *arg;
 
 	i = 0;
 	while(strs[i])
 	{
+		printf("strs[%d]: %s\n", i, strs[i]);
 		type = get_type(strs[i]);
 		if (type == PIPE)
-			value = 0;
+			arg = 0;
 		else if (type == WORD)
-			value = ft_strdup(strs[i]);
+			arg = ft_strdup(strs[i]);
 		else if (strs[i + 1] && get_type(strs[i + 1]) == WORD)
 		{
-			value = ft_strdup(strs[i + 1]);
+			arg = ft_strdup(strs[i + 1]);
 			i++;
 		}
 		else
 			return (0); //error check pls here!
-		lst_add_back_token(&tokens, init_token(type, value));
-		//type value 값을 tokens리스트에 넣을 노드를 생성한다.
-	//	printf("type: %d, value: %s\n", type, value);
+		lst_add_back_token(&tokens, init_token(type, arg));
+		//type arg 값을 tokens리스트에 넣을 노드를 생성한다.
+		printf("type: %d, arg: %s\n", type, arg);
 		i++;
 	}
 	
@@ -71,8 +72,8 @@ int lexer(char **strs, t_lst *tokens)
 //	while(i)
 //	{
 //		printf("-11-------");
-//		sample = tokens->value;
-//		printf("type: %d, value: %s\n", sample->type, sample->value);
+//		sample = tokens->arg;
+//		printf("type: %d, arg: %s\n", sample->type, sample->arg);
 //		tokens = tokens->next;
 //		i--;
 //	}
