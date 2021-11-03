@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/03 15:17:31 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/03 15:59:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,25 @@ typedef struct	s_cmd
 
 int print_token(t_token *token)
 {
-	char  *c;
+	char  *type;
 
 	if (token->type == PIPE)
-		c = "PIPE";
+		type = "PIPE";
+	else if (token->type == COMMAND)
+		type = "COMMAND";
+	else if (token->type == WORD)
+		type = "WORD";
+	else if (token->type == REDIR_L)
+		type = "REDIR_L '<'";
+	else if (token->type == REDIR_R)
+		type = "REDIR_R '>'";
+	else if (token->type == D_REDIR_L)
+		type = "D_REDIR_L '<<'";
+	else if (token->type == D_REDIR_R)
+		type = "D_REDIR_R '>>'";
 	else
-		c = "else";
-	printf("type: %s, value: %s\n", c, token->arg);
+		type = "WTF?";
+	printf("type: %s,\tvalue: %s\n", type, token->arg);
 	return (1);
 }
 
@@ -79,12 +91,14 @@ int print_token_list(t_lst *tokens)
 {
 	t_lst *node;
 
+	printf("--------------"GREEN"PRINT TOKEN LIST"RESET"--------------\n");
 	node = tokens->next;
 	while(node)
 	{
 		print_token(node->value);
 		node = node->next;
 	}
+	printf("--------------"GREEN"----------------"RESET"--------------\n");
 	return (1);
 }
 int	parse(char *script, t_env *env, t_lst *cmds)
@@ -97,7 +111,6 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 		return (EXIT_FAILURE);
 	tokens = lst_init();
 	lexer(strs, tokens);
-
 	print_token_list(tokens);
 
 	//relace_env();
@@ -127,7 +140,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("input\t: %s\n", str);
 			parse(str, env, cmds);
 			/*!!!!!!!!!!!!!!!!!*/
-			execute(cmds, env);
+			//execute(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
 		}
 		else

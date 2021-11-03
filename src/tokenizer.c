@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:35:03 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/02 11:56:09 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/03 15:24:28 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	convert_symbols(char *script, char *buf)
 			return (EXIT_FAILURE);
 		if (ft_strchr("|<>", *script))
 		{
-			printf("FOUND SYMBOLS!\n");
 			/* 1. Add space Here*/
 			/* Buffer? */
 			/* 2. n-split -> join */

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/01 20:15:06 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/03 16:00:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_token *init_token(int type, char *arg)
 	token->arg = arg;
 	return (token);
 }
-
 
 int get_type(char *str)
 {
@@ -49,7 +48,6 @@ int lexer(char **strs, t_lst *tokens)
 	i = 0;
 	while(strs[i])
 	{
-		printf("strs[%d]: %s\n", i, strs[i]);
 		type = get_type(strs[i]);
 		if (type == PIPE)
 			arg = 0;
@@ -63,19 +61,7 @@ int lexer(char **strs, t_lst *tokens)
 		else
 			return (0); //error check pls here!
 		lst_add_back_token(&tokens, init_token(type, arg));
-		//type arg 값을 tokens리스트에 넣을 노드를 생성한다.
-		printf("type: %d, arg: %s\n", type, arg);
 		i++;
 	}
-	
-//	t_token *sample;
-//	while(i)
-//	{
-//		printf("-11-------");
-//		sample = tokens->arg;
-//		printf("type: %d, arg: %s\n", sample->type, sample->arg);
-//		tokens = tokens->next;
-//		i--;
-//	}
-	return(1);
+	return(EXIT_SUCCESS);
 }
