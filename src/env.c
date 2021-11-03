@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 18:33:28 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/02 15:20:04 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,27 +86,6 @@ char	*search_env_lst(t_env **lst, char *key)
 {
 	return (0);
 }
-
-/*char	*get_env_key_value(char *str)
-{
-	char	**return_box;
-	char	*curr;
-
-	return_box = malloc(sizeof(char *) * 2);
-	curr = str;
-	while (*curr != '\0')
-	{
-		if (*curr == '=')
-		{
-			*curr = '\0';
-			return_box[KEY] = ft_strdup(str);
-			return_box[VALUE] = ft_strdup(curr + 1);
-			return (*return_box);
-		}
-		curr++;
-	}
-	return (0);
-}*/
 
 t_env	*get_env_line(char *str)
 {
