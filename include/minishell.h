@@ -47,15 +47,17 @@ typedef struct s_lst
 typedef struct	s_token
 {
 	int			type;
-	char		*value;
+	char		*arg;
 }				t_token;
 
 t_lst	*lst_new(void *value);
+t_lst	*lst_init();
 void	lst_insert(t_lst *before, t_lst *new);
 void	lst_add_front(t_lst **lst, t_lst *new);
 void	lst_add_back(t_lst **lst, t_lst *new);
 void	lst_add_back_token(t_lst **lst, t_token *new);
 void	print_lst_nul(t_lst *head);
+int		lexer(char **strs, t_lst *tokens);
 
 #endif
 

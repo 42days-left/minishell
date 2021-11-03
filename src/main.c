@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/02 16:45:39 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/03 15:17:31 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_cmd
 }			t_cmd;
 */
 
-int	parser(t_lst *tokens, t_lst *cmds)
+/*int	parser(t_lst *tokens, t_lst *cmds)
 {
 	t_lst	*node;
 	t_cmd	*cmd;
@@ -56,11 +56,37 @@ int	parser(t_lst *tokens, t_lst *cmds)
 			node = node->next;
 	}
 	return (EXIT_SUCCESS);
-}
+}*/
 
 /**
  * @param script string entered at the prompt
  */
+
+int print_token(t_token *token)
+{
+	char  *c;
+
+	if (token->type == PIPE)
+		c = "PIPE";
+	else
+		c = "else";
+	printf("type: %s, value: %s\n", c, token->arg);
+	return (1);
+}
+
+
+int print_token_list(t_lst *tokens)
+{
+	t_lst *node;
+
+	node = tokens->next;
+	while(node)
+	{
+		print_token(node->value);
+		node = node->next;
+	}
+	return (1);
+}
 int	parse(char *script, t_env *env, t_lst *cmds)
 {
 	t_lst	*tokens;
@@ -69,7 +95,11 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 	tokens = lst_init();
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
-	//lexer(script, tokens);
+	tokens = lst_init();
+	lexer(strs, tokens);
+
+	print_token_list(tokens);
+
 	//relace_env();
 	//parser(tokens, cmds);
 

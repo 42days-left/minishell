@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 14:06:59 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/01 20:14:25 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,9 +160,8 @@ void	lst_add_back_token(t_lst **lst, t_token *new)
 {
 	t_lst *last;
 
+	last = lst_new(new);
 	lst_add_back(lst, last);
-	last->value = new;
-
 }
 
 void	print_lst_nul(t_lst *head)
