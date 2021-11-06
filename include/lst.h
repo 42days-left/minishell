@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   lst.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:58:18 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/04 15:50:57 by jisokang         ###   ########.fr       */
+/*   Created: 2021/11/04 15:46:09 by jisokang          #+#    #+#             */
+/*   Updated: 2021/11/04 15:47:50 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#ifndef LST_H
+# define LST_H
 
-# include "lst.h"
-
-typedef struct	s_token
+typedef struct s_lst
 {
-	int			type;
-	char		*arg;
-}				t_token;
+	void			*value;
+	struct s_lst	*next;
+}					t_lst;
 
-int		lexer(char **strs, t_lst *tokens);
-void	lst_add_back_token(t_lst **lst, t_token *new);
-int		print_token(t_token *token);
-int		print_token_list(t_lst *tokens);
+t_lst	*lst_new(void *value);
+t_lst	*lst_init();
+void	lst_insert(t_lst *before, t_lst *new);
+void	lst_add_front(t_lst **lst, t_lst *new);
+void	lst_add_back(t_lst **lst, t_lst *new);
+void	print_lst_nul(t_lst *head);
 
 #endif

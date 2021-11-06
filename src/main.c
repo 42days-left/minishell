@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/03 15:59:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/04 15:44:04 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,49 +58,10 @@ typedef struct	s_cmd
 	return (EXIT_SUCCESS);
 }*/
 
+
 /**
  * @param script string entered at the prompt
  */
-
-int print_token(t_token *token)
-{
-	char  *type;
-
-	if (token->type == PIPE)
-		type = "PIPE";
-	else if (token->type == COMMAND)
-		type = "COMMAND";
-	else if (token->type == WORD)
-		type = "WORD";
-	else if (token->type == REDIR_L)
-		type = "REDIR_L '<'";
-	else if (token->type == REDIR_R)
-		type = "REDIR_R '>'";
-	else if (token->type == D_REDIR_L)
-		type = "D_REDIR_L '<<'";
-	else if (token->type == D_REDIR_R)
-		type = "D_REDIR_R '>>'";
-	else
-		type = "WTF?";
-	printf("type: %s,\tvalue: %s\n", type, token->arg);
-	return (1);
-}
-
-
-int print_token_list(t_lst *tokens)
-{
-	t_lst *node;
-
-	printf("--------------"GREEN"PRINT TOKEN LIST"RESET"--------------\n");
-	node = tokens->next;
-	while(node)
-	{
-		print_token(node->value);
-		node = node->next;
-	}
-	printf("--------------"GREEN"----------------"RESET"--------------\n");
-	return (1);
-}
 int	parse(char *script, t_env *env, t_lst *cmds)
 {
 	t_lst	*tokens;
@@ -109,7 +70,6 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 	tokens = lst_init();
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
-	tokens = lst_init();
 	lexer(strs, tokens);
 	print_token_list(tokens);
 

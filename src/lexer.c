@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/03 16:00:33 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/04 12:56:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,44 @@ int lexer(char **strs, t_lst *tokens)
 		i++;
 	}
 	return(EXIT_SUCCESS);
+}
+
+int print_token(t_token *token)
+{
+	char  *type;
+
+	if (token->type == PIPE)
+		type = "PIPE";
+	else if (token->type == COMMAND)
+		type = "COMMAND";
+	else if (token->type == WORD)
+		type = "WORD";
+	else if (token->type == REDIR_L)
+		type = "REDIR_L '<'";
+	else if (token->type == REDIR_R)
+		type = "REDIR_R '>'";
+	else if (token->type == D_REDIR_L)
+		type = "D_REDIR_L '<<'";
+	else if (token->type == D_REDIR_R)
+		type = "D_REDIR_R '>>'";
+	else
+		type = "WTF?";
+	printf("type: %s,\tvalue: %s\n", type, token->arg);
+	return (1);
+}
+
+
+int print_token_list(t_lst *tokens)
+{
+	t_lst *node;
+
+	printf("--------------"GREEN"PRINT TOKEN LIST"RESET"--------------\n");
+	node = tokens->next;
+	while(node)
+	{
+		print_token(node->value);
+		node = node->next;
+	}
+	printf("--------------"GREEN"----------------"RESET"--------------\n");
+	return (1);
 }
