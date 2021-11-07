@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 20:14:25 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/06 15:31:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_lst	*lst_new(void *value)	//int value 아님 암튼 아님;
 	{
 		printf(RED"MALLOC ERROR\n"RESET);
 		exit(12); //12가 무엇인지 확인해보기
-
 	}
 	new->value = value;
 	new->next = NULL;
@@ -145,23 +144,29 @@ void	lst_add_back(t_lst **lst, t_lst *new)
 	t_lst	*last;
 
 	if (lst == NULL || new == NULL)
-		return ;
-	if (*lst == NULL)
 	{
+		printf(RED"LST_ADD_BACK ERR\n"RESET);
+		return ;
+	}
+	if (*lst)
+	{
+		printf("LST ADD BACK!!\n");
+		last = lst_last(*lst);
+		new->next = last->next;
+		last->next = new;
+	}
+	else
+	{
+		printf("LST NEW!!\n");
 		*lst = new;
 		return ;
 	}
-	last = lst_last(*lst);
-	new->next = last->next;
-	last->next = new;
 }
 
+//왜 NULL 부터 시작해?
 void	lst_add_back_token(t_lst **lst, t_token *new)
 {
-	t_lst *last;
-
-	last = lst_new(new);
-	lst_add_back(lst, last);
+	lst_add_back(lst, lst_new(new));
 }
 
 void	print_lst_nul(t_lst *head)

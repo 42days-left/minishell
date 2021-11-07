@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/04 15:44:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/07 22:50:01 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,15 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
 
-	tokens = lst_init();
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
+	//tokens = lst_init();
+	tokens = NULL;
 	lexer(strs, tokens);
-	print_token_list(tokens);
+	printf("1st tokens [%s]\n", ((t_token *)(tokens->value))->arg);
 
-	//relace_env();
+	//print_token_list(tokens);
+	//replace_env(tokens);
 	//parser(tokens, cmds);
 
 	//free_strings(strs)

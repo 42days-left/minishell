@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/04 12:56:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/06 22:39:26 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ t_token *init_token(int type, char *arg)
 
 	token = malloc(sizeof(t_token));
 	if (!token)
+	{
+		printf(RED"INIT_TOKEN ERROR\n"RESET);
 		return (0); //error check
+	}
 	token->type = type;
 	token->arg = arg;
 	return (token);
@@ -59,7 +62,11 @@ int lexer(char **strs, t_lst *tokens)
 			i++;
 		}
 		else
+		{
+			printf("LEXER ERR\n");
 			return (0); //error check pls here!
+		}
+		//lst_add_back(&tokens, lst_new(init_token(type, arg)));
 		lst_add_back_token(&tokens, init_token(type, arg));
 		i++;
 	}
@@ -95,10 +102,19 @@ int print_token_list(t_lst *tokens)
 {
 	t_lst *node;
 
+	if (tokens == NULL)
+	{
+		printf("TOKEN is "MAGENTA"NULL\n"RESET);
+		return (0);
+	}
 	printf("--------------"GREEN"PRINT TOKEN LIST"RESET"--------------\n");
+	//node = tokens;
+	//printf ("1st node : [%s]", ((t_token *)(node->next->value))->arg);
+	//while(node->next != NULL)
 	node = tokens->next;
 	while(node)
 	{
+		printf("HELLO!\n");
 		print_token(node->value);
 		node = node->next;
 	}
