@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/07 22:50:01 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/07 23:36:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,25 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 {
 	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
+	int		i;
 
+	printf("----------PRINT TOKEN----------\n");
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
 	//tokens = lst_init();
+	printf("----------PRINT LEXER TOKEN----\n");
 	tokens = NULL;
-	lexer(strs, tokens);
-	printf("1st tokens [%s]\n", ((t_token *)(tokens->value))->arg);
+	lexer(strs, &tokens);
+	//lst_add_back(&tokens, lst_new(init_token(42, "Hello")));
+	i = 0;
+	while (tokens != NULL)
+	{
+		printf("[%d] tokens : type.["MAGENTA"%d"RESET"] arg.["MAGENTA"%s"RESET"]\n", i, (*(t_token *)(tokens->value)).type, (*(t_token *)(tokens->value)).arg);
+		tokens = tokens->next;
+		i++;
+	}
+
+	//printf("2nd tokens [%s]\n", (*(t_token *)&(tokens->next->value)).arg);
 
 	//print_token_list(tokens);
 	//replace_env(tokens);

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/06 22:39:26 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/07 23:29:08 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int get_type(char *str)
 	return (WORD);
 }
 
-int lexer(char **strs, t_lst *tokens)
+int lexer(char **strs, t_lst **tokens)
 {
 	int	i;
 	int	type;
@@ -66,8 +66,9 @@ int lexer(char **strs, t_lst *tokens)
 			printf("LEXER ERR\n");
 			return (0); //error check pls here!
 		}
+		lst_add_back(tokens, lst_new(init_token(type, arg)));
 		//lst_add_back(&tokens, lst_new(init_token(type, arg)));
-		lst_add_back_token(&tokens, init_token(type, arg));
+		//lst_add_back_token(&tokens, init_token(type, arg));
 		i++;
 	}
 	return(EXIT_SUCCESS);
