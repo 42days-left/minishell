@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/07 23:29:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/08 13:02:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int print_token(t_token *token)
 		type = "D_REDIR_R '>>'";
 	else
 		type = "WTF?";
-	printf("type: %s,\tvalue: %s\n", type, token->arg);
+	printf("type: ["MAGENTA"%s"RESET"],\tvalue: ["MAGENTA"%s"RESET"]\n", type, token->arg);
 	return (1);
 }
 
@@ -108,17 +108,13 @@ int print_token_list(t_lst *tokens)
 		printf("TOKEN is "MAGENTA"NULL\n"RESET);
 		return (0);
 	}
-	printf("--------------"GREEN"PRINT TOKEN LIST"RESET"--------------\n");
-	//node = tokens;
-	//printf ("1st node : [%s]", ((t_token *)(node->next->value))->arg);
-	//while(node->next != NULL)
-	node = tokens->next;
-	while(node)
+	printf("--------------"GREEN"PRINT LEXER TOKEN"RESET"-------------\n");
+	node = tokens;
+	while(node != NULL)
 	{
-		printf("HELLO!\n");
 		print_token(node->value);
 		node = node->next;
 	}
-	printf("--------------"GREEN"----------------"RESET"--------------\n");
+	printf("--------------""----------------""--------------\n");
 	return (1);
 }
