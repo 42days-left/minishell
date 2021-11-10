@@ -6,19 +6,57 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/06 16:28:55 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:27:39 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+/**
+ * 없는 환경 변수를 찾으면 삭제 해야한다.
+ * @example echo "Hello $USSR $USER" -> Hello  devleo
+ */
 
-int	replace_env(t_lst *tokens)
+
+int	find_dollor_addr(t_token *value)
 {
-	t_token	*tok;
+	char	*str;
 
-	//why next?
-	tok = (t_token *)tokens->next->value;
-	printf("token [%s]", tok->arg);
+	str = value->arg;
+	//내 생각에는 while로 char하나씩 보면서 처리해야 할것 같다.
+	if (ft_strchr(str, '$'))
+	{
+		printf("I find $ sign!!\n");
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+void	str_2_lst(char *str)
+{
+
+}
+
+int	replace_env(t_lst *tokens, t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (tokens != NULL)
+	{
+		printf("[%d]\n", i++);
+		if (find_dollor_addr(tokens->value))
+		{
+			/* "Hello $USSR $USER world" */
+			/* ["Hello ][$USSR][ ][$USER][ ][world"] */
+			str_2_lst(((t_token *)(tokens->value))->arg);
+				/* start -> ~'$'만날 때 까지. */
+				/* start -> ~'$'만날 때 까지. */
+			find_lst_key();
+			change_dollor();
+			lst_2_str();
+		}
+		tokens = tokens->next;
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -41,7 +79,7 @@ void	print_envp_lst(t_env *head)
 
 	curr = head;
 	i = 0;
-	printf(GREEN"=== ENV PRINT START ==="RESET);
+	printf(GREEN"=== ENV PRINT START ===\n"RESET);
 	while (curr->next != NULL)
 	{
 		printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);
