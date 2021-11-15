@@ -63,6 +63,38 @@ int	parse(char *script)
 	return (EXIT_SUCCESS);
 }
 
+int exit_function(char *str)
+{
+	printf("exit function\n");
+	if (ft_strncmp(str, "exit", 4) == 0 && ft_strlen(str) == 4)
+	{
+		printf("exit\n");
+		free(str);
+		exit(1);
+	}
+	return(0);
+}
+
+int builtin_function(char *str)
+{
+	pid_t pid;
+	
+	printf("builtin function\n");
+	if (ft_strncmp(str, "pwd", 3) == 0 && ft_strlen(str) == 3)
+	{
+		printf("builtin function pwd\n");
+		pid = fork();
+		if (pid == 0)
+		{
+			char buffer[10000];
+			getcwd(buffer, 100000);
+			printf("%s\n", buffer);
+			return (0);
+		}
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char *str;
@@ -74,15 +106,48 @@ int	main(int argc, char **argv, char **envp)
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
-		if (str)
-		{
-			printf("input\t: %s\n", str);
-			parse(str);
-		}
-		else
-			break ;
+		printf("readline str: %s\n", str);
+		exit_function(str);
+		builtin_function(str);
 		add_history(str);
 		free(str);
 	}
-	return(0);
+	return (0);
 }
+//		if (str)
+//		{
+//			printf("input\t: %s\n", str);
+//			parse(str);
+//		}
+//	}
+//	else
+//		break ;
+//		add_history(str);
+//		free(str);
+//	}
+//	return(0);
+//}
+//int	main(int argc, char **argv, char **envp)
+//{
+//	char *str;
+//
+//	(void)argc;
+//	(void)argv;
+//	print_envp(envp);
+//	get_envp(envp);
+//	while(TRUE)
+//	{
+//		str = readline(MAGENTA"minihell🐚"RESET": ");
+//		exit_function(str);
+//		if (str)
+//		{
+//			printf("input\t: %s\n", str);
+//			parse(str);
+//		}
+//		else
+//			break ;
+//		add_history(str);
+//		free(str);
+//	}
+//	return(0);
+//}
