@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/15 14:50:24 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/15 16:12:27 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,17 @@ int	parse(char *script)
 
 int builtin_function(char *str, char **envp)
 {
+	char const **argv;
+	char command[] = "ls";
+
+	argv[0] = command;
 	if (!ft_strncmp(str, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(str, "exit", 4))
 		ft_exit(str);
 	else
-		exec_pipe(str, envp);
+		execve(getcwd(0, 1024), argv, envp);
+		//exec_fork(str, envp);
 	return (1);
 }
 

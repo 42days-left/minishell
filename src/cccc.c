@@ -3,7 +3,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <sys/stat.h>
 
+#include "../include/minishell.h"
 #define PATH_MAX 1000
 
 //int builtin_pwd(int argc, char **argv)
@@ -17,7 +19,43 @@
 
 extern char **environ;
 
-int main(int argc, char *argv[])
+char			*find_value(char *key, char **envs)
+{
+	int	i;
+
+	i = -1;
+	while (envs[++i])
+	{
+		if (!ft_strncmp(envs[i], key, ft_strlen(key)))
+			return (envs[i] + ft_strlen(key) + 1);
+	}
+	return ("");
+}
+
+char			*find_path(char *cmdline, char **envs)
+{
+	int			i;
+	char		*temp;
+	char		*new_path;
+	char		**paths;
+	struct stat	s;
+
+	temp = find_value("PATH", envs);
+	paths = ft_split(temp, ':');
+	i = -1;
+	while (paths[++i])
+	{
+		temp = ft_strjoin("/", cmdline);
+		new_path = ft_strjoin(paths[i], temp);
+		free(temp);
+		if (stat(new_path, &s) == 0)
+			return (new_path);
+		free(new_path);
+	}
+	return (ft_strdup(cmdline));
+}
+
+int main(int argc, char *argv[], char **envp)
 {
 	char **new_argv;
 	char command[] = "ls";
@@ -34,7 +72,8 @@ int main(int argc, char *argv[])
 	
 	/* argc를 execve 파라미터에 전달할 수 없기 때문에 NULL이 파라미터의 끝을 의미함 */
 	new_argv[argc] = NULL;
-	if(execve("/bin/ls", new_argv, environ) == -1)
+	char *path = find_path("ls", envp);
+	if(execve(path, new_argv, environ) == -1)
 	{
 		fprintf(stderr, "프로그램 실행 error: %s\n", strerror(errno));
 		return 1;

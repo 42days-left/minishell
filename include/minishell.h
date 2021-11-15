@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 16:11:54 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/15 15:06:26 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ void	lst_add_back_token(t_lst **lst, t_token *new);
 void	print_lst_nul(t_lst *head);
 int		lexer(char **strs, t_lst *tokens);
 
+/*builtin*/
+
+void	ft_exit(char *str);
+void	ft_pwd(void);
+char	*find_path(char *str, char **envp);
+void	exec_child_process(char *str, char **envp);
+int		exec_fork(char *str, char  **envp);
 #endif
 
 
