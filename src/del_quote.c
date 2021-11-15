@@ -6,17 +6,17 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:27:11 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/10 15:01:15 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/15 13:08:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	del_quote(t_lst lst)
-{
-	while (/* condition */)
-	{
-		/* code */
-	}
+//void	del_quote(t_lst lst)
+//{
+//	while (/* condition */)
+//	{
+//		/* code */
+//	}
 
-}
+//}

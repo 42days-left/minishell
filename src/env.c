@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/12 13:55:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/15 19:29:01 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
  * @example echo "[Hello asdf ][$USSR][ ][$USER]" -> Hello asdf devleo
  */
 
-
-int	find_dollor_addr(t_token *value)
+int	copy_before_dollar(char **ptr, char **buf)
 {
-	char	*str;
-
-	str = value->arg;
-	//내 생각에는 while로 char하나씩 보면서 처리해야 할것 같다.
-	if (ft_strchr(str, '$'))
+	while (**ptr)
 	{
-		printf("I find $ sign!!\n");
-		return (TRUE);
+		if (**ptr == '$')
+			return (TRUE);
+		*(*buf)++ = *(*ptr)++;
+		if (**ptr == '\'')
+		{
+			*(*buf)++ = *(*ptr)++;
+			while (**ptr && **ptr != '\'')
+				*(*buf)++ = *(*ptr)++;
+		}
 	}
 	return (FALSE);
 }
@@ -34,41 +36,111 @@ int	find_dollor_addr(t_token *value)
 t_lst	*str_2_lst(char *str)
 {
 	t_lst	*lst;
-	int	i;
+	//int	i;
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '$')
-			i++;
-		i++;
-	}
 
 	return (lst);
 }
 
-int	replace_env(t_lst *tokens, t_env *env)
-{
-	int	i;
+//int replace_env_in_token(t_token *token, t_env *env)
+//{
+//	char	buf[BUFFER_SIZE];
+//	char	*buf_ptr;
+//	char	*str_ptr;
+//	char	*key_last_ptr;
+//	char	*value;
 
-	i = 0;
-	while (tokens != NULL)
+//	buf_ptr = buf;
+//	str_ptr = token->value;
+//	while (find_dallor(&str_ptr, &buf_ptr))
+//	{
+//		printf("is dallar? %c\n", *str_ptr);
+//		key_last_ptr = find_key(str_ptr);
+//		printf("is key last? %c\n", *key_last_ptr);
+//		value = find_key_from_env(str_ptr, key_last_ptr, env);
+//		printf("is value? %s\n", value);
+//		if (value)
+//		{
+//			ft_memcpy(buf_ptr, value, ft_strlen(value));
+//			buf_ptr += ft_strlen(value);
+//		}
+//		str_ptr = key_last_ptr;
+//	}
+//	*buf_ptr = '\0';
+//	free(token->value);
+//	token->value = remove_quote(buf);
+//	return (OK);
+//}
+
+int		ft_isspace(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || c == ' ')
+		return (TRUE);
+	return (FALSE);
+}
+
+char	*find_key_from_str(char *str_ptr)
+{
+	char	buf[10000];
+	int		i;
+
+	if (ft_isdigit(str_ptr[0]))
+		return (NULL);
+	i = 1;
+	while (str_ptr[i] && !ft_isspace(str_ptr[i]))
 	{
-		printf("[%d]\n", i++);
-		if (find_dollor_addr(tokens->value))
-		{
-			/* "Hello $USSR $USER world" */
-			/* ["Hello ][$USSR ][$USER][ ][world"] */
-			str_2_lst(((t_token *)(tokens->value))->arg);
-				/* start -> ~'$'만날 때 까지. */
-				/* start -> ~'$'만날 때 까지. */
-			find_lst_key();
-			change_dollor();
-			lst_2_str();
-		}
-		tokens = tokens->next;
+		buf[i] = str_ptr[i];
+		i++;
 	}
+	buf[i] = '\0';
+	return (ft_strdup(buf));
+}
+
+char	*find_value_from_env(char *in_key, t_env *env)
+{
+	t_env	*curr;
+
+	curr = env;
+	while (curr)
+	{
+		if (ft_strncmp(curr->key, in_key, strlen(in_key)) == SAME)
+			break;
+		curr = curr->next;
+	}
+	if (curr == NULL)
+		return (NULL);
+	return (curr->value);
+}
+
+int	replace_env_token(t_lst *token, t_env *env)
+{
+	char	buf[10000];
+	char	*buf_ptr;
+	char	*str_ptr;
+	char	*str_key;
+	char	*env_value;
+
+	str_ptr = token->value;
+	while (copy_before_dollar(&str_ptr, &buf_ptr))
+	{
+		str_key = find_key_from_str(str_ptr);
+		printf("str_key = ["BLUE"%s"RESET"]\n", str_key);
+		//env_value = find_value_from_env(str_key, env);
+		//if (env_value)
+		//{
+		//	ft_memccpy();
+		//}
+		//str_ptr = ;
+	}
+	//*buf_ptr = '\0';
+	//free(token->value);
+	//token->value = replace_token(buf);
 	return (EXIT_SUCCESS);
+}
+
+int	replace(t_lst *tokens, t_env *env)
+{
+
 }
 
 int	print_envp(char **envp)
