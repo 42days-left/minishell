@@ -6,14 +6,14 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/10 14:27:39 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/12 13:55:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 /**
  * 없는 환경 변수를 찾으면 삭제 해야한다.
- * @example echo "Hello $USSR $USER" -> Hello  devleo
+ * @example echo "[Hello asdf ][$USSR][ ][$USER]" -> Hello asdf devleo
  */
 
 
@@ -31,9 +31,20 @@ int	find_dollor_addr(t_token *value)
 	return (FALSE);
 }
 
-void	str_2_lst(char *str)
+t_lst	*str_2_lst(char *str)
 {
+	t_lst	*lst;
+	int	i;
 
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '$')
+			i++;
+		i++;
+	}
+
+	return (lst);
 }
 
 int	replace_env(t_lst *tokens, t_env *env)
@@ -47,7 +58,7 @@ int	replace_env(t_lst *tokens, t_env *env)
 		if (find_dollor_addr(tokens->value))
 		{
 			/* "Hello $USSR $USER world" */
-			/* ["Hello ][$USSR][ ][$USER][ ][world"] */
+			/* ["Hello ][$USSR ][$USER][ ][world"] */
 			str_2_lst(((t_token *)(tokens->value))->arg);
 				/* start -> ~'$'만날 때 까지. */
 				/* start -> ~'$'만날 때 까지. */

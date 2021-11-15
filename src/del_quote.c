@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:27:11 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/10 14:27:30 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/10 15:01:15 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 void	del_quote(t_lst lst)
 {
+	while (/* condition */)
+	{
+		/* code */
+	}
 
 }
