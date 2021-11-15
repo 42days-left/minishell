@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/01 20:20:30 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/15 14:50:24 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,35 +63,15 @@ int	parse(char *script)
 	return (EXIT_SUCCESS);
 }
 
-int exit_function(char *str)
-{
-	printf("exit function\n");
-	if (ft_strncmp(str, "exit", 4) == 0 && ft_strlen(str) == 4)
-	{
-		printf("exit\n");
-		free(str);
-		exit(1);
-	}
-	return(0);
-}
 
-int builtin_function(char *str)
+int builtin_function(char *str, char **envp)
 {
-	pid_t pid;
-	
-	printf("builtin function\n");
-	if (ft_strncmp(str, "pwd", 3) == 0 && ft_strlen(str) == 3)
-	{
-		printf("builtin function pwd\n");
-		pid = fork();
-		if (pid == 0)
-		{
-			char buffer[10000];
-			getcwd(buffer, 100000);
-			printf("%s\n", buffer);
-			return (0);
-		}
-	}
+	if (!ft_strncmp(str, "pwd", 3))
+		ft_pwd();
+	else if (!ft_strncmp(str, "exit", 4))
+		ft_exit(str);
+	else
+		exec_pipe(str, envp);
 	return (1);
 }
 
@@ -105,10 +85,9 @@ int	main(int argc, char **argv, char **envp)
 	get_envp(envp);
 	while(TRUE)
 	{
-		str = readline(MAGENTA"minihell🐚"RESET": ");
-		printf("readline str: %s\n", str);
-		exit_function(str);
-		builtin_function(str);
+		str = readline("minihell🐚: ");
+		if (str)
+			builtin_function(str, envp);
 		add_history(str);
 		free(str);
 	}
