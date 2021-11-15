@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/15 16:58:17 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/15 20:19:45 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,41 @@ void	ft_pwd(void)
 	free(pwd);
 }
 
+char *find_value(char *key, char **envp)
+{
+	int i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
+			return (envp[i] + ft_strlen(key) + 1);
+	}
+	return ("");
+}
+
 char *find_path(char  *str, char **envp)
 {
-	char *pwd;
+	int	i;
+	char *tmp;
+	char *new_path;
+	char **path_arr;
+	struct stat s;
 
-	//printf("findpath");
-	pwd = getcwd(0, 1024);
-	//printf("%s\n", pwd);
-	return (pwd);
+	printf("findpath");
+	tmp = find_value("PATH", envp);
+	path_arr = ft_split(new_path, ':');
+	i = 0;
+	while(path_arr[i])
+	{
+		tmp = ft_strjoin("/", str);
+		new_path = ft_strjoin(path_arr[i], tmp);
+		free(tmp);
+		if (!stat(new_path, &s))
+			return (new_path);
+		free(new_path);
+	}
+	return (ft_strdup(str));
 }
 
 void	exec_child_process(char *str, char **envp)

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/15 16:12:27 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/15 20:17:59 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int builtin_function(char *str, char **envp)
 	else if (!ft_strncmp(str, "exit", 4))
 		ft_exit(str);
 	else
-		execve(getcwd(0, 1024), argv, envp);
-		//exec_fork(str, envp);
+		//execve(getcwd(0, 1024), argv, envp);
+		exec_fork(str, envp);
 	return (1);
 }
 

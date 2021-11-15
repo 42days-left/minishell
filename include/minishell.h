@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/15 15:06:26 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/15 19:55:22 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/history.h> /* add_history함수를 사용하기위한 헤더 */
 # include <stdio.h> /* printf함수를 사용하기위한 헤더 */
 # include <stdlib.h> /* free함수를 사용하기위한 헤더 */
+# include <sys/stat.h>
 
 # include "color.h"
 # include "../lib/include/libft.h"

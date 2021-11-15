@@ -45,12 +45,16 @@ char			*find_path(char *cmdline, char **envs)
 	i = -1;
 	while (paths[++i])
 	{
+		printf("paths[%d]: %s ---", i, paths[i]);
 		temp = ft_strjoin("/", cmdline);
 		new_path = ft_strjoin(paths[i], temp);
+		printf("%s\n", new_path);
 		free(temp);
 		if (stat(new_path, &s) == 0)
+		{
+			printf("new_path 최종: %s\n", new_path);
 			return (new_path);
-		free(new_path);
+		}free(new_path);
 	}
 	return (ft_strdup(cmdline));
 }
