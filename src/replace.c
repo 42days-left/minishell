@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/16 16:27:38 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/16 18:35:58 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@ int	copy_before_dollar(char **ptr, char **buf)
 {
 	while (**ptr)
 	{
-		printf("[%c]\n", **ptr);
 		if (**ptr == '$')
 			return (TRUE);
-		*(*buf)++ = *(*ptr)++;
 		if (**ptr == '\'')
 		{
+			printf("HELLO!\n");
 			*(*buf)++ = *(*ptr)++;
 			while (**ptr && **ptr != '\'')
+			{
+				printf("[%c]\n", **ptr);
 				*(*buf)++ = *(*ptr)++;
+			}
 		}
+		*(*buf)++ = *(*ptr)++;
 	}
 	return (FALSE);
 }
@@ -71,8 +74,6 @@ char	*find_value_from_env(char *in_key, t_env *env)
 {
 	t_env	*curr;
 
-	printf(YELLOW"find_value_from_env in\n"RESET);
-	printf(YELLOW"in_key = [%s]\n"RESET, in_key);
 	curr = env;
 	while (curr)
 	{
@@ -83,7 +84,6 @@ char	*find_value_from_env(char *in_key, t_env *env)
 	}
 	if (curr == NULL)
 		return (NULL);
-	printf("[%s]\n", curr->value);
 	return (curr->value);
 }
 
@@ -110,7 +110,6 @@ int	replace_env_token(t_token *token, t_env *env)
 		str_ptr += (char)ft_strlen(str_key);
 	}
 	*buf_ptr = '\0';
-	printf("@@@@ [%s]\n", buf);
 	free(token->arg);
 	token->arg = ft_strdup(buf);
 	return (EXIT_SUCCESS);
@@ -127,5 +126,6 @@ int	replace(t_lst *tokens, t_env *env)
 		replace_env_token(curr->value, env);
 		curr= curr->next;
 	}
+	printf("REPLACE "GREEN"DONE\n"RESET);
 	return (0);
 }
