@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/15 19:29:01 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/16 14:59:53 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@
 
 int	copy_before_dollar(char **ptr, char **buf)
 {
+	printf("COPY START!\n");
 	while (**ptr)
 	{
+		printf("[%c]\n", **ptr);
 		if (**ptr == '$')
+		{
+			printf("FIND! $\n");
 			return (TRUE);
+		}
 		*(*buf)++ = *(*ptr)++;
 		if (**ptr == '\'')
 		{
@@ -30,6 +35,7 @@ int	copy_before_dollar(char **ptr, char **buf)
 				*(*buf)++ = *(*ptr)++;
 		}
 	}
+	printf("COPY END!\n");
 	return (FALSE);
 }
 
@@ -84,10 +90,12 @@ char	*find_key_from_str(char *str_ptr)
 	char	buf[10000];
 	int		i;
 
+	printf("find_key_from_str()\n");
 	if (ft_isdigit(str_ptr[0]))
 		return (NULL);
+	buf[0] = str_ptr[0];
 	i = 1;
-	while (str_ptr[i] && !ft_isspace(str_ptr[i]))
+	while (str_ptr[i] && !ft_isspace(str_ptr[i]) && ft_isalpha(str_ptr[i]))
 	{
 		buf[i] = str_ptr[i];
 		i++;
@@ -100,19 +108,24 @@ char	*find_value_from_env(char *in_key, t_env *env)
 {
 	t_env	*curr;
 
+	printf(YELLOW"find_value_from_env in\n"RESET);
+	printf(YELLOW"in_key = [%s]\n"RESET, in_key);
 	curr = env;
 	while (curr)
 	{
-		if (ft_strncmp(curr->key, in_key, strlen(in_key)) == SAME)
+		printf("["YELLOW"%s"RESET"]\n", curr->key);
+		//if (ft_strncmp(curr->key, in_key, strlen(in_key)) == SAME)
+		if (ft_strncmp(curr->key, in_key+1, 10000) == SAME)
 			break;
 		curr = curr->next;
 	}
 	if (curr == NULL)
 		return (NULL);
+	printf("[%s]\n", curr->value);
 	return (curr->value);
 }
 
-int	replace_env_token(t_lst *token, t_env *env)
+int	replace_env_token(t_token *token, t_env *env)
 {
 	char	buf[10000];
 	char	*buf_ptr;
@@ -120,17 +133,19 @@ int	replace_env_token(t_lst *token, t_env *env)
 	char	*str_key;
 	char	*env_value;
 
-	str_ptr = token->value;
+	str_ptr = token->arg;
+	buf_ptr = buf;
+	printf("in replace_env_token\n");
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
 		str_key = find_key_from_str(str_ptr);
 		printf("str_key = ["BLUE"%s"RESET"]\n", str_key);
-		//env_value = find_value_from_env(str_key, env);
-		//if (env_value)
-		//{
-		//	ft_memccpy();
-		//}
-		//str_ptr = ;
+		env_value = find_value_from_env(str_key, env);
+		if (env_value)
+		{
+			printf(GREEN"env_value ENABLE\n"RESET);
+		}
+		str_ptr += (char)ft_strlen(str_key);
 	}
 	//*buf_ptr = '\0';
 	//free(token->value);
@@ -140,7 +155,16 @@ int	replace_env_token(t_lst *token, t_env *env)
 
 int	replace(t_lst *tokens, t_env *env)
 {
+	t_lst	*curr;
 
+	curr = tokens;
+	printf("REPLACE START\n");
+	while (curr)
+	{
+		replace_env_token(curr->value, env);
+		curr= curr->next;
+	}
+	return (0);
 }
 
 int	print_envp(char **envp)
