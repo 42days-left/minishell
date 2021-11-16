@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/16 13:29:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:37:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 	lexer(strs, &tokens);
 	print_token_list(tokens);
 	replace(tokens, env);
+	print_token_list(tokens);
 	//replace_env(tokens, env);
 	//del_quote(tokens);
 	//parser(tokens, cmds);

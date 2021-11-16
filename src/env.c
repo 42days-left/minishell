@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/16 14:59:53 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/16 16:01:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,11 @@
 
 int	copy_before_dollar(char **ptr, char **buf)
 {
-	printf("COPY START!\n");
 	while (**ptr)
 	{
 		printf("[%c]\n", **ptr);
 		if (**ptr == '$')
-		{
-			printf("FIND! $\n");
 			return (TRUE);
-		}
 		*(*buf)++ = *(*ptr)++;
 		if (**ptr == '\'')
 		{
@@ -35,52 +31,19 @@ int	copy_before_dollar(char **ptr, char **buf)
 				*(*buf)++ = *(*ptr)++;
 		}
 	}
-	printf("COPY END!\n");
 	return (FALSE);
 }
-
-t_lst	*str_2_lst(char *str)
-{
-	t_lst	*lst;
-	//int	i;
-
-
-	return (lst);
-}
-
-//int replace_env_in_token(t_token *token, t_env *env)
-//{
-//	char	buf[BUFFER_SIZE];
-//	char	*buf_ptr;
-//	char	*str_ptr;
-//	char	*key_last_ptr;
-//	char	*value;
-
-//	buf_ptr = buf;
-//	str_ptr = token->value;
-//	while (find_dallor(&str_ptr, &buf_ptr))
-//	{
-//		printf("is dallar? %c\n", *str_ptr);
-//		key_last_ptr = find_key(str_ptr);
-//		printf("is key last? %c\n", *key_last_ptr);
-//		value = find_key_from_env(str_ptr, key_last_ptr, env);
-//		printf("is value? %s\n", value);
-//		if (value)
-//		{
-//			ft_memcpy(buf_ptr, value, ft_strlen(value));
-//			buf_ptr += ft_strlen(value);
-//		}
-//		str_ptr = key_last_ptr;
-//	}
-//	*buf_ptr = '\0';
-//	free(token->value);
-//	token->value = remove_quote(buf);
-//	return (OK);
-//}
 
 int		ft_isspace(char c)
 {
 	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || c == ' ')
+		return (TRUE);
+	return (FALSE);
+}
+
+static int	is_alpha_env(char c)
+{
+	if (c && !ft_isspace(c) && (ft_isalpha(c) || c == '_'))
 		return (TRUE);
 	return (FALSE);
 }
@@ -90,12 +53,11 @@ char	*find_key_from_str(char *str_ptr)
 	char	buf[10000];
 	int		i;
 
-	printf("find_key_from_str()\n");
-	if (ft_isdigit(str_ptr[0]))
+	if (ft_isdigit(str_ptr[0]) || ft_isspace(str_ptr[0]))
 		return (NULL);
 	buf[0] = str_ptr[0];
 	i = 1;
-	while (str_ptr[i] && !ft_isspace(str_ptr[i]) && ft_isalpha(str_ptr[i]))
+	while (is_alpha_env(str_ptr[i]))
 	{
 		buf[i] = str_ptr[i];
 		i++;
@@ -114,8 +76,7 @@ char	*find_value_from_env(char *in_key, t_env *env)
 	while (curr)
 	{
 		printf("["YELLOW"%s"RESET"]\n", curr->key);
-		//if (ft_strncmp(curr->key, in_key, strlen(in_key)) == SAME)
-		if (ft_strncmp(curr->key, in_key+1, 10000) == SAME)
+		if (ft_strncmp(curr->key, in_key + 1, 10000) == SAME)	//in_key + 1 = '$'다음 문자들
 			break;
 		curr = curr->next;
 	}
@@ -135,7 +96,6 @@ int	replace_env_token(t_token *token, t_env *env)
 
 	str_ptr = token->arg;
 	buf_ptr = buf;
-	printf("in replace_env_token\n");
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
 		str_key = find_key_from_str(str_ptr);
@@ -143,13 +103,15 @@ int	replace_env_token(t_token *token, t_env *env)
 		env_value = find_value_from_env(str_key, env);
 		if (env_value)
 		{
-			printf(GREEN"env_value ENABLE\n"RESET);
+			ft_memcpy(buf_ptr, env_value, ft_strlen(env_value));
+			buf_ptr += (char)ft_strlen(env_value);
 		}
 		str_ptr += (char)ft_strlen(str_key);
 	}
-	//*buf_ptr = '\0';
-	//free(token->value);
-	//token->value = replace_token(buf);
+	*buf_ptr = '\0';
+	printf("@@@@ [%s]\n", buf);
+	free(token->arg);
+	token->arg = ft_strdup(buf);
 	return (EXIT_SUCCESS);
 }
 
