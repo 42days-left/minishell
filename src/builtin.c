@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/15 20:19:45 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/16 16:56:03 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,24 @@ char *find_value(char *key, char **envp)
 	return ("");
 }
 
+char *test(char *str, char **envp)
+{
+	char *tmp;
+	tmp = malloc(sizeof(char *));
+	printf("test\n");
+	tmp = "asdf";
+	return (tmp);
+}
+
 char *find_path(char  *str, char **envp)
 {
+	printf("3. findpath");
 	int	i;
 	char *tmp;
 	char *new_path;
 	char **path_arr;
 	struct stat s;
 
-	printf("3. findpath");
 	tmp = find_value("PATH", envp);
 	path_arr = ft_split(new_path, ':');
 	i = 0;
@@ -69,15 +78,16 @@ void	exec_child_process(char *str, char **envp)
 {
 	int	 fd[2];
 	char *path;
-	
-	path = find_path(str, envp);
-
-	dup2(fd[0], STDIN_FILENO);
-	close(fd[0]);
-	close(fd[1]);
-	execve(path, &str, envp);
+	path = test(str, envp);
+	printf("%s\n", str);
+//	path = find_path(str, envp);
+//
+//	dup2(fd[0], STDIN_FILENO);
+//	close(fd[0]);
+//	close(fd[1]);
+//	execve(path, &str, envp);
 	printf("4. child_process\n");
-	free(path);
+//	free(path);
 	exit(1);
 }
 
@@ -96,7 +106,7 @@ int		exec_fork(char *str, char **envp)
 		printf("2. child\n");
 		exec_child_process(str, envp);
 	}
-	waitpid(pid, &status, 0);
+//	waitpid(pid, &status, 0);
 //	close(fd[1]);
 //	close(fd[0]);
 	return (1);
