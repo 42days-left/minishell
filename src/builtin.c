@@ -49,7 +49,7 @@ char *find_path(char  *str, char **envp)
 	char **path_arr;
 	struct stat s;
 
-	printf("findpath");
+	printf("3. findpath");
 	tmp = find_value("PATH", envp);
 	path_arr = ft_split(new_path, ':');
 	i = 0;
@@ -69,13 +69,14 @@ void	exec_child_process(char *str, char **envp)
 {
 	int	 fd[2];
 	char *path;
+	
 	path = find_path(str, envp);
 
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	close(fd[1]);
 	execve(path, &str, envp);
-	printf("%s\n", str);
+	printf("4. child_process\n");
 	free(path);
 	exit(1);
 }
@@ -87,15 +88,16 @@ int		exec_fork(char *str, char **envp)
 	int		status;
 	char	*path;
 	int		fd[2];
-
+	
+	printf("1. exec_fork\n");
 	pid = fork();
 	if (pid == 0)
 	{
-		printf("child\n");
+		printf("2. child\n");
 		exec_child_process(str, envp);
 	}
 	waitpid(pid, &status, 0);
-	close(fd[1]);
-	close(fd[0]);
+//	close(fd[1]);
+//	close(fd[0]);
 	return (1);
 }

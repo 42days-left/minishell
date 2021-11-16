@@ -66,17 +66,18 @@ int	parse(char *script)
 
 int builtin_function(char *str, char **envp)
 {
-	char const **argv;
-	char command[] = "ls";
-
-	argv[0] = command;
+	char *argv[2];
+	
+	argv[0] = str;
+	argv[1] = 0;
 	if (!ft_strncmp(str, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(str, "exit", 4))
 		ft_exit(str);
 	else
-		//execve(getcwd(0, 1024), argv, envp);
 		exec_fork(str, envp);
+		//execve(getcwd(0, 1024), argv, envp);
+		//exec_fork(str, envp);
 	return (1);
 }
 
@@ -93,6 +94,7 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("minihell🐚: ");
 		if (str)
 			builtin_function(str, envp);
+		printf("readline: %s\n", str);
 		add_history(str);
 		free(str);
 	}
