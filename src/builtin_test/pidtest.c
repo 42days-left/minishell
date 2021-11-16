@@ -7,13 +7,17 @@
 #define WRITE 1
 
 
-void child_process()
-{
-	printf("child_process");
+void child_process(char **envp)
+{	
+	char *cmd[2];
+	cmd[0] = "ls";
+	cmd[1] = 0;
+
+	execve("/bin/ls", cmd, envp); 
 }
 
 
-int main(){
+int main(int argc, char **argv, char **envp){
 	int fd[2];
 	pid_t pid;
 	char buf[MAX_BUF];
@@ -39,7 +43,7 @@ int main(){
 	}
 	else //child process
 	{
-		child_process();
+		child_process(envp);
 //		printf("fd[0]: %d\n", fd[0]);
 //
 //		printf("fd[1]: %d\n", fd[1]);
