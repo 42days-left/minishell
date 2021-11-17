@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/15 20:17:59 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/17 15:11:15 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,12 @@ int builtin_function(char *str, char **envp)
 		ft_pwd();
 	else if (!ft_strncmp(str, "exit", 4))
 		ft_exit(str);
+	else if (!ft_strncmp(str, "envp", 4))
+		ft_env(envp);
+	else if (!ft_strncmp(str, "cd", 2))
+		ft_cd(envp);
 	else
 		exec_fork(str, envp);
-		//execve(getcwd(0, 1024), argv, envp);
-		//exec_fork(str, envp);
 	return (1);
 }
 
@@ -94,7 +96,6 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("minihell🐚: ");
 		if (str)
 			builtin_function(str, envp);
-		printf("readline: %s\n", str);
 		add_history(str);
 		free(str);
 	}

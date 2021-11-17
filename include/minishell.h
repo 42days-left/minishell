@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/15 19:55:22 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/17 15:08:14 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int		lexer(char **strs, t_lst *tokens);
 
 /*builtin*/
 
+void	ft_cd(char **envp);
+void	ft_env(char **envp);
 void	ft_exit(char *str);
 void	ft_pwd(void);
 char	*find_path(char *str, char **envp);

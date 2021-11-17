@@ -6,11 +6,39 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/16 19:46:29 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/17 15:32:08 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char *find_value(char *key, char **envp)
+{
+	int i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
+			return (envp[i] + ft_strlen(key) + 1);
+		i++;
+	}
+	return ("");
+}
+
+void	ft_env(char **envp)
+{
+	get_envp(envp);
+}
+
+
+void	ft_cd(char **envp)
+{
+	char *path;
+
+	path = find_value("HOME", envp);
+	chdir(path);
+}
 
 void	ft_exit(char *str)
 {
@@ -28,22 +56,6 @@ void	ft_pwd(void)
 	free(pwd);
 }
 
-char *find_value(char *key, char **envp)
-{
-	int i;
-
-	i = 0;
-	printf("find_value\n");
-	while (envp[i])
-	{
-		printf("envp[%d]: %s\n", i, envp[i]);
-		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
-			return (envp[i] + ft_strlen(key) + 1);
-		i++;
-	}
-	return ("");
-}
-
 //char *test(char *str, char **envp)
 //{
 //	char *tmp;
@@ -55,7 +67,6 @@ char *find_value(char *key, char **envp)
 
 char *find_path(char  *str, char **envp)
 {
-	printf("3. findpath\n");
 	int	i;
 	char *tmp;
 	char *new_path;
@@ -67,10 +78,10 @@ char *find_path(char  *str, char **envp)
 	i = 0;
 	while(path_arr[i])
 	{
-		printf("path_arr[%d]: %s\n", i, path_arr[i]);
 		tmp = ft_strjoin("/", str);
 		new_path = ft_strjoin(path_arr[i], tmp);
 		free(tmp);
+		printf("new_path %d: %s\n", i, new_path);
 		if (!stat(new_path, &s))
 			return (new_path);
 		free(new_path);
@@ -83,14 +94,16 @@ void	exec_child_process(char *str, char **envp)
 {
 	int	 fd[2];
 	char *path;
+	char *cmd[2];
 	
 	path = find_path(str, envp);
-	printf("4. %s\n", path);
 //	dup2(fd[0], STDIN_FILENO);
 //	close(fd[0]);
 //	close(fd[1]);
-	execve(path, &str, envp);
-	printf("5. child_process\n");
+	cmd[0] = str;
+	cmd[1] = 0;
+	execve(path, cmd, envp);
+
 	free(path);
 	exit(1);
 }
@@ -103,13 +116,9 @@ int		exec_fork(char *str, char **envp)
 	char	*path;
 	int		fd[2];
 	
-	printf("1. exec_fork\n");
 	pid = fork();
 	if (pid == 0)
-	{
-		printf("2. child\n");
 		exec_child_process(str, envp);
-	}
 	waitpid(pid, &status, 0);
 //	close(fd[1]);
 //	close(fd[0]);
