@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 15:37:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/17 15:51:26 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	replace_env_token(t_token *token, t_env *env)
 	char	*str_key;
 	char	*env_value;
 
+	if (token->type == PIPE)
+		return (0);
 	str_ptr = token->arg;
 	buf_ptr = buf;
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
@@ -121,6 +123,8 @@ void	remove_quote_token(t_token *token)
 	char	*str_ptr;
 	char	*buf_ptr;
 
+	if (token->type == PIPE)
+		return ;
 	str_ptr = token->arg;
 	buf_ptr = buf;
 	while (*str_ptr != '\0')
