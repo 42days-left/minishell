@@ -6,13 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:35:03 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/08 13:02:25 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/17 15:14:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-#define		BUF_SIZE	100000
 
 /**
  * @example $prompt : 'hello "hola world" world' -> one set. not two.

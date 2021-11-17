@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/08 15:06:10 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:36:32 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int lexer(char **strs, t_lst **tokens)
 			return (0); //error check pls here!
 		}
 		lst_add_back(tokens, lst_new(init_token(type, arg)));
-		//lst_add_back(&tokens, lst_new(init_token(type, arg)));
-		//lst_add_back_token(&tokens, init_token(type, arg));
 		i++;
 	}
 	return(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/16 18:35:58 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/17 15:37:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	is_alpha_env(char c)
 
 char	*find_key_from_str(char *str_ptr)
 {
-	char	buf[10000];
+	char	buf[BUF_SIZE];
 	int		i;
 
 	if (ft_isdigit(str_ptr[0]) || ft_isspace(str_ptr[0]))
@@ -89,7 +89,7 @@ char	*find_value_from_env(char *in_key, t_env *env)
 
 int	replace_env_token(t_token *token, t_env *env)
 {
-	char	buf[10000];
+	char	buf[BUF_SIZE];
 	char	*buf_ptr;
 	char	*str_ptr;
 	char	*str_key;
@@ -115,6 +115,27 @@ int	replace_env_token(t_token *token, t_env *env)
 	return (EXIT_SUCCESS);
 }
 
+void	remove_quote_token(t_token *token)
+{
+	char	buf[BUF_SIZE];
+	char	*str_ptr;
+	char	*buf_ptr;
+
+	str_ptr = token->arg;
+	buf_ptr = buf;
+	while (*str_ptr != '\0')
+	{
+		printf("["RED"%c"RESET"]\n", *str_ptr);
+		while (*str_ptr == '\"' || *str_ptr == '\'')
+			str_ptr++;
+		*buf_ptr++ = *str_ptr++;
+	}
+	*buf_ptr = '\0';
+	printf("buf : [%s]\n", buf);
+	free(token->arg);
+	token->arg = ft_strdup(buf);
+}
+
 int	replace(t_lst *tokens, t_env *env)
 {
 	t_lst	*curr;
@@ -124,6 +145,7 @@ int	replace(t_lst *tokens, t_env *env)
 	while (curr)
 	{
 		replace_env_token(curr->value, env);
+		remove_quote_token(curr->value);
 		curr= curr->next;
 	}
 	printf("REPLACE "GREEN"DONE\n"RESET);
