@@ -3,6 +3,7 @@
 		"minishell.h": "c",
 		"lst.h": "c",
 		"algorithm": "c",
-		"string": "c"
+		"string": "c",
+		"stdlib.h": "c"
 	}
 }

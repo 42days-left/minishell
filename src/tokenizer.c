@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:35:03 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 18:20:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:22:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ int	reconvert_quote(char *str)
 				*str = *str * -1;
 				str++;
 			}
+			if (*str == '\0')
+				return (EXIT_FAILURE);
 		}
 		str++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 /**
