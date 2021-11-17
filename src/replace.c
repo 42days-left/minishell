@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 15:51:26 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:06:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	replace_env_token(t_token *token, t_env *env)
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
 		str_key = find_key_from_str(str_ptr);
-		printf("str_key = ["BLUE"%s"RESET"]\n", str_key);
 		env_value = find_value_from_env(str_key, env);
 		if (env_value)
 		{
@@ -129,13 +128,11 @@ void	remove_quote_token(t_token *token)
 	buf_ptr = buf;
 	while (*str_ptr != '\0')
 	{
-		printf("["RED"%c"RESET"]\n", *str_ptr);
 		while (*str_ptr == '\"' || *str_ptr == '\'')
 			str_ptr++;
 		*buf_ptr++ = *str_ptr++;
 	}
 	*buf_ptr = '\0';
-	printf("buf : [%s]\n", buf);
 	free(token->arg);
 	token->arg = ft_strdup(buf);
 }
