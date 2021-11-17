@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/01 20:15:06 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/08 13:02:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ t_token *init_token(int type, char *arg)
 
 	token = malloc(sizeof(t_token));
 	if (!token)
+	{
+		printf(RED"INIT_TOKEN ERROR\n"RESET);
 		return (0); //error check
+	}
 	token->type = type;
 	token->arg = arg;
 	return (token);
 }
-
 
 int get_type(char *str)
 {
@@ -40,7 +42,7 @@ int get_type(char *str)
 	return (WORD);
 }
 
-int lexer(char **strs, t_lst *tokens)
+int lexer(char **strs, t_lst **tokens)
 {
 	int	i;
 	int	type;
@@ -49,7 +51,6 @@ int lexer(char **strs, t_lst *tokens)
 	i = 0;
 	while(strs[i])
 	{
-		printf("strs[%d]: %s\n", i, strs[i]);
 		type = get_type(strs[i]);
 		if (type == PIPE)
 			arg = 0;
@@ -61,21 +62,59 @@ int lexer(char **strs, t_lst *tokens)
 			i++;
 		}
 		else
+		{
+			printf("LEXER ERR\n");
 			return (0); //error check pls here!
-		lst_add_back_token(&tokens, init_token(type, arg));
-		//type arg 값을 tokens리스트에 넣을 노드를 생성한다.
-		printf("type: %d, arg: %s\n", type, arg);
+		}
+		lst_add_back(tokens, lst_new(init_token(type, arg)));
+		//lst_add_back(&tokens, lst_new(init_token(type, arg)));
+		//lst_add_back_token(&tokens, init_token(type, arg));
 		i++;
 	}
-	
-//	t_token *sample;
-//	while(i)
-//	{
-//		printf("-11-------");
-//		sample = tokens->arg;
-//		printf("type: %d, arg: %s\n", sample->type, sample->arg);
-//		tokens = tokens->next;
-//		i--;
-//	}
-	return(1);
+	return(EXIT_SUCCESS);
+}
+
+int print_token(t_token *token)
+{
+	char  *type;
+
+	if (token->type == PIPE)
+		type = "PIPE";
+	else if (token->type == COMMAND)
+		type = "COMMAND";
+	else if (token->type == WORD)
+		type = "WORD";
+	else if (token->type == REDIR_L)
+		type = "REDIR_L '<'";
+	else if (token->type == REDIR_R)
+		type = "REDIR_R '>'";
+	else if (token->type == D_REDIR_L)
+		type = "D_REDIR_L '<<'";
+	else if (token->type == D_REDIR_R)
+		type = "D_REDIR_R '>>'";
+	else
+		type = "WTF?";
+	printf("type: ["MAGENTA"%s"RESET"],\tvalue: ["MAGENTA"%s"RESET"]\n", type, token->arg);
+	return (1);
+}
+
+
+int print_token_list(t_lst *tokens)
+{
+	t_lst *node;
+
+	if (tokens == NULL)
+	{
+		printf("TOKEN is "MAGENTA"NULL\n"RESET);
+		return (0);
+	}
+	printf("--------------"GREEN"PRINT LEXER TOKEN"RESET"-------------\n");
+	node = tokens;
+	while(node != NULL)
+	{
+		print_token(node->value);
+		node = node->next;
+	}
+	printf("--------------""----------------""--------------\n");
+	return (1);
 }

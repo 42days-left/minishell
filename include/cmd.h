@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:58:18 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/07 23:28:30 by jisokang         ###   ########.fr       */
+/*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
+/*   Updated: 2021/11/04 15:49:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#ifndef CMD_H
+# define CMD_H
 
-# include "lst.h"
+//typedef struct	s_cmd
+//{
+//	t_lst	*args;
+//	t_lst	*rd;
+//}			t_cmd;
 
-typedef struct	s_token
-{
-	int			type;
-	char		*arg;
-}				t_token;
-
-t_token	*init_token(int type, char *arg);
-//int		lexer(char **strs, t_lst *tokens);
-int		lexer(char **strs, t_lst **tokens);
-void	lst_add_back_token(t_lst **lst, t_token *new);
-int		print_token(t_token *token);
-int		print_token_list(t_lst *tokens);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:35:03 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/02 11:56:09 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/08 13:02:25 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	convert_symbols(char *script, char *buf)
 			return (EXIT_FAILURE);
 		if (ft_strchr("|<>", *script))
 		{
-			printf("FOUND SYMBOLS!\n");
 			/* 1. Add space Here*/
 			/* Buffer? */
 			/* 2. n-split -> join */
@@ -97,11 +96,13 @@ int	tokenizer(char *script, char ***strs)
 	//스크립트 심볼에 ' '을 삽입하기 위해 버퍼가 필요한 시점
 	*strs = ft_split(buf, ' ');
 	i = 0;
+	printf("--------------"GREEN"PRINT TOKENIZED TOKEN"RESET"---------\n");
 	while ((*strs)[i])
 	{
 		reconvert_quote((*strs)[i]);
 		printf("[%s]\n", (*strs)[i]);
 		i++;
 	}
+	printf("--------------""----------------""--------------\n");
 	return (EXIT_SUCCESS);
 }

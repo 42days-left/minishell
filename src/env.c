@@ -6,11 +6,21 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 15:07:51 by asdf             ###   ########.fr       */
+/*   Updated: 2021/11/17 15:48:02 by asdf             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	replace_env(t_lst *tokens)
+{
+	t_token	*tok;
+
+	//why next?
+	tok = (t_token *)tokens->next->value;
+	printf("token [%s]", tok->arg);
+	return (EXIT_SUCCESS);
+}
 
 int	print_envp(char **envp)
 {
@@ -31,6 +41,7 @@ void	print_envp_lst(t_env *head)
 
 	curr = head;
 	i = 0;
+	printf(GREEN"=== ENV PRINT START ==="RESET);
 	while (curr->next != NULL)
 	{
 		printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);
@@ -87,27 +98,6 @@ char	*search_env_lst(t_env **lst, char *key)
 	return (0);
 }
 
-/*char	*get_env_key_value(char *str)
-{
-	char	**return_box;
-	char	*curr;
-
-	return_box = malloc(sizeof(char *) * 2);
-	curr = str;
-	while (*curr != '\0')
-	{
-		if (*curr == '=')
-		{
-			*curr = '\0';
-			return_box[KEY] = ft_strdup(str);
-			return_box[VALUE] = ft_strdup(curr + 1);
-			return (*return_box);
-		}
-		curr++;
-	}
-	return (0);
-}*/
-
 t_env	*get_env_line(char *str)
 {
 	char	*curr;
@@ -138,7 +128,6 @@ t_env	*get_envp(char **envp)
 		env_add_back(&env_lst, get_env_line(envp[i]));
 		i++;
 	}
-	printf(GREEN"get_envp DONE\n"RESET);
 	print_envp_lst(env_lst);
 	return (env_lst);
 }
