@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 16:10:07 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/19 18:28:47 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 {
 	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
-	t_tmp	*tmp;
 
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);

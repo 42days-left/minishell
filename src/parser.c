@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 15:59:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/19 18:33:20 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	parser(t_lst *tokens, t_lst *cmds)
 
 	curr = tokens;
 	cmd = NULL;
+	cmd = malloc(sizeof(t_cmd *));
 	printf("parser()\t"BLUE"START"RESET"\n");
 	while (curr)
 	{
@@ -54,5 +55,6 @@ int	parser(t_lst *tokens, t_lst *cmds)
 			curr = curr->next;
 	}
 	printf("parser() "BLUE"END"RESET"\n");
+	print_lst_nul(cmds);
 	return (EXIT_SUCCESS);
 }

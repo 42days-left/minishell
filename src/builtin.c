@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/19 15:52:27 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/19 16:28:35 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,13 @@ char *find_path(char  *str, char **envp)
 	return (ft_strdup(str));
 }
 
-void	exec_child_process(t_tmp *tmp, char **envp)
+void	exec_child_process(char *str, char **envp)
 {
 	int	 fd[2];
 	char *path;
 	char *cmd[2];
-	char *str;
 	
 	printf("exec_child_process\n");
-	str = tmp->str;
 	path = find_path(str, envp);
 	cmd[0] = str;
 	cmd[1] = 0;
@@ -100,43 +98,19 @@ void	exec_child_process(t_tmp *tmp, char **envp)
 	exit(1);
 }
 
-void		test(t_tmp *tmp)
-{
-	char *ls = "ls";
-	char *wc = "wc";
-	t_tmp *new;
-	tmp = malloc(sizeof(t_tmp *));
-	new = malloc(sizeof(t_tmp *));
-	tmp->str = ls;
-	tmp->next = new;
-	new->str = wc;
-	new->next = 0;
-}
-
 int		exec_fork(char *str, char **envp)
 {
 	pid_t	pid;
 	int		status;
-	char	buf[1024];
-//	t_tmp	*tmp;
-//	char	*ls;
-//	char	*wc;
 
 	printf("exec_fork\n");
-//	test(tmp);
-//	ls = tmp->str;
-//	printf("tmp->str: %s\n", ls);
-//	tmp = tmp->next;
-//	wc = tmp->str;
-//	printf("tmp->str: %s\n", wc);
-//	pipe(tmp->fd);
-//	pid = fork();
-//	if (pid == 0)
-//	{
-//		exec_child_process(str, envp);
-//		return(1);
-//	}
-//	waitpid(pid, &status, 0);
+	pid = fork();
+	if (pid == 0)
+	{
+		exec_child_process(str, envp);
+		return(1);
+	}
+	waitpid(pid, &status, 0);
 //	close(fd[1]);
 //	close(fd[0]);
 //	free(tmp);
