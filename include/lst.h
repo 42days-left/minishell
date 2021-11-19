@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:46:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/04 15:47:50 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:22:54 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_lst
 {
-	void			*value;
+	void			*data;
 	struct s_lst	*next;
 }					t_lst;
 

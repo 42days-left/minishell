@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 16:06:52 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/19 19:24:11 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ int	replace(t_lst *tokens, t_env *env)
 	printf("REPLACE START\n");
 	while (curr)
 	{
-		replace_env_token(curr->value, env);
-		remove_quote_token(curr->value);
+		replace_env_token(curr->data, env);
+		remove_quote_token(curr->data);
 		curr= curr->next;
 	}
 	printf("REPLACE "GREEN"DONE\n"RESET);
