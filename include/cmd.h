@@ -6,18 +6,24 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/04 15:49:33 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/19 15:11:24 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CMD_H
 # define CMD_H
 
-//typedef struct	s_cmd
-//{
-//	t_lst	*args;
-//	t_lst	*rd;
-//}			t_cmd;
+# include "lst.h"
 
+typedef struct	s_cmd
+{
+	t_lst	*args;
+	t_lst	*rd;
+	int		fd[2];		//어느게 나을려나?
+	int		fd_in;		//어느게 나을려나?
+	int		fd_out;
+}			t_cmd;
+
+int	parser(t_lst *tokens, t_lst *cmds);
 
 #endif

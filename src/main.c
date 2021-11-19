@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 18:58:21 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/19 15:13:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 	print_token_list(tokens);
 	replace(tokens, env);
 	print_token_list(tokens);
-	//parser(tokens, cmds);
+	parser(tokens, cmds);
+	printf("parser() "GREEN"done"RESET"\n");
 
 	//free_strings(strs)
 	//free_lst(tokens, free_token)
