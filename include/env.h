@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 16:06:29 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/06 13:42:15 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/17 15:16:11 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-int		replace_env(t_lst *tokens);
+int		replace(t_lst *tokens, t_env *env);
 int		print_envp(char **envp);
 t_env	*new_env_node(char *key, char *value);
 t_env	*env_lst_last(t_env *lst);

@@ -6,21 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 15:48:02 by asdf             ###   ########.fr       */
+/*   Updated: 2021/11/19 16:10:44 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	replace_env(t_lst *tokens)
-{
-	t_token	*tok;
-
-	//why next?
-	tok = (t_token *)tokens->next->value;
-	printf("token [%s]", tok->arg);
-	return (EXIT_SUCCESS);
-}
 
 int	print_envp(char **envp)
 {
@@ -41,7 +31,7 @@ void	print_envp_lst(t_env *head)
 
 	curr = head;
 	i = 0;
-	printf(GREEN"=== ENV PRINT START ==="RESET);
+	printf(GREEN"=== ENV PRINT START ===\n"RESET);
 	while (curr->next != NULL)
 	{
 		printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);

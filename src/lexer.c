@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/17 16:05:08 by asdf             ###   ########.fr       */
+/*   Updated: 2021/11/19 16:10:21 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,10 @@ int lexer(char **strs, t_lst **tokens)
 		}
 		else
 		{
-			printf("LEXER ERR\n");
+			printf(RED"LEXER ERR\n"RESET);
 			return (0); //error check pls here!
 		}
 		lst_add_back(tokens, lst_new(init_token(type, arg)));
-		//lst_add_back(&tokens, lst_new(init_token(type, arg)));
-		//lst_add_back_token(&tokens, init_token(type, arg));
 		i++;
 	}
 	return(EXIT_SUCCESS);

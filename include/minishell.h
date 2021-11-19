@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 14:12:56 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/19 16:11:03 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 
 # define	TRUE		1
 # define	FALSE		0
+# define	SAME		0
+
+# define	BUF_SIZE	10000
 
 # define	READ		0
 # define	WRITE		1

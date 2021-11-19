@@ -6,13 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:35:03 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/08 13:02:25 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:22:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-#define		BUF_SIZE	100000
 
 /**
  * @example $prompt : 'hello "hola world" world' -> one set. not two.
@@ -42,16 +40,22 @@ int	convert_quote(char *script)
 
 int	reconvert_quote(char *str)
 {
-	if (*str == '\"' || *str == '\'')
+	while (*str != '\0')
 	{
-		str++;
-		while (*str != '\0' && *str < 0)
+		if (*str == '\"' || *str == '\'')
 		{
-			*str = *str * -1;
 			str++;
+			while (*str != '\0' && *str < 0)
+			{
+				*str = *str * -1;
+				str++;
+			}
+			if (*str == '\0')
+				return (EXIT_FAILURE);
 		}
+		str++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -66,9 +70,6 @@ int	convert_symbols(char *script, char *buf)
 			return (EXIT_FAILURE);
 		if (ft_strchr("|<>", *script))
 		{
-			/* 1. Add space Here*/
-			/* Buffer? */
-			/* 2. n-split -> join */
 			*buf++ = ' ';
 			*buf++ = *script;
 			if (*script == *(script + 1))
