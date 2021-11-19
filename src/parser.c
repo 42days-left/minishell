@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 19:24:01 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/19 20:31:37 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	print_cmd(t_cmd *cmd)
 int	print_cmds_list(t_lst *cmds)
 {
 	t_lst	*curr;
-	t_lst	*curr2;
-	t_cmd	*cmd;
 	int		i;
 
 	if (cmds == NULL)
@@ -46,15 +44,15 @@ int	print_cmds_list(t_lst *cmds)
 	}
 	printf("--------------"GREEN"[PRINT cmds list]"RESET"-------------\n");
 	curr = cmds;
+	curr = curr->next;
 	i = 0;
 	while(curr != NULL)
 	{
 		printf("cmd["BLUE"%d"RESET"]\n", i);
-		//cmd = (t_cmd *)curr->value;
-		curr2 = ((t_cmd *)(&(curr->data)))->args;
+		//curr2 = (((t_cmd *)(curr->data))->args);
 		printf("-----------\n");
-		//print_cmd(cmd);
-		print_token_list(curr2);
+		printf("1st-arg[%s]\n",/*  */ ((t_token *)((((t_cmd *)(curr->data))->args)->data))->arg /* */);
+		//print_token_list(curr2);
 		curr = curr->next;
 		i++;
 	}
@@ -69,7 +67,6 @@ int	parser(t_lst *tokens, t_lst **cmds)
 	t_token	*token;
 
 	curr = tokens;
-	cmd = NULL;
 	printf("parser()\t"BLUE"START"RESET"\n");
 	while (curr)
 	{
@@ -80,8 +77,9 @@ int	parser(t_lst *tokens, t_lst **cmds)
 			token = (t_token *)curr->data;
 			if (token->type == WORD)
 			{
+				printf("this token\ttype:[%d]\tvalue:[%s]\n", token->type, token->arg);
 				lst_add_back(&cmd->args, lst_new((void *)token));
-				printf("[%s]\n", ((t_token *)(&(cmd->args->data)))->arg);
+				printf("---->[%s]\n", ((t_token *)(cmd->args)->data)->arg);
 			}
 			else
 				lst_add_back(&cmd->rd, lst_new((void *)token));
