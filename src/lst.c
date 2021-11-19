@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 18:41:23 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/19 19:29:23 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_lst	*lst_search(t_lst *head, char *target)
 	while (curr != NULL)
 	{
 		/* string search를 해야함 */
-		if (curr->value == target)
+		if (curr->data == target)
 			break ;
 		curr = curr->next;
 	}
@@ -58,7 +58,7 @@ t_lst	*lst_new(void *value)	//int value 아님 암튼 아님;
 		printf(RED"MALLOC ERROR\n"RESET);
 		exit(12); //12가 무엇인지 확인해보기
 	}
-	new->value = value;
+	new->data = value;
 	new->next = NULL;
 	return (new);
 }

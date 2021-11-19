@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/19 16:10:21 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/19 19:29:36 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int print_token_list(t_lst *tokens)
 	node = tokens;
 	while(node != NULL)
 	{
-		print_token(node->value);
+		print_token(node->data);
 		node = node->next;
 	}
 	printf("--------------""----------------""--------------\n");

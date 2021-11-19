@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 18:33:20 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/19 19:28:51 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,51 @@ void	init_cmd(t_cmd *cmd)
 	cmd->rd = NULL;
 }
 
-int	parser(t_lst *tokens, t_lst *cmds)
+int	print_cmd(t_cmd *cmd)
+{
+	t_cmd	*curr;
+	t_lst	*lst;
+
+	printf("print_cmd_IN\n");
+	curr = cmd;
+	lst = curr->args;
+	printf("print_cmd_OUT\n");
+
+
+	return (0);
+}
+
+int	print_cmds_list(t_lst *cmds)
+{
+	t_lst	*curr;
+	t_lst	*curr2;
+	t_cmd	*cmd;
+	int		i;
+
+	if (cmds == NULL)
+	{
+		printf("cmds is "MAGENTA"NULL\n"RESET);
+		return (0);
+	}
+	printf("--------------"GREEN"[PRINT cmds list]"RESET"-------------\n");
+	curr = cmds;
+	i = 0;
+	while(curr != NULL)
+	{
+		printf("cmd["BLUE"%d"RESET"]\n", i);
+		//cmd = (t_cmd *)curr->value;
+		curr2 = ((t_cmd *)(&(curr->data)))->args;
+		printf("-----------\n");
+		//print_cmd(cmd);
+		print_token_list(curr2);
+		curr = curr->next;
+		i++;
+	}
+	printf("--------------------------------------------\n");
+	return (1);
+}
+
+int	parser(t_lst *tokens, t_lst **cmds)
 {
 	t_lst	*curr;
 	t_cmd	*cmd;
@@ -30,31 +74,24 @@ int	parser(t_lst *tokens, t_lst *cmds)
 	printf("parser()\t"BLUE"START"RESET"\n");
 	while (curr)
 	{
-		//init_cmd(cmd);
-		printf("while(curr)\t"BLUE"START"RESET"\n");
-		//lst_init();
-		//cmd->rd = NULL;
-		printf("init_cmd()\t"GREEN"Done"RESET"\n");
-		while (curr && ((t_token *)curr->value)->type != PIPE)
+		cmd = malloc(sizeof(t_cmd));
+		cmd->args = NULL;
+		while (curr && ((t_token *)curr->data)->type != PIPE)
 		{
-			printf("while(curr&&pipe)\t"BLUE"START"RESET"\n");
-			token = curr->value;
-			printf("token get value\t"GREEN"Done"RESET"\n");
+			token = (t_token *)curr->data;
 			if (token->type == WORD)
 			{
-				printf("WOW! I found WORD\t"GREEN"Done"RESET"\n");
-				lst_add_back(&cmd->args, lst_new(token));
-				printf("lst_add_back\t"GREEN"Done"RESET"\n");
+				lst_add_back(&cmd->args, lst_new((void *)token));
+				printf("[%s]\n", ((t_token *)(&(cmd->args->data)))->arg);
 			}
 			else
 				lst_add_back(&cmd->rd, lst_new((void *)token));
 			curr = curr->next;
 		}
-		lst_add_back(&cmds, lst_new((void *)cmd));
+		lst_add_back(cmds, lst_new((void *)cmd));
 		if (curr)
 			curr = curr->next;
+		free(cmd);
 	}
-	printf("parser() "BLUE"END"RESET"\n");
-	print_lst_nul(cmds);
 	return (EXIT_SUCCESS);
 }

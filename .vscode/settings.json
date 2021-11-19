@@ -4,6 +4,22 @@
 		"lst.h": "c",
 		"algorithm": "c",
 		"string": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"__node_handle": "c",
+		"__bit_reference": "c",
+		"__functional_base": "c",
+		"bitset": "c",
+		"chrono": "c",
+		"__memory": "c",
+		"functional": "c",
+		"iterator": "c",
+		"limits": "c",
+		"memory": "c",
+		"optional": "c",
+		"ratio": "c",
+		"system_error": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"vector": "c"
 	}
 }
