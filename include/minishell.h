@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 15:49:34 by asdf             ###   ########.fr       */
+/*   Updated: 2021/11/19 14:12:56 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@
 # define	TRUE		1
 # define	FALSE		0
 
+# define	READ		0
+# define	WRITE		1
+
 /*builtin*/
 
 void	ft_cd(char **envp);
@@ -47,7 +50,7 @@ void	ft_env(char **envp);
 void	ft_exit(char *str);
 void	ft_pwd(void);
 char	*find_path(char *str, char **envp);
-void	exec_child_process(char *str, char **envp);
+void	exec_child_process(t_tmp *tmp, char **envp);
 int		exec_fork(char *str, char  **envp);
 #endif
 
