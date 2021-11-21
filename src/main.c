@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/21 17:15:19 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/21 21:07:55 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ int builtin_function(t_lst *cmds, t_env *env)
 	char *cmd;
 	t_lst *curr;
 	
-	curr = ((t_cmd *)(curr->data))->args;
-	cmd = curr->data;
-	printf("%s\n", cmd);
+	curr = ((t_cmd *)(cmds->data))->args;
+	cmd = ((t_token *)(cmds->data))->arg;
+	printf("builtin\n");
 	if (!ft_strncmp(cmd, "pwd", 3))
 		ft_pwd();
-//	else if (!ft_strncmp(str, "exit", 4))
-//		ft_exit(str);
-//	else if (!ft_strncmp(str, "envp", 4))
-//		ft_env(envp);
-//	else if (!ft_strncmp(str, "cd", 2))
-//		ft_cd(envp);
+	else if (!ft_strncmp(cmd, "exit", 4))
+		ft_exit();
+//	else if (!ft_strncmp(cmd, "env", 4))
+//		ft_env(env);
+	else if (!ft_strncmp(cmd, "cd", 2))
+		ft_cd(cmds, env);
 //	else
-//		exec_fork(str, envp);
+//		exec_fork(cmd, env);
 	return (1);
 }
 

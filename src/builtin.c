@@ -6,44 +6,53 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/21 17:09:18 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/21 21:08:08 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char *find_value(char *key, char **envp)
+//char *find_value(char *key, t_env *env)
+//{
+//	int i;
+//
+//	i = 0;
+//	while (env[i])
+//	{
+//		if (!ft_strncmp(env[i], key, ft_strlen(key)))
+//			return (env[i] + ft_strlen(key) + 1);
+//		i++;
+//	}
+//	return ("");
+//}
+
+//void	ft_env(t_env *env)
+//{
+//	get_env(env);
+//}
+
+
+void	ft_cd(t_lst *cmds, t_env *env)
 {
-	int i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
-			return (envp[i] + ft_strlen(key) + 1);
-		i++;
-	}
-	return ("");
-}
-
-void	ft_env(char **envp)
-{
-	get_envp(envp);
-}
-
-
-void	ft_cd(char **envp)
-{
+	char *file;
+	t_lst *curr;
+	t_lst *tmp;
 	char *path;
 
-	path = find_value("HOME", envp);
+
+	curr = ((t_cmd *)(curr->data))->args;
+	tmp = curr->next;
+	file =  ((t_token *)(tmp->data))->arg;
+	printf("ft_cd \n");
+	//if (tmp == 0 || file == ".") 
+		path = find_value_from_env("$HOME", env);
+	printf("%s\n", path);
 	chdir(path);
 }
 
-void	ft_exit(char *str)
+void	ft_exit()
 {
 		printf("exit\n");
-		free(str);
 		exit(1);
 }
 
@@ -57,7 +66,7 @@ void	ft_pwd(void)
 }
 
 
-char *find_path(char  *str, char **envp)
+char *find_path(char *str, t_env *env)
 {
 	int	i;
 	char *tmp;
@@ -65,7 +74,8 @@ char *find_path(char  *str, char **envp)
 	char **path_arr;
 	struct stat s;
 
-	tmp = find_value("PATH", envp);
+	tmp = find_value_from_env("$PATH", env);
+	printf("%s\n", tmp);
 	path_arr = ft_split(tmp, ':');
 	i = 0;
 	while(path_arr[i])
@@ -82,32 +92,32 @@ char *find_path(char  *str, char **envp)
 	return (ft_strdup(str));
 }
 
-void	exec_child_process(char *str, char **envp)
-{
-	int	 fd[2];
-	char *path;
-	char *cmd[2];
-	
-	printf("exec_child_process\n");
-	path = find_path(str, envp);
-	cmd[0] = str;
-	cmd[1] = 0;
-	execve(path, cmd, envp);
+//void	exec_child_process(char *str, t_env *env)
+//{
+//	int	 fd[2];
+//	char *path;
+//	char *cmd[2];
+//	
+//	printf("exec_child_process\n");
+//	path = find_path(str, env);
+//	cmd[0] = str;
+//	cmd[1] = 0;
+//	execve(path, cmd, env);
+//
+//	free(path);
+//	exit(1);
+//}
 
-	free(path);
-	exit(1);
-}
-
-int		exec_fork(char *str, char **envp)
+int		exec_fork(char *str, t_env *env)
 {
 	pid_t	pid;
 	int		status;
-
+	char	*tmp;
 	printf("exec_fork\n");
 	pid = fork();
 	if (pid == 0)
 	{
-		exec_child_process(str, envp);
+	//	exec_child_process(str, env);
 		return(1);
 	}
 	waitpid(pid, &status, 0);
