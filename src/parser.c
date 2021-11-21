@@ -70,7 +70,6 @@ int	parser(t_lst *tokens, t_lst **cmds)
 
 	curr = tokens;
 	cmd = NULL;
-	cmd = malloc(sizeof(t_cmd *));
 	printf("parser()\t"BLUE"START"RESET"\n");
 	while (curr)
 	{
