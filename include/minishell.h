@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 14:53:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/19 16:39:55 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include	<readline/history.h> /* add_history함수를 사용하기위한 헤더 */
 # include	<stdio.h> /* printf함수를 사용하기위한 헤더 */
 # include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
+# include	<sys/stat.h>
 
 # include	"../lib/include/libft.h"
 # include	"color.h"
@@ -42,6 +43,18 @@
 
 # define	BUF_SIZE	10000
 
+# define	READ		0
+# define	WRITE		1
+
+/*builtin*/
+
+void	ft_cd(char **envp);
+void	ft_env(char **envp);
+void	ft_exit(char *str);
+void	ft_pwd(void);
+char	*find_path(char *str, char **envp);
+void	exec_child_process(char *str, char **envp);
+int		exec_fork(char *str, char  **envp);
 #endif
 
 

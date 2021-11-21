@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 19:23:24 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:03:56 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,19 +167,6 @@ void	lst_add_back(t_lst **lst, t_lst *new)
 void	lst_add_back_token(t_lst **lst, t_token *new)
 {
 	lst_add_back(lst, lst_new(new));
-}
-
-void	print_lst_nul(t_lst *head)
-{
-	t_lst	*curr;
-
-	curr = head;
-	while (curr->next != NULL)
-	{
-		//printf("[%s] ", curr->value); void 변환 필요
-		curr = curr->next;
-	}
-	//printf("[%s] \n", curr->value);
 }
 
 /* list -> **str function */
