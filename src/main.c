@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/21 18:59:27 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/21 20:50:55 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int builtin_function(t_lst *cmds, t_env *env)
 
 	curr = ((t_cmd *)(curr->data))->args;
 	cmd = ((t_token *)(curr->data))->arg;
+	//if (cmds == NULL)
+	//{
+	//	printf("asdf sdfads fsdilofhjdsklfjsdlkfj\n");
+	//	return (0);
+	//}
 	printf("%s\n", cmd);
 	if (!ft_strncmp(cmd, "pwd", 3))
 		ft_pwd();
@@ -70,13 +75,14 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	//print_envp(envp);
+	print_envp(envp);
 	env = get_envp(envp);
+	//print_envp(envp);
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
 		cmds = NULL;
-		if (str)
+		if (*str)
 		{
 			printf("input\t: %s\n", str);
 			parse(str, env, cmds);
@@ -85,8 +91,6 @@ int	main(int argc, char **argv, char **envp)
 			//execute(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
 		}
-		else
-			break ;
 		add_history(str);
 		free(str);
 	}
