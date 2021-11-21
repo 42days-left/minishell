@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/21 17:15:19 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/21 18:59:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,20 @@ int builtin_function(t_lst *cmds, t_env *env)
 {
 	char *cmd;
 	t_lst *curr;
-	
+
 	curr = ((t_cmd *)(curr->data))->args;
-	cmd = curr->data;
+	cmd = ((t_token *)(curr->data))->arg;
 	printf("%s\n", cmd);
 	if (!ft_strncmp(cmd, "pwd", 3))
 		ft_pwd();
-//	else if (!ft_strncmp(str, "exit", 4))
-//		ft_exit(str);
-//	else if (!ft_strncmp(str, "envp", 4))
-//		ft_env(envp);
-//	else if (!ft_strncmp(str, "cd", 2))
-//		ft_cd(envp);
-//	else
-//		exec_fork(str, envp);
+	else if (!ft_strncmp(cmd, "exit", 4))
+		ft_exit(cmd);
+	//else if (!ft_strncmp(str, "envp", 4))
+	//	ft_env(envp);
+	//else if (!ft_strncmp(str, "cd", 2))
+	//	ft_cd(envp);
+	//else
+	//	exec_fork(str, envp);
 	return (1);
 }
 
@@ -75,7 +75,6 @@ int	main(int argc, char **argv, char **envp)
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
-		//cmds = lst_init();
 		cmds = NULL;
 		if (str)
 		{
