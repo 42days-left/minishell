@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 19:30:03 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/21 14:43:00 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ typedef struct	s_cmd
 	t_lst	*args;
 	t_lst	*rd;
 	int		fd[2];		//어느게 나을려나?
-	int		fd_in;		//어느게 나을려나?
-	int		fd_out;
+	int		num;
 }			t_cmd;
 
 int	parser(t_lst *tokens, t_lst **cmds);

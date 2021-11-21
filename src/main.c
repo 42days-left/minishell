@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 19:29:06 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/21 17:15:19 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 	print_token_list(tokens);
 	replace(tokens, env);
 	print_token_list(tokens);
+	printf("PARSER STRAT\n");
 	parser(tokens, &cmds);
-	printf("parser() "GREEN"done"RESET"\n");
+	printf("PARSER "GREEN"DONE"RESET"\n");
 	print_cmds_list(cmds);
 	//free_strings(strs)
 	//free_lst(tokens, free_token)
@@ -40,22 +41,24 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 }
 
 
-int builtin_function(char *str, char **envp)
+int builtin_function(t_lst *cmds, t_env *env)
 {
-	char *argv[2];
+	char *cmd;
+	t_lst *curr;
 	
-	argv[0] = str;
-	argv[1] = 0;
-	if (!ft_strncmp(str, "pwd", 3))
+	curr = ((t_cmd *)(curr->data))->args;
+	cmd = curr->data;
+	printf("%s\n", cmd);
+	if (!ft_strncmp(cmd, "pwd", 3))
 		ft_pwd();
-	else if (!ft_strncmp(str, "exit", 4))
-		ft_exit(str);
-	else if (!ft_strncmp(str, "envp", 4))
-		ft_env(envp);
-	else if (!ft_strncmp(str, "cd", 2))
-		ft_cd(envp);
-	else
-		exec_fork(str, envp);
+//	else if (!ft_strncmp(str, "exit", 4))
+//		ft_exit(str);
+//	else if (!ft_strncmp(str, "envp", 4))
+//		ft_env(envp);
+//	else if (!ft_strncmp(str, "cd", 2))
+//		ft_cd(envp);
+//	else
+//		exec_fork(str, envp);
 	return (1);
 }
 
@@ -67,17 +70,18 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	print_envp(envp);
+	//print_envp(envp);
 	env = get_envp(envp);
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
-		cmds = lst_init();
+		//cmds = lst_init();
+		cmds = NULL;
 		if (str)
 		{
 			printf("input\t: %s\n", str);
 			parse(str, env, cmds);
-			builtin_function(str, envp);
+			builtin_function(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
 			//execute(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
