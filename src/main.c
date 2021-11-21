@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 19:01:14 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:50:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 	print_token_list(tokens);
 	replace(tokens, env);
 	print_token_list(tokens);
+	printf("PARSER STRAT\n");
 	parser(tokens, &cmds);
-	printf("parser() "GREEN"done"RESET"\n");
+	printf("PARSER "GREEN"DONE"RESET"\n");
 	print_cmds_list(cmds);
 	//free_strings(strs)
 	//free_lst(tokens, free_token)
@@ -47,12 +48,13 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	print_envp(envp);
+	//print_envp(envp);
 	env = get_envp(envp);
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
-		cmds = lst_init();
+		//cmds = lst_init();
+		cmds = NULL;
 		if (str)
 		{
 			printf("input\t: %s\n", str);
