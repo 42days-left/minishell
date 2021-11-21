@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/21 16:07:58 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/21 17:03:30 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	parser(t_lst *tokens, t_lst **cmds)
 	t_cmd	*cmd;
 	t_token	*token;
 
+	if (tokens == NULL)
+		return (0);
 	curr = tokens;
 	while (curr)
 	{
