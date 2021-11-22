@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/22 16:13:08 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 17:13:56 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,15 @@ void	ft_env(t_env *env_lst)
 void	ft_cd(t_lst *cmds, t_env *env)
 {
 	char	*path;
-	t_lst	*curr;
-	t_cmd	tmp_cmd;
+	t_token	tmp_cmd;
 	char	*dir;
-	char	*dot;
 
-	printf("CD!\n");
-	printf("CD!!\n");
-	printf("CD OK\n");
-	if (dir[0] == '.')
-		printf("----cd .\n");
-	path = find_value_from_env("$HOME", env);
+
+//	if (((t_token *)((t_cmd *)cmds->data)->args->data)->next->arg == 0)
+//		path = find_value_from_env("$HOME", env);
+	dir = ((t_token *)((t_cmd *)cmds->data)->args->next->data)->arg;
+	if (dir[0] == '.' || dir[0] == '~')
+		path = find_value_from_env("$HOME", env);
 	chdir(path);
 }
 
