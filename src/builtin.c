@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/21 21:08:08 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 12:30:04 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	ft_cd(t_lst *cmds, t_env *env)
 	char *path;
 
 
-	curr = ((t_cmd *)(curr->data))->args;
-	tmp = curr->next;
-	file =  ((t_token *)(tmp->data))->arg;
+//	curr = ((t_cmd *)(curr->data))->args;
+//	tmp = curr->next;
+//	file =  ((t_token *)(tmp->data))->arg;
 	printf("ft_cd \n");
 	//if (tmp == 0 || file == ".") 
 		path = find_value_from_env("$HOME", env);
