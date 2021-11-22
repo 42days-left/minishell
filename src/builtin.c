@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/22 17:13:56 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 18:46:42 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	ft_env(t_env *env_lst)
 	print_envp_lst(env_lst);
 }
 
+void	ft_echo(t_lst *cmds)
+{
+	return ;
+}
 
 void	ft_cd(t_lst *cmds, t_env *env)
 {
@@ -43,12 +47,15 @@ void	ft_cd(t_lst *cmds, t_env *env)
 	t_token	tmp_cmd;
 	char	*dir;
 
-
-//	if (((t_token *)((t_cmd *)cmds->data)->args->data)->next->arg == 0)
-//		path = find_value_from_env("$HOME", env);
+	printf("segfault-------\n");
+	if ((t_token *)((t_cmd *)cmds->data)->args->next == 0)
+		path = find_value_from_env("$HOME", env);
+	printf("segfault-------\n");
 	dir = ((t_token *)((t_cmd *)cmds->data)->args->next->data)->arg;
 	if (dir[0] == '.' || dir[0] == '~')
 		path = find_value_from_env("$HOME", env);
+	else 
+		path = dir;
 	chdir(path);
 }
 
