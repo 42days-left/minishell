@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/22 13:20:19 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 14:47:50 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char *find_path(char *str, t_env *env)
 		tmp = ft_strjoin("/", str);
 		new_path = ft_strjoin(path_arr[i], tmp);
 		free(tmp);
-		printf("new_path %d: %s\n", i, new_path);
+		//printf("new_path %d: %s\n", i, new_path);
 		if (!stat(new_path, &s))
 			return (new_path);
 		free(new_path);
@@ -99,13 +99,15 @@ void	exec_child_process(char *str, t_env *env)
 	cmd[0] = str;
 	cmd[1] = 0;
 		
-	printf("path: %s\n", path);
-	env_to_envp(env, &envp);
+	envp = malloc(sizeof(char**));
+	env_to_envp(env, envp);
 	printf("----------------env_to_envp\n");
 	print_envp(envp);
 	execve(path, cmd, envp);
 
 	free(path);
+	free_envp(envp);
+	free(envp);
 	exit(1);
 }
 
