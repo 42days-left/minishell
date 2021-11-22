@@ -39,15 +39,16 @@ void	ft_env(t_env *env_lst)
 
 void	ft_cd(t_lst *cmds, t_env *env)
 {
-	char *path;
-	t_cmd *curr;
-	char *dir;
-	char *dot;
+	char	*path;
+	t_lst	*curr;
+	t_cmd	tmp_cmd;
+	char	*dir;
+	char	*dot;
 
-	curr = (t_cmd *)cmds->data;
-//	if (curr == 0)
-	dir = curr->args->next->data;
-	if (dir == ".")
+	printf("CD!\n");
+	printf("CD!!\n");
+	printf("CD OK\n");
+	if (dir[0] == '.')
 		printf("----cd .\n");
 	path = find_value_from_env("$HOME", env);
 	chdir(path);
@@ -106,7 +107,7 @@ void	exec_child_process(char *str, t_env *env)
 	path = find_path(str, env);
 	cmd[0] = str;
 	cmd[1] = 0;
-		
+
 	envp = malloc(sizeof(char *) * 30);
 	env_to_envp(env, envp);
 	execve(path, cmd, envp);
