@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 17:15:07 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 19:19:45 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,22 @@ int	parse(char *script, t_env *env, t_lst *cmds)
 
 int builtin_function(t_lst *cmds, t_env *env)
 {
-	char *cmd;
-	t_lst *curr;
+	char *cmd_str;
+	t_cmd *cmd_set;
 
-	//cmd = ((t_token *)((t_cmd *)cmds->data)->args->data)->arg;
-	/* 니네 왜 되냐? cmds안가져오는데??? */
-	curr = ((t_cmd *)(curr->data))->args;
-	cmd = ((t_token *)(curr->data))->arg;
-	printf("%s\n", cmd);
-	if (!ft_strncmp(cmd, "pwd", 3))
+	cmd_set = (t_cmd *)cmds->data;
+	cmd_str = ((t_token *)cmd_set->args->data)->arg;
+	printf("%s\n", cmd_str);
+	if (!ft_strncmp(cmd_str, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(cmd, "exit", 4))
 		ft_exit(cmd);
 	else if (!ft_strncmp(cmd, "env", 3))
 		ft_env(env);
-	else if (!ft_strncmp(cmd, "cd", 2))
-		ft_cd(cmds, env);
-	else if (!ft_strncmp(cmd, "echo", 4))
-		ft_echo(cmds);
+	else if (!ft_strncmp(cmd_str, "export", 6))
+		ft_export(cmd_set, env);
+	else if (!ft_strncmp(cmd_str, "cd", 2))
+		ft_cd(cmd_set, env);
 	else
 		exec_fork(cmd, env);
 	return (1);
@@ -82,7 +80,8 @@ int	main(int argc, char **argv, char **envp)
 		cmds = NULL;
 		if (*str)
 		{
-			parse(str, env, cmds);
+			if (parse(str, env, &cmds) == EXIT_FAILURE)
+				exit_err(2, "Parse Error");
 			builtin_function(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
 			//execute(cmds, env);

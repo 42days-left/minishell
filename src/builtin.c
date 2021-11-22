@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/22 19:17:55 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 19:20:18 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,19 @@
 //	return ("");
 //}
 
-void	ft_env(t_env *env_lst)
+void	ft_export(t_cmd *cmd, t_env *env)
 {
-	if (env_lst == NULL)
-	{
-		printf(RED"ERR\n"RESET);
-		exit(2);
-	}
-	print_envp_lst(env_lst);
+	char	*arg1;
+
+	if (((t_token *)cmd->args->next) == NULL)
+		print_envp_lst(env);
+}
+
+void	ft_env(t_env *env)
+{
+	if (env == NULL)
+		exit_err(2, "env err");
+	print_envp_lst(env);
 }
 
 void	ft_echo(t_lst *cmds)
@@ -41,7 +46,7 @@ void	ft_echo(t_lst *cmds)
 	return ;
 }
 
-void	ft_cd(t_lst *cmds, t_env *env)
+void	ft_cd(t_cmd *cmd, t_env *env)
 {
 	char	*path;
 	t_lst	*curr;
@@ -60,6 +65,13 @@ void	ft_cd(t_lst *cmds, t_env *env)
 		path = find_value_from_env("$HOME", env);
 	else 
 		path = dir;
+	/* */
+	char	*arg1;
+
+	arg1 = ((t_token *)cmd->args->next->data)->arg;
+	if (ft_strncmp(arg1, ".", 1) == 0)
+		printf("----cd .\n");
+	path = find_value_from_env("$HOME", env);
 	chdir(path);
 }
 
@@ -121,9 +133,9 @@ void	exec_child_process(char *str, t_env *env)
 	env_to_envp(env, envp);
 	execve(path, cmd, envp);
 
-	free(path);
-	free_envp(envp);
-	free(envp);
+	//free(path);
+	//free_envp(envp);
+	//free(envp);
 	exit(1);
 }
 
@@ -131,7 +143,7 @@ int		exec_fork(char *str, t_env *env)
 {
 	pid_t	pid;
 	int		status;
-
+	char	*tmp;
 	printf("exec_fork\n");
 	pid = fork();
 	if (pid == 0)
