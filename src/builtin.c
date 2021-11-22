@@ -29,10 +29,7 @@ char *find_value(char *key, char **envp)
 void	ft_env(t_env *env_lst)
 {
 	if (env_lst == NULL)
-	{
-		printf(RED"ERR\n"RESET);
-		exit(2);
-	}
+		exit_err(2, "env err");
 	print_envp_lst(env_lst);
 }
 

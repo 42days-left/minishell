@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 12:03:22 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 14:22:15 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include	"tokenizer.h"
 # include	"cmd.h"
 # include	"token.h"
+# include	"error.h"
 
 /* TYPE */
 # define	SCRIPT		0
@@ -55,6 +56,7 @@ void	ft_pwd(void);
 char	*find_path(char *str, char **envp);
 void	exec_child_process(char *str, char **envp);
 int		exec_fork(char *str, char  **envp);
+
 #endif
 
 

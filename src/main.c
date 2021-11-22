@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 12:30:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 14:42:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int builtin_function(t_lst *cmds, t_env *env)
 	/* 니네 왜 되냐? cmds안가져오는데??? */
 	curr = ((t_cmd *)(curr->data))->args;
 	cmd = ((t_token *)(curr->data))->arg;
-	printf("%s\n", cmd);
+	//printf("%s\n", cmd);
 	if (!ft_strncmp(cmd, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(cmd, "exit", 4))
@@ -80,7 +80,8 @@ int	main(int argc, char **argv, char **envp)
 		cmds = NULL;
 		if (*str)
 		{
-			parse(str, env, cmds);
+			if (parse(str, env, cmds) == EXIT_FAILURE)
+				exit_err(2, "Parse Error");
 			builtin_function(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
 			//execute(cmds, env);
