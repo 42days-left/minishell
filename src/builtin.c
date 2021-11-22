@@ -120,9 +120,9 @@ void	exec_child_process(char *str, t_env *env)
 	env_to_envp(env, envp);
 	execve(path, cmd, envp);
 
-	free(path);
-	free_envp(envp);
-	free(envp);
+	//free(path);
+	//free_envp(envp);
+	//free(envp);
 	exit(1);
 }
 
