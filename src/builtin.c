@@ -26,11 +26,22 @@
 //	return ("");
 //}
 
-void	ft_env(t_env *env_lst)
+void	ft_export(t_lst *cmds, t_env *env)
 {
-	if (env_lst == NULL)
+	t_lst	*cmd_lst;
+	char	*arg;
+
+	cmd_lst = ((t_cmd *)cmds->data)->args;
+	arg = ((t_token *)cmd_lst->next->data)->arg;
+	if (arg == NULL)
+		print_envp_lst(env);
+}
+
+void	ft_env(t_env *env)
+{
+	if (env == NULL)
 		exit_err(2, "env err");
-	print_envp_lst(env_lst);
+	print_envp_lst(env);
 }
 
 

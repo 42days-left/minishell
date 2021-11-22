@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 18:09:00 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:27:38 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 		cmds = NULL;
 		if (*str)
 		{
-			if (parse(str, env, cmds) == EXIT_FAILURE)
+			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
 			builtin_function(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
