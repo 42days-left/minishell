@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/22 18:46:42 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 19:17:55 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,19 @@ void	ft_echo(t_lst *cmds)
 void	ft_cd(t_lst *cmds, t_env *env)
 {
 	char	*path;
-	t_token	tmp_cmd;
+	t_lst	*curr;
 	char	*dir;
 
-	printf("segfault-------\n");
-	if ((t_token *)((t_cmd *)cmds->data)->args->next == 0)
-		path = find_value_from_env("$HOME", env);
-	printf("segfault-------\n");
-	dir = ((t_token *)((t_cmd *)cmds->data)->args->next->data)->arg;
-	if (dir[0] == '.' || dir[0] == '~')
+//	printf("segfault-------\n");
+//	if ((t_token *)((t_cmd *)cmds->data)->args->next == 0)
+//		path = find_value_from_env("$HOME", env);
+//	printf("segfault-------\n");
+	curr = ((t_cmd *)cmds->data)->args->next;
+//	if (curr == 0)
+//		return(chdir(path = find_value_from_env("$HOME", env)));
+	//dir = ((t_token *)((t_cmd *)cmds->data)->args->next->data)->arg;
+	dir = ((t_token *)curr->data)->arg;
+	if (dir[0] == '.' || dir[0] == '~' || dir == 0)
 		path = find_value_from_env("$HOME", env);
 	else 
 		path = dir;
