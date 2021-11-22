@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/22 19:20:18 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 19:33:04 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_echo(t_lst *cmds)
 void	ft_cd(t_cmd *cmd, t_env *env)
 {
 	char	*path;
-	t_lst	*curr;
+/*	t_lst	*curr;
 	char	*dir;
 
 //	printf("segfault-------\n");
@@ -65,7 +65,7 @@ void	ft_cd(t_cmd *cmd, t_env *env)
 		path = find_value_from_env("$HOME", env);
 	else 
 		path = dir;
-	/* */
+	 */
 	char	*arg1;
 
 	arg1 = ((t_token *)cmd->args->next->data)->arg;
@@ -75,10 +75,9 @@ void	ft_cd(t_cmd *cmd, t_env *env)
 	chdir(path);
 }
 
-void	ft_exit(char *str)
+void	ft_exit()
 {
 		printf("exit\n");
-		free(str);
 		exit(1);
 }
 

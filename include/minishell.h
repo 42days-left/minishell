@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 19:20:36 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 19:33:25 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 
 void	ft_cd(t_cmd *cmd, t_env *env);
 void	ft_env(t_env *env_lst);
-void	ft_exit(char *str);
+void	ft_exit(void);
 void	ft_export(t_cmd *cmd, t_env *env);
 void	ft_pwd(void);
 void	ft_echo(t_lst *cmds);
