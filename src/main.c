@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 18:59:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 19:10:10 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ int builtin_function(t_lst *cmds, t_env *env)
 {
 	char *cmd_str;
 	t_cmd *cmd_set;
-	t_lst *curr;
 
-	printf("CHECK!\n");
 	cmd_set = (t_cmd *)cmds->data;
 	cmd_str = ((t_token *)cmd_set->args->data)->arg;
 	printf("%s\n", cmd_str);
@@ -58,8 +56,10 @@ int builtin_function(t_lst *cmds, t_env *env)
 		ft_exit(cmd_str);
 	else if (!ft_strncmp(cmd_str, "env", 3))
 		ft_env(env);
+	else if (!ft_strncmp(cmd_str, "export", 6))
+		ft_export(cmd_set, env);
 	else if (!ft_strncmp(cmd_str, "cd", 2))
-		ft_cd(cmds, env);
+		ft_cd(cmd_set, env);
 	else
 		exec_fork(cmd_str, env);
 	return (1);

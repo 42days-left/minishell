@@ -26,14 +26,11 @@
 //	return ("");
 //}
 
-void	ft_export(t_lst *cmds, t_env *env)
+void	ft_export(t_cmd *cmd, t_env *env)
 {
-	t_lst	*cmd_lst;
-	char	*arg;
+	char	*arg1;
 
-	cmd_lst = ((t_cmd *)cmds->data)->args;
-	arg = ((t_token *)cmd_lst->next->data)->arg;
-	if (arg == NULL)
+	if (((t_token *)cmd->args->next) == NULL)
 		print_envp_lst(env);
 }
 
@@ -45,18 +42,13 @@ void	ft_env(t_env *env)
 }
 
 
-void	ft_cd(t_lst *cmds, t_env *env)
+void	ft_cd(t_cmd *cmd, t_env *env)
 {
 	char	*path;
-	t_lst	*curr;
-	t_cmd	tmp_cmd;
-	char	*dir;
-	char	*dot;
+	char	*arg1;
 
-	printf("CD!\n");
-	printf("CD!!\n");
-	printf("CD OK\n");
-	if (dir[0] == '.')
+	arg1 = ((t_token *)cmd->args->next->data)->arg;
+	if (ft_strncmp(arg1, ".", 1) == 0)
 		printf("----cd .\n");
 	path = find_value_from_env("$HOME", env);
 	chdir(path);
