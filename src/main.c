@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 12:30:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 13:12:07 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ int builtin_function(t_lst *cmds, t_env *env)
 		ft_exit(cmd);
 	else if (!ft_strncmp(cmd, "env", 3))
 		ft_env(env);
-	//else if (!ft_strncmp(str, "cd", 2))
-	//	ft_cd(envp);
-	//else
-	//	exec_fork(str, envp);
+	else if (!ft_strncmp(cmd, "cd", 2))
+		ft_cd(cmds, env);
+	else
+		exec_fork(cmd, env);
 	return (1);
 }
 

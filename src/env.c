@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 12:08:16 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 13:45:57 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,25 @@ int	print_envp(char **envp)
 	}
 	printf(RED"----------[PRINT ENVP END]----------\n"RESET);
 	return (0);
+}
+void	env_to_envp(t_env *env, char ***envp)
+{
+	t_env	*curr;
+	char	*tmp;
+	char	**new_envp;
+	int		i;
+
+	i = 0;
+	curr = env;
+	while (curr->next != NULL)
+	{
+		tmp = ft_strjoin(curr->key, "=");
+		new_envp[i] =ft_strjoin(tmp, curr->value);
+		curr = curr->next;
+		printf("new_envp[%d], %s\n", i, new_envp[i]);
+		i++;
+	}
+	*envp = &new_envp[0];
 }
 
 void	print_envp_lst(t_env *head)

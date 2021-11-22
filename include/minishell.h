@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 12:03:22 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 13:15:56 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,17 @@
 
 /*builtin*/
 
-void	ft_cd(char **envp);
+void	ft_cd(t_lst *cmds, t_env *env);
 void	ft_env(t_env *env_lst);
 void	ft_exit(char *str);
 void	ft_pwd(void);
-char	*find_path(char *str, char **envp);
-void	exec_child_process(char *str, char **envp);
-int		exec_fork(char *str, char  **envp);
+char	*find_path(char *str, t_env *env);
+void	exec_child_process(char *str, t_env *env);
+int		exec_fork(char *str, t_env  *env);
+char	*find_value_from_env(char *in_key, t_env *env);
+void	env_to_envp(t_env *env, char ***envp);
+int		print_envp(char **envp);
+
 #endif
 
 
