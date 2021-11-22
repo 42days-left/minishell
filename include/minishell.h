@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/21 20:57:12 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 18:58:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include	"tokenizer.h"
 # include	"cmd.h"
 # include	"token.h"
+# include	"error.h"
 
 /* TYPE */
 # define	SCRIPT		0
@@ -48,14 +49,17 @@
 
 /*builtin*/
 
-void	ft_env(t_env *env);
 void	ft_cd(t_lst *cmds, t_env *env);
-void	ft_exit();
+void	ft_env(t_env *env_lst);
+void	ft_exit(char *str);
 void	ft_pwd(void);
 char	*find_path(char *str, t_env *env);
 void	exec_child_process(char *str, t_env *env);
-int		exec_fork(char *str, t_env *env);
+int		exec_fork(char *str, t_env  *env);
 char	*find_value_from_env(char *in_key, t_env *env);
+void	env_to_envp(t_env *env, char **envp);
+int		print_envp(char **envp);
+void	free_envp(char **envp);
 
 #endif
 

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/21 20:01:20 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 18:59:56 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*find_value_from_env(char *in_key, t_env *env)
 	curr = env;
 	while (curr)
 	{
-		printf("["YELLOW"%s"RESET"]\n", curr->key);
+		//printf("["YELLOW"%s"RESET"]\n", curr->key);
 		if (ft_strncmp(curr->key, in_key + 1, 10000) == SAME)	//in_key + 1 = '$'다음 문자들
 			break;
 		curr = curr->next;
@@ -142,13 +142,13 @@ int	replace(t_lst *tokens, t_env *env)
 	t_lst	*curr;
 
 	curr = tokens;
-	printf("REPLACE START\n");
+	//printf("REPLACE START\n");
 	while (curr)
 	{
 		replace_env_token(curr->data, env);
 		remove_quote_token(curr->data);
 		curr= curr->next;
 	}
-	printf("REPLACE "GREEN"DONE\n"RESET);
+	//printf("REPLACE "GREEN"DONE\n"RESET);
 	return (0);
 }

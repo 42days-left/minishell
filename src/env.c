@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 16:10:44 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 15:32:40 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,48 @@ int	print_envp(char **envp)
 	return (0);
 }
 
-void	print_envp_lst(t_env *head)
+void	env_to_envp(t_env *env, char **envp)
 {
 	t_env	*curr;
+	char	*tmp;
 	int		i;
 
-	curr = head;
 	i = 0;
-	printf(GREEN"=== ENV PRINT START ===\n"RESET);
-	while (curr->next != NULL)
+	curr = env;
+	while (curr != NULL)
 	{
-		printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);
+		tmp = ft_strjoin("=", curr->value);
+		envp[i] = ft_strjoin(curr->key, tmp);
+		free(tmp);
 		curr = curr->next;
 		i++;
 	}
-	printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);
+}
+
+void	free_envp(char **envp)
+{
+	int i;
+
+	i = 0;
+	while(envp[i])
+	{
+		free(envp[i]);
+		i++;
+	}
+}
+
+void	print_envp_lst(t_env *head)
+{
+	t_env	*curr;
+
+	curr = head;
+	printf(GREEN"=== ENV PRINT START ===\n"RESET);
+	while (curr->next != NULL)
+	{
+		printf("%s"MAGENTA"="RESET"%s\n", curr->key, curr->value);
+		curr = curr->next;
+	}
+	printf("%s"MAGENTA"="RESET"%s\n", curr->key, curr->value);
 	printf("=== ENV PRINT "GREEN"DONE"RESET" ===\n");
 }
 
@@ -118,6 +145,6 @@ t_env	*get_envp(char **envp)
 		env_add_back(&env_lst, get_env_line(envp[i]));
 		i++;
 	}
-	print_envp_lst(env_lst);
+	//print_envp_lst(env_lst);
 	return (env_lst);
 }
