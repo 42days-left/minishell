@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/21 21:18:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 12:30:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int builtin_function(t_lst *cmds, t_env *env)
 {
 	char *cmd;
 	t_lst *curr;
-	//t_lst *curr;
 
 	//cmd = ((t_token *)((t_cmd *)cmds->data)->args->data)->arg;
 	/* 니네 왜 되냐? cmds안가져오는데??? */
@@ -56,8 +55,8 @@ int builtin_function(t_lst *cmds, t_env *env)
 		ft_pwd();
 	else if (!ft_strncmp(cmd, "exit", 4))
 		ft_exit(cmd);
-	//else if (!ft_strncmp(str, "envp", 4))
-	//	ft_env(envp);
+	else if (!ft_strncmp(cmd, "env", 3))
+		ft_env(env);
 	//else if (!ft_strncmp(str, "cd", 2))
 	//	ft_cd(envp);
 	//else
@@ -73,9 +72,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	print_envp(envp);
 	env = get_envp(envp);
-	//print_envp(envp);
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
@@ -83,7 +80,6 @@ int	main(int argc, char **argv, char **envp)
 		cmds = NULL;
 		if (*str)
 		{
-			printf("input\t: %s\n", str);
 			parse(str, env, cmds);
 			builtin_function(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/

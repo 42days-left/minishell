@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 16:10:44 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 12:08:16 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,15 @@ int	print_envp(char **envp)
 void	print_envp_lst(t_env *head)
 {
 	t_env	*curr;
-	int		i;
 
 	curr = head;
-	i = 0;
 	printf(GREEN"=== ENV PRINT START ===\n"RESET);
 	while (curr->next != NULL)
 	{
-		printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);
+		printf("%s"MAGENTA"="RESET"%s\n", curr->key, curr->value);
 		curr = curr->next;
-		i++;
 	}
-	printf("#%d\t- [%s]"MAGENTA"="RESET"[%s]\n", i, curr->key, curr->value);
+	printf("%s"MAGENTA"="RESET"%s\n", curr->key, curr->value);
 	printf("=== ENV PRINT "GREEN"DONE"RESET" ===\n");
 }
 
@@ -118,6 +115,6 @@ t_env	*get_envp(char **envp)
 		env_add_back(&env_lst, get_env_line(envp[i]));
 		i++;
 	}
-	print_envp_lst(env_lst);
+	//print_envp_lst(env_lst);
 	return (env_lst);
 }

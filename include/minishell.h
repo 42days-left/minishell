@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/19 16:39:55 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 12:03:22 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 /*builtin*/
 
 void	ft_cd(char **envp);
-void	ft_env(char **envp);
+void	ft_env(t_env *env_lst);
 void	ft_exit(char *str);
 void	ft_pwd(void);
 char	*find_path(char *str, char **envp);

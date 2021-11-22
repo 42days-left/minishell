@@ -26,9 +26,14 @@ char *find_value(char *key, char **envp)
 	return ("");
 }
 
-void	ft_env(char **envp)
+void	ft_env(t_env *env_lst)
 {
-	get_envp(envp);
+	if (env_lst == NULL)
+	{
+		printf(RED"ERR\n"RESET);
+		exit(2);
+	}
+	print_envp_lst(env_lst);
 }
 
 
@@ -87,7 +92,7 @@ void	exec_child_process(char *str, char **envp)
 	int	 fd[2];
 	char *path;
 	char *cmd[2];
-	
+
 	printf("exec_child_process\n");
 	path = find_path(str, envp);
 	cmd[0] = str;
