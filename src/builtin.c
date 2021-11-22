@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/22 14:47:50 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 16:13:08 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,15 @@ void	ft_env(t_env *env_lst)
 void	ft_cd(t_lst *cmds, t_env *env)
 {
 	char *path;
+	t_cmd *curr;
+	char *dir;
+	char *dot;
 
+	curr = (t_cmd *)cmds->data;
+//	if (curr == 0)
+	dir = curr->args->next->data;
+	if (dir == ".")
+		printf("----cd .\n");
 	path = find_value_from_env("$HOME", env);
 	chdir(path);
 }
@@ -99,10 +107,8 @@ void	exec_child_process(char *str, t_env *env)
 	cmd[0] = str;
 	cmd[1] = 0;
 		
-	envp = malloc(sizeof(char**));
+	envp = malloc(sizeof(char *) * 30);
 	env_to_envp(env, envp);
-	printf("----------------env_to_envp\n");
-	print_envp(envp);
 	execve(path, cmd, envp);
 
 	free(path);

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 12:21:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:33:17 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*find_value_from_env(char *in_key, t_env *env)
 	curr = env;
 	while (curr)
 	{
-		printf("["YELLOW"%s"RESET"]\n", curr->key);
+		//printf("["YELLOW"%s"RESET"]\n", curr->key);
 		if (ft_strncmp(curr->key, in_key + 1, 10000) == SAME)	//in_key + 1 = '$'다음 문자들
 			break;
 		curr = curr->next;

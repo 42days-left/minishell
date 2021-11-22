@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 15:07:01 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/22 15:32:40 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,9 @@ void	env_to_envp(t_env *env, char **envp)
 		tmp = ft_strjoin("=", curr->value);
 		envp[i] = ft_strjoin(curr->key, tmp);
 		free(tmp);
-		printf("env_to_envp: %s\n", envp[i]);
-		printf("-------%s\n", curr->key);
 		curr = curr->next;
 		i++;
 	}
-	printf("-------%s\n", envp[0]);
-	print_envp(envp);
 }
 
 void	free_envp(char **envp)
