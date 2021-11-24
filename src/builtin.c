@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/24 13:58:55 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/24 17:29:32 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,17 @@ void	ft_cd(t_cmd *cmd, t_env *env)
 	 */
 	char	*arg1;
 
-	arg1 = ((t_token *)cmd->args->next->data)->arg;
-	if (ft_strncmp(arg1, ".", 1) == 0)
-		printf("----cd .\n");
-	path = find_value_from_env("$HOME", env);
+	if (((t_lst *)cmd->args->next->data)->next == 0)
+		path = find_value_from_env("$HOME", env);
+	else
+	{
+		arg1 = ((t_token *)cmd->args->next->data)->arg;
+		if (arg1 != 0)
+		{
+			if (arg1[0] != '~')
+				path = arg1;
+		}
+	}
 	chdir(path);
 }
 
@@ -162,42 +169,39 @@ int builtin_function(t_lst *cmds, t_env *env)
 	char *cmd_str;
 	t_cmd *cmd_set;
 
-	printf("segfault----------------\n");
 	cmd_set = (t_cmd *)cmds->data;
-	printf("segfault----------------\n");
 	cmd_str = ((t_token *)cmd_set->args->data)->arg;
-	printf("segfault----------------\n");
-	printf("%s\n", cmd_str);
 	if (!ft_strncmp(cmd_str, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(cmd_str, "exit", 4))
 		ft_exit();
 	else if (!ft_strncmp(cmd_str, "env", 3))
 		ft_env(env);
-//	else if (!ft_strncmp(cmd_str, "export", 6))
-//		ft_export(cmd_set, env);
-	//else if (!ft_strncmp(cmd_str, "cd", 2))
-	//	ft_cd(cmd_set, env);
-	//else
-	//	exec_fork(cmd_str, env);
+	else if (!ft_strncmp(cmd_str, "export", 6))
+		ft_export(cmd_set, env);
+	else if (!ft_strncmp(cmd_str, "cd", 2))
+		ft_cd(cmd_set, env);
+	else
+		exec_fork(cmd_str, env);
 	return (1);
 }
 
-int	execute(t_lst **cmds, t_env *env)
+int	execute(t_lst *cmds, t_env *env)
 {
 	t_lst *curr;
 
-	printf("execute------------\n");
-	print_cmds_list(*cmds);
-//	curr = cmds;
-//	curr = curr->next;
-//	while (curr != 0)
-//	{
-//		printf("test\n");
-//		curr = curr->next;
-//	}
-	//builtin_function(cmds, env);
+	curr = cmds;
+	if (curr->next == 0)
+		builtin_function(cmds, env);
+	else
+	{
+		printf("more than 1 =======\n");
+		int i = 0;
+		while (curr->next != 0)
+		{	printf("%d\n", i++);
+			builtin_function(cmds, env);
+			curr = curr->next;
+		}
+	}
 	return (1);
-
 }
-
