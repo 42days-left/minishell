@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/22 19:33:04 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/24 13:58:55 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,3 +156,48 @@ int		exec_fork(char *str, t_env *env)
 //	free(tmp);
 	return (1);
 }
+
+int builtin_function(t_lst *cmds, t_env *env)
+{
+	char *cmd_str;
+	t_cmd *cmd_set;
+
+	printf("segfault----------------\n");
+	cmd_set = (t_cmd *)cmds->data;
+	printf("segfault----------------\n");
+	cmd_str = ((t_token *)cmd_set->args->data)->arg;
+	printf("segfault----------------\n");
+	printf("%s\n", cmd_str);
+	if (!ft_strncmp(cmd_str, "pwd", 3))
+		ft_pwd();
+	else if (!ft_strncmp(cmd_str, "exit", 4))
+		ft_exit();
+	else if (!ft_strncmp(cmd_str, "env", 3))
+		ft_env(env);
+//	else if (!ft_strncmp(cmd_str, "export", 6))
+//		ft_export(cmd_set, env);
+	//else if (!ft_strncmp(cmd_str, "cd", 2))
+	//	ft_cd(cmd_set, env);
+	//else
+	//	exec_fork(cmd_str, env);
+	return (1);
+}
+
+int	execute(t_lst **cmds, t_env *env)
+{
+	t_lst *curr;
+
+	printf("execute------------\n");
+	print_cmds_list(*cmds);
+//	curr = cmds;
+//	curr = curr->next;
+//	while (curr != 0)
+//	{
+//		printf("test\n");
+//		curr = curr->next;
+//	}
+	//builtin_function(cmds, env);
+	return (1);
+
+}
+

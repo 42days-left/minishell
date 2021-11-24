@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 19:33:25 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/24 13:59:18 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 # define	WRITE		1
 
 /*builtin*/
+
+int		execute(t_lst **cmds, t_env *env);
 
 void	ft_cd(t_cmd *cmd, t_env *env);
 void	ft_env(t_env *env_lst);
