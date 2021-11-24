@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 19:10:10 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/24 14:04:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int builtin_function(t_lst *cmds, t_env *env)
 	cmd_set = (t_cmd *)cmds->data;
 	cmd_str = ((t_token *)cmd_set->args->data)->arg;
 	printf("%s\n", cmd_str);
+	print_cmds_list(cmds);
 	if (!ft_strncmp(cmd_str, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(cmd_str, "exit", 4))
@@ -84,6 +85,7 @@ int	main(int argc, char **argv, char **envp)
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
 			builtin_function(cmds, env);
+			//print_cmds_list(cmds);
 			/*!!!!!!!!!!!!!!!!!*/
 			//execute(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
