@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/21 17:03:56 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/25 18:02:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	lst_size(t_lst *head)
 	t_lst	*curr;
 
 	size = 0;
-	curr = head->next;
+	curr = head;
 	while (curr)
 	{
 		size++;

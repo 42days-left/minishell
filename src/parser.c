@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 15:51:53 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/25 20:15:49 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 			{
 				printf("this token\ttype:[%d]\tvalue:[%s]\n", token->type, token->arg);
 				//lst_add_back(&cmd->args, lst_new((void *)token));
-				lst_add_back(&cmd->args, lst_new(token));
+				lst_add_back(&cmd->args, lst_new((void *)token));
 			}
 			else
-				lst_add_back(&cmd->rd, lst_new(token));
+				lst_add_back(&cmd->rd, lst_new((void *)token));
 			curr = curr->next;
 		}
 		//lst_add_back(cmds, lst_new((void *)cmd));

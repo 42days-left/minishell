@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 17:00:44 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/25 20:49:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,23 @@ char	**get_cmd_argv(int argc, t_lst *args)
 	char	**str;
 	int		i;
 
-	curr = args;
-	i = 0;
 	printf("HI!");
-	str = malloc(sizeof(char *) * argc);
+	i = 0;
+	str = (char **)malloc(sizeof(char *) * (argc + 1));
 	if (!str)
 		exit_err(2, "malloc err");
+	int u = 0;
+	while(str[u])
+	{
+		printf("%s", str[u]);
+		++u;
+	}
+	curr = args;
 	while (curr)
 	{
-		str[i] = ft_strdup(((t_token *)args->data)->arg);
-		i++;
+		str[i] = ft_strdup(((t_token *)curr->data)->arg);
 		curr = curr->next;
+		i++;
 	}
 	return(str);
 }
@@ -65,19 +71,25 @@ char	**get_cmd_argv(int argc, t_lst *args)
 t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env)
 {
 	t_cmd_arg	*cmd_arg;
+	t_token		*token;
 
-	printf("parse_cmd_arg START\n");
-	cmd_arg = malloc(sizeof(t_cmd_arg));
+	cmd_arg = (t_cmd_arg *)malloc(sizeof(t_cmd_arg));
 	if (!cmd_arg)
 		exit_err(2, "malloc err");
 	cmd_arg->argc = lst_size(cmd->args);
-	printf("lst_size done\n");
+	printf("lst_size = %d\n", cmd_arg->argc);
+	token = cmd->args->data;
+	printf("--%s-- \n", token->arg);
 	cmd_arg->argv = get_cmd_argv(cmd_arg->argc, cmd->args);
-	printf("get_cmd_argv done\n");
-	cmd_arg->env = env;
-	printf("env done\n");
-	cmd_arg->fd[READ] = 0;
-	cmd_arg->fd[WRITE] = 0;
+	printf("2@@@@@@@@@@@@@@@@\n");
+	//cmd_arg->argv = get_cmd_argv(cmd_arg->argc, cmd->args);
+	//printf("get_cmd_argv done\n");
+	//cmd_arg->env = env;
+	//printf("env done\n");
+	//printf("3. fd in\n");
+	//cmd_arg->fd_in = 0;
+	//printf("3. fd in - done\n");
+	//cmd_arg->fd[WRITE] = 0;
 	return (cmd_arg);
 }
 
@@ -122,16 +134,17 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
+
 			test = parse_cmd_arg(cmds->cmd, env);
 			int i = 0;
 			printf("test->argv : ");
 			while (test->argv[i])
 			{
-				printf(CYAN"%s "RESET, test->argv[i]);
+				printf(CYAN"[%s ]"RESET, test->argv[i]);
 				i++;
 			}
 			printf("\n");
-
+			free(test);
 			//print_cmds_list(cmds);
 			//builtin_function(cmds->cmd, env);
 			/*!!!!!!!!!!!!!!!!!*/
