@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 15:33:11 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:00:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,45 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	return (EXIT_SUCCESS);
 }
 
+char	**get_cmd_argv(int argc, t_lst *args)
+{
+	t_lst	*curr;
+	char	**str;
+	int		i;
+
+	curr = args;
+	i = 0;
+	printf("HI!");
+	str = malloc(sizeof(char *) * argc);
+	if (!str)
+		exit_err(2, "malloc err");
+	while (curr)
+	{
+		str[i] = ft_strdup(((t_token *)args->data)->arg);
+		i++;
+		curr = curr->next;
+	}
+	return(str);
+}
+
+t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env)
+{
+	t_cmd_arg	*cmd_arg;
+
+	printf("parse_cmd_arg START\n");
+	cmd_arg = malloc(sizeof(t_cmd_arg));
+	if (!cmd_arg)
+		exit_err(2, "malloc err");
+	cmd_arg->argc = lst_size(cmd->args);
+	printf("lst_size done\n");
+	cmd_arg->argv = get_cmd_argv(cmd_arg->argc, cmd->args);
+	printf("get_cmd_argv done\n");
+	cmd_arg->env = env;
+	printf("env done\n");
+	cmd_arg->fd[READ] = 0;
+	cmd_arg->fd[WRITE] = 0;
+	return (cmd_arg);
+}
 
 int builtin_function(t_cmd *cmd, t_env *env)
 {
@@ -69,6 +108,7 @@ int	main(int argc, char **argv, char **envp)
 	t_env	*env;
 	//t_lst	*cmds;
 	t_cmd_lst	*cmds;
+	t_cmd_arg	*test;
 
 	(void)argc;
 	(void)argv;
@@ -82,8 +122,18 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
-			//builtin_function(cmds->cmd, env);
+			test = parse_cmd_arg(cmds->cmd, env);
+			int i = 0;
+			printf("test->argv : ");
+			while (test->argv[i])
+			{
+				printf(CYAN"%s "RESET, test->argv[i]);
+				i++;
+			}
+			printf("\n");
+
 			//print_cmds_list(cmds);
+			//builtin_function(cmds->cmd, env);
 			/*!!!!!!!!!!!!!!!!!*/
 			//execute(cmds, env);
 			/*!!!!!!!!!!!!!!!!!*/
