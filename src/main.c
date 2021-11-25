@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 15:43:54 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/25 16:54:29 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,18 @@ int	main(int argc, char **argv, char **envp)
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
-		add_history(str);
-		cmds = NULL;
-		if (*str)
+		if (*str == 0)
 		{
-			if (parse(str, env, &cmds) == EXIT_FAILURE)
-				exit_err(2, "Parse Error");
-			execute(cmds, env);
+			printf("asdf");
+			printf("exit\n");
+			exit(0);
 		}
-		free(str);
+//		add_history(str);
+//		cmds = NULL;
+//		if (parse(str, env, &cmds) == EXIT_FAILURE)
+//			exit_err(2, "Parse Error");
+//		execute(cmds, env);
+//		free(str);
 	}
 	return (0);
 }
