@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/24 14:37:17 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/25 15:43:54 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 # include "../include/minishell.h"
 
-#define		SPACE		1
 
 /**
  * @param script string entered at the prompt
@@ -49,6 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = get_envp(envp);
+	set_signal();
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");

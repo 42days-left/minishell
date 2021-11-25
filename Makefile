@@ -6,9 +6,12 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/11/15 16:44:39 by yubae            ###   ########.fr        #
+#    Updated: 2021/11/25 16:12:32 by yubae            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CFLAGS = -I include/ -I /Users/$(USER)/.brew/opt/readline/include 
+CLIB = -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+
 all :
-	gcc -lreadline ./lib/lib_jisokang.a ./src/*.c ./include/*.h
+	gcc $(CFLAGS) $(CLIB) ./src/*.c ./include/*.h

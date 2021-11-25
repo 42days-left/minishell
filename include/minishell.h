@@ -6,16 +6,16 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/24 14:07:32 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/25 16:13:46 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include	<stdio.h>
 # include	<readline/readline.h> /* readline함수를 사용하기위한 헤더 */
 # include	<readline/history.h> /* add_history함수를 사용하기위한 헤더 */
-# include	<stdio.h> /* printf함수를 사용하기위한 헤더 */
 # include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
 # include	<sys/stat.h>
 
@@ -46,6 +46,9 @@
 
 # define	READ		0
 # define	WRITE		1
+
+void	set_signal(void);
+
 
 /*builtin*/
 
