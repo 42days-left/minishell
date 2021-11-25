@@ -12,20 +12,6 @@
 
 #include "../include/minishell.h"
 
-//char *find_value(char *key, t_env *env)
-//{
-//	int i;
-//
-//	i = 0;
-//	while (envp[i])
-//	{
-//		if (!ft_strncmp(envp[i], key, ft_strlen(key)))
-//			return (envp[i] + ft_strlen(key) + 1);
-//		i++;
-//	}
-//	return ("");
-//}
-
 void	ft_export(t_cmd *cmd, t_env *env)
 {
 	char	*arg1;

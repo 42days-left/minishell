@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 15:12:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/25 15:51:53 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	init_cmd(t_cmd *cmd)
 	cmd->rd = NULL;
 }
 
-int	print_cmds_list(t_lst *cmds)
+int	print_cmds_list(t_cmd_lst *cmds)
 {
-	t_lst	*curr;
-	t_lst	*curr2;
-	int		i;
+	t_cmd_lst	*curr;
+	t_lst		*curr2;
+	int			i;
 
 	if (cmds == NULL)
 	{
@@ -35,7 +35,7 @@ int	print_cmds_list(t_lst *cmds)
 	while(curr != NULL)
 	{
 		printf("cmd["BLUE"%d"RESET"]\n{\n", i++);
-		curr2 = ((t_cmd *)(curr->data))->args;
+		curr2 = curr->cmd->args;
 		while (curr2)
 		{
 			printf("\t");
@@ -49,7 +49,7 @@ int	print_cmds_list(t_lst *cmds)
 	return (1);
 }
 
-int	parser(t_lst *tokens, t_lst **cmds)
+int	parser(t_lst *tokens, t_cmd_lst **cmds)
 {
 	t_lst	*curr;
 	t_cmd	*cmd;
@@ -70,13 +70,14 @@ int	parser(t_lst *tokens, t_lst **cmds)
 			{
 				printf("this token\ttype:[%d]\tvalue:[%s]\n", token->type, token->arg);
 				//lst_add_back(&cmd->args, lst_new((void *)token));
-				lst_add_back(&cmd->args, lst_new((void *)token));
+				lst_add_back(&cmd->args, lst_new(token));
 			}
 			else
-				lst_add_back(&cmd->rd, lst_new((void *)token));
+				lst_add_back(&cmd->rd, lst_new(token));
 			curr = curr->next;
 		}
-		lst_add_back(cmds, lst_new((void *)cmd));
+		//lst_add_back(cmds, lst_new((void *)cmd));
+		cmd_lst_add_back(cmds, cmd_lst_new(cmd));
 		if (curr)
 			curr = curr->next;
 	}

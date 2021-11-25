@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/24 14:04:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/25 15:33:11 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param script string entered at the prompt
  */
 
-int	parse(char *script, t_env *env, t_lst **cmds)
+int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 {
 	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
@@ -42,15 +42,12 @@ int	parse(char *script, t_env *env, t_lst **cmds)
 }
 
 
-int builtin_function(t_lst *cmds, t_env *env)
+int builtin_function(t_cmd *cmd, t_env *env)
 {
 	char *cmd_str;
-	t_cmd *cmd_set;
 
-	cmd_set = (t_cmd *)cmds->data;
-	cmd_str = ((t_token *)cmd_set->args->data)->arg;
+	cmd_str = ((t_token *)cmd->args->data)->arg;
 	printf("%s\n", cmd_str);
-	print_cmds_list(cmds);
 	if (!ft_strncmp(cmd_str, "pwd", 3))
 		ft_pwd();
 	else if (!ft_strncmp(cmd_str, "exit", 4))
@@ -58,9 +55,9 @@ int builtin_function(t_lst *cmds, t_env *env)
 	else if (!ft_strncmp(cmd_str, "env", 3))
 		ft_env(env);
 	else if (!ft_strncmp(cmd_str, "export", 6))
-		ft_export(cmd_set, env);
+		ft_export(cmd, env);
 	else if (!ft_strncmp(cmd_str, "cd", 2))
-		ft_cd(cmd_set, env);
+		ft_cd(cmd, env);
 	else
 		exec_fork(cmd_str, env);
 	return (1);
@@ -70,7 +67,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_env	*env;
-	t_lst	*cmds;
+	//t_lst	*cmds;
+	t_cmd_lst	*cmds;
 
 	(void)argc;
 	(void)argv;
@@ -84,7 +82,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
-			builtin_function(cmds, env);
+			//builtin_function(cmds->cmd, env);
 			//print_cmds_list(cmds);
 			/*!!!!!!!!!!!!!!!!!*/
 			//execute(cmds, env);

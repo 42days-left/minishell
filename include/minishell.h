@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 15:13:45 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/25 15:48:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include	"cmd.h"
 # include	"token.h"
 # include	"error.h"
-# include	"cmd_lst.h"
 
 /* TYPE */
 # define	SCRIPT		0
