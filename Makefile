@@ -3,12 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: devleo <devleo@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/11/15 16:44:39 by yubae            ###   ########.fr        #
+#    Updated: 2021/11/27 01:35:09 by devleo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 all :
-	gcc -lreadline ./lib/lib_jisokang.a ./src/*.c ./include/*.h
+	gcc -fsanitize=address -lreadline ./lib/lib_jisokang.a ./src/*.c ./include/*.h

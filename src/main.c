@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/26 18:57:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/27 01:42:46 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,17 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	printf("PARSER STRAT\n");
 	parser(tokens, cmds);
 	printf("PARSER "GREEN"DONE"RESET"\n");
-	print_cmds_list(*cmds);
-	//free_strings(strs)
+
+	int i = 0;
+	while (strs[i] != NULL)
+	{
+		printf("=");
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+	printf("@\n");
+
 	//free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
 }
@@ -52,15 +61,15 @@ char	**get_cmd_argv(t_lst *args)
 	str = (char **)malloc(sizeof(char *) * (lst_size(curr) + 1));
 	if (!str)
 		exit_err(2, "malloc err");
-	//while (curr)
-	//{
-	//	//str[i] = ft_strdup(((t_token *)curr->data)->arg);
+	while (curr)
+	{
+		//str[i] = ft_strdup(((t_token *)curr->data)->arg);
 
-	//	str[i] = ft_strdup(((t_token *)curr->data)->arg);
-	//	curr = curr->next;
-	//	i++;
-	//}
-	//str[i] = 0;
+		str[i] = ft_strdup(((t_token *)curr->data)->arg);
+		curr = curr->next;
+		i++;
+	}
+	str[i] = 0;
 	return(str);
 }
 
@@ -74,13 +83,13 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env)
 	if (!cmd_arg)
 		exit_err(2, "malloc err");
 	curr = cmd;
-	//printf("get_cmd_argv \n START ---");
+	printf("get_cmd_argv \n START ---");
 	token = curr->args->data;
 	cmd_arg->argc = lst_size(curr->args);
 	cmd_arg->argv = get_cmd_argv(curr->args);
 	cmd_arg->fd_in = 0;
 	cmd_arg->fd_out = 0;
-	//printf(" DONE ✅\n");
+	printf(" DONE ✅\n");
 	return (cmd_arg);
 }
 
@@ -105,6 +114,46 @@ int builtin_function(t_cmd *cmd, t_env *env)
 	return (1);
 }
 
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	char		*str;
+// 	t_env		*env;
+// 	t_cmd_lst	*cmds;
+// 	t_cmd_arg	*test;
+
+// 	(void)argc;
+// 	(void)argv;
+// 	env = get_envp(envp);
+// 	while(TRUE)
+// 	{
+// 		str = readline(MAGENTA"minihell🐚"RESET": ");
+// 		add_history(str);
+// 		cmds = NULL;
+// 		if (*str)
+// 		{
+// 			if (parse(str, env, &cmds) == EXIT_FAILURE)
+// 				exit_err(2, "Parse Error");
+// 			test = parse_cmd_arg(cmds->cmd, env);
+// 			//int i = 0;
+// 			//printf("test->argc : [%d]\n", test->argc);
+// 			//printf("test->argv : ");
+// 			//while (test->argv[i])
+// 			//{
+// 			//	printf(CYAN"[%s]"RESET, test->argv[i]);
+// 			//	i++;
+// 			//}
+// 			//printf("\n");
+// 			//free(test);
+// 			//builtin_function(cmds->cmd, env);
+// 			/*!!!!!!!!!!!!!!!!!*/
+// 			//execute(cmds, env);
+// 			/*!!!!!!!!!!!!!!!!!*/
+// 		}
+// 		free(str);
+// 	}
+// 	return (0);
+// }
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*str;
@@ -119,30 +168,27 @@ int	main(int argc, char **argv, char **envp)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
 		add_history(str);
+		cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
 		cmds = NULL;
 		if (*str)
 		{
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
-
-			test = parse_cmd_arg(cmds->cmd, env);
 			print_cmds_list(cmds);
-			//int i = 0;
-			//printf("test->argc : [%d]\n", test->argc);
-			//printf("test->argv : ");
-			//while (test->argv[i])
-			//{
-			//	printf(CYAN"[%s]"RESET, test->argv[i]);
-			//	i++;
-			//}
-			//printf("\n");
-			//free(test);
-			//builtin_function(cmds->cmd, env);
-			/*!!!!!!!!!!!!!!!!!*/
-			//execute(cmds, env);
-			/*!!!!!!!!!!!!!!!!!*/
+			test = parse_cmd_arg(cmds->cmd, env);
+			int i = 0;
+			printf("test->argc : [%d]\n", test->argc);
+			printf("test->argv : ");
+			while (test->argv[i])
+			{
+				printf(CYAN"[%s]"RESET, test->argv[i]);
+				i++;
+			}
+			printf("\n");
+			free(test);
 		}
 		free(str);
 	}
+	free(cmds);
 	return (0);
 }

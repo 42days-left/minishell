@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/26 18:30:35 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/27 01:43:59 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 		if (curr)
 			curr = curr->next;
 	}
-	free(cmd);
+	// !!!!!!!!!!!!!!!!!!!
+	// free(cmd);	여기에서 프리하면 안되지 멍청아!
+	// 				cmd_lst 안에 있는 t_cmd cmd가 날라가잖아!
+	// !!!!!!!!!!!!!!!!!!!
 	return (EXIT_SUCCESS);
 }
