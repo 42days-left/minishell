@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/26 14:44:58 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/26 19:59:11 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ int		exec_fork(char *str, t_env *env)
 	return (1);
 }
 
+/*
+==========================================================================
 int builtin_function(t_lst *cmds, t_env *env)
 {
 	char *cmd_str;
@@ -172,9 +174,10 @@ int builtin_function(t_lst *cmds, t_env *env)
 
 	cmd_set = (t_cmd *)cmds->data;
 	cmd_str = ((t_token *)cmd_set->args->data)->arg;
-	if (!ft_strncmp(cmd_str, "pwd", 3))
+	int len = ft_strlen(cmd_str);
+	if (!ft_strncmp(cmd_str, "pwd", 3) && len == 3)
 		ft_pwd();
-	else if (!ft_strncmp(cmd_str, "exit", 4))
+	else if (!ft_strncmp(cmd_str, "exit", 4) && len == 4)
 		ft_exit();
 	else if (!ft_strncmp(cmd_str, "env", 3))
 		ft_env(env);
@@ -204,5 +207,52 @@ int	execute(t_lst *cmds, t_env *env)
 			curr = curr->next;
 		}
 	}
+	return (1);
+}
+==========================================================================
+*/
+
+int builtin_function(int argc, char **argv, t_env *env)
+{
+	int len;
+
+	len = ft_strlen(argv[0]);
+	if (!ft_strncmp(argv[0], "pwd", 3) && len == 3)
+		ft_pwd(argc);
+	else if (!ft_strncmp(argv[0], "exit", 4) && len == 4) 
+		ft_exit(argc, argv);
+	else if (!ft_strncmp(argv[0], "env", 3) && len == 3)
+		ft_env(env);
+	else if (!ft_strncmp(argv[0], "export", 6) && len == 6)
+		ft_export(cmd_set, env);
+	else if (!ft_strncmp(argv[0], "cd", 2) && len == 2)
+		ft_cd(cmd_set, env);
+	else
+		exec_fork(argv[0], env);
+	return (1);
+}
+
+int	execute1(t_lst *cmds, t_env *env)
+{
+	t_cmd_arg *cmd_arg;
+
+	cmd_arg = parse_cmd_arg(cmds, env);
+	builtin_function(cmd_arg->argc, cmd_arg->argv, *env);
+
+
+}
+
+
+int	execute(t_lst *cmds, t_env *env)
+{
+	int			count;
+	t_lst		*curr;
+
+	curr = cmds;
+	count = lst_size(cmd->args);
+	if (count == 1)
+		execute1(cmds, env);
+	else
+		execute2(cmds, env);
 	return (1);
 }
