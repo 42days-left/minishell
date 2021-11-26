@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 20:15:49 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/26 18:30:35 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 	curr = tokens;
 	while (curr)
 	{
-		cmd = malloc(sizeof(t_cmd));
+		cmd = (t_cmd *)malloc(sizeof(t_cmd));
 		cmd->args = NULL;
 		cmd->rd = NULL;
 		while (curr && ((t_token *)curr->data)->type != PIPE)
