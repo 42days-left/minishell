@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/26 14:44:38 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/26 16:47:14 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env)
 	if (!cmd_arg)
 		exit_err(2, "malloc err");
 	printf("get_cmd_argv START\n");
-	cmd_arg->argv = get_cmd_argv(cmd->args);
-	cmd_arg->argc = lst_size(cmd->args);
-	printf("lst_size = %d\n", cmd_arg->argc);
 	token = cmd->args->data;
 	printf("--%s-- \n", token->arg);
+	cmd_arg->argc = lst_size(cmd->args);
+	printf("lst_size = %d\n", cmd_arg->argc);
+	cmd_arg->argv = get_cmd_argv(cmd->args);
 	//cmd_arg->argv = get_cmd_argv(cmd_arg->argc, cmd->args);
-	//printf("get_cmd_argv done\n");
+	printf("get_cmd_argv done\n");
 	//cmd_arg->env = env;
 	//printf("env done\n");
 	//printf("3. fd in\n");
-	//cmd_arg->fd_in = 0;
+	cmd_arg->fd_in = 0;
 	//printf("3. fd in - done\n");
 	//cmd_arg->fd[WRITE] = 0;
 	return (cmd_arg);
