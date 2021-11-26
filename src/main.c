@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 20:49:44 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:44:38 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,25 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	return (EXIT_SUCCESS);
 }
 
-char	**get_cmd_argv(int argc, t_lst *args)
+char	**get_cmd_argv(t_lst *args)
 {
-	t_lst	*curr;
 	char	**str;
 	int		i;
+	t_lst	*curr;
 
-	printf("HI!");
 	i = 0;
-	str = (char **)malloc(sizeof(char *) * (argc + 1));
+	curr = args;
+	str = (char **)malloc(sizeof(char *) * (lst_size(curr) + 1));
 	if (!str)
 		exit_err(2, "malloc err");
-	int u = 0;
-	while(str[u])
-	{
-		printf("%s", str[u]);
-		++u;
-	}
-	curr = args;
 	while (curr)
 	{
+		//str[i] = (char *)malloc(sizeof(char *) * (ft_strlen(((t_token *)curr->data)->arg) + 1));
 		str[i] = ft_strdup(((t_token *)curr->data)->arg);
 		curr = curr->next;
 		i++;
 	}
+	str[i] = 0;
 	return(str);
 }
 
@@ -76,12 +71,12 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env)
 	cmd_arg = (t_cmd_arg *)malloc(sizeof(t_cmd_arg));
 	if (!cmd_arg)
 		exit_err(2, "malloc err");
+	printf("get_cmd_argv START\n");
+	cmd_arg->argv = get_cmd_argv(cmd->args);
 	cmd_arg->argc = lst_size(cmd->args);
 	printf("lst_size = %d\n", cmd_arg->argc);
 	token = cmd->args->data;
 	printf("--%s-- \n", token->arg);
-	cmd_arg->argv = get_cmd_argv(cmd_arg->argc, cmd->args);
-	printf("2@@@@@@@@@@@@@@@@\n");
 	//cmd_arg->argv = get_cmd_argv(cmd_arg->argc, cmd->args);
 	//printf("get_cmd_argv done\n");
 	//cmd_arg->env = env;

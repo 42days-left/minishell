@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 20:58:11 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:38:26 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct s_cmd_lst
 
 typedef struct s_cmd_arg
 {
+	char	**argv;
 	int		argc;
 	int		fd_in;
-	char	**argv;
 	int		fd_out;
 	//t_env	*env;
 }			t_cmd_arg;
