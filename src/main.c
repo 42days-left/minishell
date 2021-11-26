@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 19:02:25 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/26 14:41:28 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int argc, char **argv, char **envp)
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
+		if (!str)
+			ft_exit();
 		if (*str)
 		{
 			add_history(str);

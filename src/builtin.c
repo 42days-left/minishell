@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/24 17:29:32 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/26 14:44:58 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,14 @@ void	ft_cd(t_cmd *cmd, t_env *env)
 		path = dir;
 	 */
 	char	*arg1;
+	t_token *token;
 
 	if (((t_lst *)cmd->args->next->data)->next == 0)
 		path = find_value_from_env("$HOME", env);
 	else
 	{
 		arg1 = ((t_token *)cmd->args->next->data)->arg;
-		if (arg1 != 0)
+		if (arg1 == 0)
 		{
 			if (arg1[0] != '~')
 				path = arg1;
