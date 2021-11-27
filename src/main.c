@@ -6,7 +6,7 @@
 /*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/27 01:42:46 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/27 23:25:54 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	}
 	free(strs);
 	printf("@\n");
-
 	//free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
 }
@@ -63,8 +62,6 @@ char	**get_cmd_argv(t_lst *args)
 		exit_err(2, "malloc err");
 	while (curr)
 	{
-		//str[i] = ft_strdup(((t_token *)curr->data)->arg);
-
 		str[i] = ft_strdup(((t_token *)curr->data)->arg);
 		curr = curr->next;
 		i++;
@@ -113,46 +110,6 @@ int builtin_function(t_cmd *cmd, t_env *env)
 		exec_fork(cmd_str, env);
 	return (1);
 }
-
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char		*str;
-// 	t_env		*env;
-// 	t_cmd_lst	*cmds;
-// 	t_cmd_arg	*test;
-
-// 	(void)argc;
-// 	(void)argv;
-// 	env = get_envp(envp);
-// 	while(TRUE)
-// 	{
-// 		str = readline(MAGENTA"minihell🐚"RESET": ");
-// 		add_history(str);
-// 		cmds = NULL;
-// 		if (*str)
-// 		{
-// 			if (parse(str, env, &cmds) == EXIT_FAILURE)
-// 				exit_err(2, "Parse Error");
-// 			test = parse_cmd_arg(cmds->cmd, env);
-// 			//int i = 0;
-// 			//printf("test->argc : [%d]\n", test->argc);
-// 			//printf("test->argv : ");
-// 			//while (test->argv[i])
-// 			//{
-// 			//	printf(CYAN"[%s]"RESET, test->argv[i]);
-// 			//	i++;
-// 			//}
-// 			//printf("\n");
-// 			//free(test);
-// 			//builtin_function(cmds->cmd, env);
-// 			/*!!!!!!!!!!!!!!!!!*/
-// 			//execute(cmds, env);
-// 			/*!!!!!!!!!!!!!!!!!*/
-// 		}
-// 		free(str);
-// 	}
-// 	return (0);
-// }
 
 int	main(int argc, char **argv, char **envp)
 {

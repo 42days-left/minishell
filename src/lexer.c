@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/19 19:29:36 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/27 23:43:50 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int print_token(t_token *token)
 	else if (token->type == D_REDIR_R)
 		type = "D_REDIR_R '>>'";
 	else
-		type = "WTF?";
+		type = RED"WTF?"RESET;
 	printf("type: ["MAGENTA"%s"RESET"],\tvalue: ["MAGENTA"%s"RESET"]\n", type, token->arg);
 	return (1);
 }
