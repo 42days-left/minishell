@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 17:32:49 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/28 17:57:43 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 # include "../include/minishell.h"
 
+
 /**
  * @param script string entered at the prompt
  */
-int	parse(char *script, t_env *env, t_cmd_lst **cmds)
+int	parse(char *script, t_env *env, t_lst **cmds)
 {
 	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
@@ -44,27 +45,6 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	return (EXIT_SUCCESS);
 }
 
-int builtin_function(t_cmd *cmd, t_env *env)
-{
-	char *cmd_str;
-
-	cmd_str = ((t_token *)cmd->tokens->data)->word;
-	printf("%s\n", cmd_str);
-	if (!ft_strncmp(cmd_str, "pwd", 3))
-		ft_pwd();
-	else if (!ft_strncmp(cmd_str, "exit", 4))
-		ft_exit(cmd_str);
-	else if (!ft_strncmp(cmd_str, "env", 3))
-		ft_env(env);
-	else if (!ft_strncmp(cmd_str, "export", 6))
-		ft_export(cmd, env);
-	else if (!ft_strncmp(cmd_str, "cd", 2))
-		ft_cd(cmd, env);
-	else
-		exec_fork(cmd_str, env);
-	return (1);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char		*str;
@@ -75,14 +55,19 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = get_envp(envp);
+	set_signal();
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
 		add_history(str);
+		if (!str)
+			ft_exit();
 		cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
 		cmds = NULL;
 		if (*str)
 		{
+			add_history(str);
+			cmds = NULL;
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
 			print_cmds_list(cmds);
@@ -97,6 +82,7 @@ int	main(int argc, char **argv, char **envp)
 			}
 			printf("\n");
 			free(test);
+			execute(cmds, env);
 		}
 		free(str);
 	}

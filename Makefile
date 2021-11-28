@@ -3,12 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: devleo <devleo@student.42.fr>              +#+  +:+       +#+         #
+#    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/11/27 01:35:09 by devleo           ###   ########.fr        #
+#    Updated: 2021/11/28 17:58:59 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+FSAN	= -fsanitize=address
+CFLAGS	= -I include/ -I /Users/$(USER)/.brew/opt/readline/include
+CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+
 all :
-	gcc -fsanitize=address -lreadline ./lib/lib_jisokang.a ./src/*.c ./include/*.h
+	gcc $(FSAN) $(CFLAGS) $(CLIB) ./src/*.c ./include/*.h

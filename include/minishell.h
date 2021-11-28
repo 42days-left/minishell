@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 16:02:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:48:05 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include	<stdio.h>
 # include	<readline/readline.h> /* readline함수를 사용하기위한 헤더 */
 # include	<readline/history.h> /* add_history함수를 사용하기위한 헤더 */
-# include	<stdio.h> /* printf함수를 사용하기위한 헤더 */
 # include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
 # include	<sys/stat.h>
+
+# include	<termios.h>
 
 # include	"../lib/include/libft.h"
 # include	"color.h"
@@ -47,13 +49,19 @@
 # define	READ		0
 # define	WRITE		1
 
+void	set_signal(void);
+
+
 /*builtin*/
+
+int		execute(t_lst *cmds, t_env *env);
 
 void	ft_cd(t_cmd *cmd, t_env *env);
 void	ft_env(t_env *env_lst);
-void	ft_exit(char *str);
+void	ft_exit(void);
 void	ft_export(t_cmd *cmd, t_env *env);
 void	ft_pwd(void);
+void	ft_echo(t_lst *cmds);
 char	*find_path(char *str, t_env *env);
 void	exec_child_process(char *str, t_env *env);
 int		exec_fork(char *str, t_env  *env);
