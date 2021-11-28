@@ -6,7 +6,7 @@
 /*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/27 23:25:54 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/28 16:45:36 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,29 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	int i = 0;
 	while (strs[i] != NULL)
 	{
-		printf("=");
 		free(strs[i]);
 		i++;
 	}
 	free(strs);
-	printf("@\n");
+
 	//free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
 }
 
-char	**get_cmd_argv(t_lst *args)
+char	**get_cmd_argv(t_lst *tokens)
 {
 	char	**str;
 	int		i;
 	t_lst	*curr;
 
 	i = 0;
-	curr = args;
+	curr = tokens;
 	str = (char **)malloc(sizeof(char *) * (lst_size(curr) + 1));
 	if (!str)
 		exit_err(2, "malloc err");
 	while (curr)
 	{
-		str[i] = ft_strdup(((t_token *)curr->data)->arg);
+		str[i] = ft_strdup(((t_token *)curr->data)->word);
 		curr = curr->next;
 		i++;
 	}
@@ -81,11 +80,11 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env)
 		exit_err(2, "malloc err");
 	curr = cmd;
 	printf("get_cmd_argv \n START ---");
-	token = curr->args->data;
-	cmd_arg->argc = lst_size(curr->args);
-	cmd_arg->argv = get_cmd_argv(curr->args);
-	cmd_arg->fd_in = 0;
-	cmd_arg->fd_out = 0;
+	token = curr->tokens->data;
+	cmd_arg->argc = lst_size(curr->tokens);
+	cmd_arg->argv = get_cmd_argv(curr->tokens);
+	cmd_arg->fd[READ] = 0;
+	cmd_arg->fd[WRITE] = 0;
 	printf(" DONE ✅\n");
 	return (cmd_arg);
 }
@@ -94,7 +93,7 @@ int builtin_function(t_cmd *cmd, t_env *env)
 {
 	char *cmd_str;
 
-	cmd_str = ((t_token *)cmd->args->data)->arg;
+	cmd_str = ((t_token *)cmd->tokens->data)->word;
 	printf("%s\n", cmd_str);
 	if (!ft_strncmp(cmd_str, "pwd", 3))
 		ft_pwd();

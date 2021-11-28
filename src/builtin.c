@@ -14,9 +14,7 @@
 
 void	ft_export(t_cmd *cmd, t_env *env)
 {
-	char	*arg1;
-
-	if (((t_token *)cmd->args->next) == NULL)
+	if (((t_token *)cmd->tokens->next) == NULL)
 		print_envp_lst(env);
 }
 
@@ -33,7 +31,7 @@ void	ft_cd(t_cmd *cmd, t_env *env)
 	char	*path;
 	char	*arg1;
 
-	arg1 = ((t_token *)cmd->args->next->data)->arg;
+	arg1 = ((t_token *)cmd->tokens->next->data)->word;
 	if (ft_strncmp(arg1, ".", 1) == 0)
 		printf("----cd .\n");
 	path = find_value_from_env("$HOME", env);

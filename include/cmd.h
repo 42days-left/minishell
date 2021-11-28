@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/26 19:43:23 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/28 16:43:41 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 
 typedef struct	s_cmd
 {
-	t_lst	*args;
+	// t_lst	*args;
+	t_lst	*tokens;
 	t_lst	*rd;
-	int		fd[2];		//어느게 나을려나?
-	int		num;
 }			t_cmd;
 
 typedef struct s_cmd_lst
@@ -34,8 +33,7 @@ typedef struct s_cmd_arg
 {
 	char	**argv;
 	int		argc;
-	int		fd_in;
-	int		fd_out;
+	int		fd[2];
 	//t_env	*env;
 }			t_cmd_arg;
 

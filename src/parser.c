@@ -6,7 +6,7 @@
 /*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/27 23:43:00 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/28 16:46:16 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_cmd(t_cmd *cmd)
 {
-	cmd->args = NULL;
+	cmd->tokens = NULL;
 	cmd->rd = NULL;
 }
 
@@ -35,7 +35,7 @@ int	print_cmds_list(t_cmd_lst *cmds)
 	while(curr != NULL)
 	{
 		printf("cmd["BLUE"%d"RESET"]\n{\n", i++);
-		curr2 = curr->cmd->args;
+		curr2 = curr->cmd->tokens;
 		while (curr2)
 		{
 			printf("\t");
@@ -61,15 +61,15 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 	while (curr)
 	{
 		cmd = (t_cmd *)malloc(sizeof(t_cmd));
-		cmd->args = NULL;
+		cmd->tokens = NULL;
 		cmd->rd = NULL;
 		while (curr && ((t_token *)curr->data)->type != PIPE)
 		{
 			token = (t_token *)curr->data;
 			if (token->type == WORD)
 			{
-				printf("\ttoken check\ttype:[%d]\tvalue:[%s]\n", token->type, token->arg);
-				lst_add_back(&cmd->args, lst_new((void *)token));
+				printf("\ttoken check\ttype:[%d]\tvalue:[%s]\n", token->type, token->word);
+				lst_add_back(&cmd->tokens, lst_new((void *)token));
 			}
 			else
 				lst_add_back(&cmd->rd, lst_new((void *)token));

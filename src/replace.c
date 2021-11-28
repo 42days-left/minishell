@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 18:59:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/28 16:42:34 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	replace_env_token(t_token *token, t_env *env)
 
 	if (token->type == PIPE)
 		return (0);
-	str_ptr = token->arg;
+	str_ptr = token->word;
 	buf_ptr = buf;
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
@@ -111,8 +111,8 @@ int	replace_env_token(t_token *token, t_env *env)
 		str_ptr += (char)ft_strlen(str_key);
 	}
 	*buf_ptr = '\0';
-	free(token->arg);
-	token->arg = ft_strdup(buf);
+	free(token->word);
+	token->word = ft_strdup(buf);
 	return (EXIT_SUCCESS);
 }
 
@@ -124,7 +124,7 @@ void	remove_quote_token(t_token *token)
 
 	if (token->type == PIPE)
 		return ;
-	str_ptr = token->arg;
+	str_ptr = token->word;
 	buf_ptr = buf;
 	while (*str_ptr != '\0')
 	{
@@ -133,8 +133,8 @@ void	remove_quote_token(t_token *token)
 		*buf_ptr++ = *str_ptr++;
 	}
 	*buf_ptr = '\0';
-	free(token->arg);
-	token->arg = ft_strdup(buf);
+	free(token->word);
+	token->word = ft_strdup(buf);
 }
 
 int	replace(t_lst *tokens, t_env *env)
