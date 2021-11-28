@@ -6,7 +6,7 @@
 /*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 16:43:41 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/28 17:34:44 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ void		cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new);
 
 int	parser(t_lst *tokens, t_cmd_lst **cmds);
 int	print_cmds_list(t_cmd_lst *cmds);
+
+char	**get_cmd_argv(t_lst *tokens);
+t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env);
 
 #endif

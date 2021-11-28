@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 18:02:29 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:29:57 by devleo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@
  * - lst_del?
  * ... 등등드읃응
  * */
-
-/* union으로 처리하면 더 쉬울수 있어요. 근데...? 틀렸을 수도 아닐 수도 맞을 수도.. by @jiwchoi */
-/* 유니온을 공부 해야 합니다. */
-union u_con
-{
-	char	*str;
-	char	c;
-};
 
 t_lst	*lst_search(t_lst *head, char *target)
 {
@@ -136,8 +128,10 @@ t_lst	*lst_last(t_lst *lst)
 }
 
 /**
- * *lst tail 뒤에 새 노드 *new를 추가하는 함수
- * *lst가 없으면 *new를 lst의 head로 준다.
+ * @brief lst tail 뒤에 새 노드 *new를 추가하는 함수, lst가 없으면 *new를 lst의 head로 준다.
+ *
+ * @param lst
+ * @param new
  */
 void	lst_add_back(t_lst **lst, t_lst *new)
 {
@@ -150,20 +144,17 @@ void	lst_add_back(t_lst **lst, t_lst *new)
 	}
 	if (*lst)
 	{
-		//printf("LST ADD BACK!!\n");
 		last = lst_last(*lst);
 		new->next = last->next;
 		last->next = new;
 	}
 	else
 	{
-		//printf("LST NEW!!\n");
 		*lst = new;
 		return ;
 	}
 }
 
-//왜 NULL 부터 시작해?
 void	lst_add_back_token(t_lst **lst, t_token *new)
 {
 	lst_add_back(lst, lst_new(new));
