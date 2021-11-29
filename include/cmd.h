@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 17:34:44 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/28 20:46:10 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_cmd_arg
 	char	**argv;
 	int		argc;
 	int		fd[2];
-	//t_env	*env;
+	t_env	*env;
 }			t_cmd_arg;
 
 t_cmd_lst	*cmd_lst_new(t_cmd *cmd);

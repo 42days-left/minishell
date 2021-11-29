@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_arg.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:16 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 17:32:34 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/28 21:07:08 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,15 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env)
 	t_cmd_arg	*cmd_arg;
 	t_token		*token;
 
-	cmd_arg = (t_cmd_arg *)malloc(sizeof(t_cmd_arg) * 10);
+	cmd_arg = (t_cmd_arg *)malloc(sizeof(t_cmd_arg));
 	if (!cmd_arg)
 		exit_err(2, "malloc err");
 	curr = cmd;
-	printf("get_cmd_argv \n START ---");
 	token = curr->tokens->data;
 	cmd_arg->argc = lst_size(curr->tokens);
 	cmd_arg->argv = get_cmd_argv(curr->tokens);
 	cmd_arg->fd[READ] = 0;
 	cmd_arg->fd[WRITE] = 0;
-	printf(" DONE ✅\n");
+	cmd_arg->env = env;
 	return (cmd_arg);
 }

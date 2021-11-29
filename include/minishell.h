@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 17:48:05 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/28 21:05:56 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	set_signal(void);
 
 int		execute(t_lst *cmds, t_env *env);
 
-void	ft_cd(t_cmd *cmd, t_env *env);
+void	ft_cd(int argc, char **argv, t_env *env);
 void	ft_env(t_env *env_lst);
-void	ft_exit(void);
+void	ft_exit(int argc, char **argv);
 void	ft_export(t_cmd *cmd, t_env *env);
 void	ft_pwd(void);
 void	ft_echo(t_lst *cmds);

@@ -30,7 +30,7 @@ void	ft_echo(t_lst *cmds)
 	return ;
 }
 
-void	ft_cd(t_cmd *cmd, t_env *env)
+void	ft_cd(int argc, char **argv, t_env *env)
 {
 	char	*path;
 /*	t_lst	*curr;
@@ -50,28 +50,28 @@ void	ft_cd(t_cmd *cmd, t_env *env)
 	else
 		path = dir;
 	 */
-	char	*arg1;
-	t_token *token;
+	// char	*arg1;
+	// t_token *token;
 
-	arg1 = ((t_token *)cmd->tokens->next->data)->word;
-	if (ft_strncmp(arg1, ".", 1) == 0)
-		printf("----cd .\n");
-	path = find_value_from_env("$HOME", env);
-	if (((t_lst *)cmd->args->next->data)->next == 0)
-		path = find_value_from_env("$HOME", env);
-	else
-	{
-		arg1 = ((t_token *)cmd->args->next->data)->arg;
-		if (arg1 == 0)
-		{
-			if (arg1[0] != '~')
-				path = arg1;
-		}
-	}
-	chdir(path);
+	// arg1 = ((t_token *)cmd->tokens->next->data)->word;
+	// if (ft_strncmp(arg1, ".", 1) == 0)
+	// 	printf("----cd .\n");
+	// path = find_value_from_env("$HOME", env);
+	// if (((t_lst *)cmd->args->next->data)->next == 0)
+	// 	path = find_value_from_env("$HOME", env);
+	// else
+	// {
+	// 	arg1 = ((t_token *)cmd->args->next->data)->arg;
+	// 	if (arg1 == 0)
+	// 	{
+	// 		if (arg1[0] != '~')
+	// 			path = arg1;
+	// 	}
+	// }
+	// chdir(path);
 }
 
-void	ft_exit()
+void	ft_exit(int argc, char **argv)
 {
 		printf("exit\n");
 		exit(1);
@@ -153,32 +153,32 @@ int		exec_fork(char *str, t_env *env)
 	return (1);
 }
 
-int builtin_function(int argc, char **argv, t_env *env)
+int builtin_function(t_cmd_arg *ca)
 {
-	int len;
+	int	len;
 
-	len = ft_strlen(argv[0]);
-	if (!ft_strncmp(argv[0], "pwd", 3) && len == 3)
-		ft_pwd(argc);
-	else if (!ft_strncmp(argv[0], "exit", 4) && len == 4)
-		ft_exit(argc, argv);
-	else if (!ft_strncmp(argv[0], "env", 3) && len == 3)
-		ft_env(env);
-	else if (!ft_strncmp(argv[0], "export", 6) && len == 6)
-		ft_export(cmd_set, env);
-	else if (!ft_strncmp(argv[0], "cd", 2) && len == 2)
-		ft_cd(cmd_set, env);
+	len = ft_strlen(ca->argv[0]);
+	if (!ft_strncmp(ca->argv[0], "pwd", 3) && len == 3)
+		ft_pwd();
+	else if (!ft_strncmp(ca->argv[0], "exit", 4) && len == 4)
+		ft_exit(ca->argc, ca->argv);
+	else if (!ft_strncmp(ca->argv[0], "env", 3) && len == 3)
+		ft_env(ca->env);
+	else if (!ft_strncmp(ca->argv[0], "cd", 2) && len == 2)
+		ft_cd(ca->argc, ca->argv, ca->env);
 	else
-		exec_fork(argv[0], env);
-	return (1);
+		return (EXIT_FAILURE);
+	// else if (!ft_strncmp(ca->argv[0], "export", 6) && len == 6)
+	// 	ft_export(argc, argv, env);
+	return (EXIT_SUCCESS);
 }
 
 int	execute1(t_lst *cmds, t_env *env)
 {
-	t_cmd_arg *cmd_arg;
+	t_cmd_arg	*cmd_arg;
 
 	cmd_arg = parse_cmd_arg(cmds, env);
-	builtin_function(cmd_arg->argc, cmd_arg->argv, *env);
+	builtin_function(cmd_arg);
 }
 
 
@@ -188,7 +188,7 @@ int	execute(t_lst *cmds, t_env *env)
 	t_lst		*curr;
 
 	curr = cmds;
-	count = lst_size(cmd->args);
+	count = lst_size(curr);
 	if (count == 1)
 		execute1(cmds, env);
 	else
