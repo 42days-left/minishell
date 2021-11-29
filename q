@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/29 18:52:24 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/29 18:26:40 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,27 +173,15 @@ int	execute1(t_cmd_lst *cmds, t_env *env)
 int	execute2(t_cmd_lst *cmds, t_env *env)
 {
 	t_cmd_lst	*curr;
-	t_cmd_arg	*cmd_arg;
-	pid_t	pid;
-	int		status;
-	
-	curr = cmds;
-	cmd_arg = pasre_cmd_arg(curr->cmd, env);
-	if (curr->next)
+	t_cmd_arg *cmd_arg
+
+	if (curr->next == 0)
 	{
-		pipe(cmd_arg->fd);
+		cmd_arg = parse_cmd_arg(curr->cmd, env);
+		execute1(cmds_arg);
 	}
-	pid = fork();
-	if (pid == 0)
-	{
-		close(cmd_arg->fd[WRITE]);
-		execute1(curr, env);
-		exec_child_process(str, env);
-		return(1);
-	}
-	close(cmd_arg->fd[READ]);
-	close(cmd_arg->fd[WRITE]);
-	waitpid(pid, &status, 0);
+
+
 }
 
 
