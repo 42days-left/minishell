@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 17:18:17 by devleo           ###   ########.fr       */
+/*   Updated: 2021/11/29 20:40:40 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	copy_before_dollar(char **ptr, char **buf)
 			return (TRUE);
 		if (**ptr == '\'')
 		{
-			printf("HELLO!\n");
 			*(*buf)++ = *(*ptr)++;
 			while (**ptr && **ptr != '\'')
 			{
@@ -51,9 +50,9 @@ int		ft_isspace(char c)
 	return (FALSE);
 }
 
-static int	is_alpha_env(char c)
+int	is_valid_env_char(char c)
 {
-	if (c && !ft_isspace(c) && (ft_isalpha(c) || c == '_'))
+	if (c && !ft_isspace(c) && (ft_isalnum(c) || c == '_' ))
 		return (TRUE);
 	return (FALSE);
 }
@@ -67,7 +66,7 @@ char	*find_key_from_str(char *str_ptr)
 		return (NULL);
 	buf[0] = str_ptr[0];
 	i = 1;
-	while (is_alpha_env(str_ptr[i]))
+	while (is_valid_env_char(str_ptr[i]))
 	{
 		buf[i] = str_ptr[i];
 		i++;
@@ -76,7 +75,7 @@ char	*find_key_from_str(char *str_ptr)
 	return (ft_strdup(buf));
 }
 
-char	*find_value_from_env(char *in_key, t_env *env)
+t_env	*find_env_from_env(char *in_key, t_env *env)
 {
 	t_env	*curr;
 
@@ -84,13 +83,13 @@ char	*find_value_from_env(char *in_key, t_env *env)
 	while (curr)
 	{
 		//printf("["YELLOW"%s"RESET"]\n", curr->key);
-		if (ft_strncmp(curr->key, in_key + 1, 10000) == SAME)	//in_key + 1 = '$'다음 문자들
+		if (ft_strncmp(curr->key, in_key, 10000) == SAME)	//in_key + 1 = '$'다음 문자들
 			break;
 		curr = curr->next;
 	}
 	if (curr == NULL)
 		return (NULL);
-	return (curr->value);
+	return (curr);
 }
 
 int	replace_env_token(t_token *token, t_env *env)
@@ -99,7 +98,7 @@ int	replace_env_token(t_token *token, t_env *env)
 	char	*buf_ptr;
 	char	*str_ptr;
 	char	*str_key;
-	char	*env_value;
+	t_env	*tmp;
 
 	if (token->type == PIPE)
 		return (0);
@@ -108,11 +107,11 @@ int	replace_env_token(t_token *token, t_env *env)
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
 		str_key = find_key_from_str(str_ptr);
-		env_value = find_value_from_env(str_key, env);
-		if (env_value)
+		tmp = find_env_from_env(str_key, env);
+		if (tmp->value)
 		{
-			ft_memcpy(buf_ptr, env_value, ft_strlen(env_value));
-			buf_ptr += (char)ft_strlen(env_value);
+			ft_memcpy(buf_ptr, tmp->value, ft_strlen(tmp->value));
+			buf_ptr += (char)ft_strlen(tmp->value);
 		}
 		str_ptr += (char)ft_strlen(str_key);
 	}

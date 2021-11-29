@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/29 14:42:16 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/29 20:13:23 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define MINISHELL_H
 
 # include	<stdio.h>
+# include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
 # include	<readline/readline.h> /* readline함수를 사용하기위한 헤더 */
 # include	<readline/history.h> /* add_history함수를 사용하기위한 헤더 */
-# include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
 # include	<sys/stat.h>
 
 # include	<termios.h>
@@ -29,6 +29,7 @@
 # include	"cmd.h"
 # include	"token.h"
 # include	"error.h"
+# include	"builtin.h"
 
 /* TYPE */
 # define	SCRIPT		0
@@ -51,21 +52,12 @@
 
 void	set_signal(void);
 
-
-/*builtin*/
-
 int		execute(t_cmd_lst *cmds, t_env *env);
 
-void	ft_cd(int argc, char **argv, t_env *env);
-void	ft_env(t_env *env_lst);
-void	ft_exit(int argc, char **argv);
-void	ft_export(t_cmd *cmd, t_env *env);
-void	ft_pwd(void);
-void	ft_echo(t_lst *cmds);
 char	*find_path(char *str, t_env *env);
 void	exec_child_process(char *str, t_env *env);
 int		exec_fork(char *str, t_env  *env);
-char	*find_value_from_env(char *in_key, t_env *env);
+t_env	*find_env_from_env(char *in_key, t_env *env);
 void	env_to_envp(t_env *env, char **envp);
 int		print_envp(char **envp);
 void	free_envp(char **envp);

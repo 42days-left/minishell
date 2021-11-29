@@ -12,12 +12,6 @@
 
 #include "../include/minishell.h"
 
-void	ft_export(t_cmd *cmd, t_env *env)
-{
-	if (((t_token *)cmd->tokens->next) == NULL)
-		print_envp_lst(env);
-}
-
 void	ft_env(t_env *env)
 {
 	if (env == NULL)
@@ -38,15 +32,15 @@ void	ft_cd(int argc, char **argv, t_env *env)
 
 //	printf("segfault-------\n");
 //	if ((t_token *)((t_cmd *)cmds->data)->args->next == 0)
-//		path = find_value_from_env("$HOME", env);
+//		path = find_env_from_env("$HOME", env);
 //	printf("segfault-------\n");
 	curr = ((t_cmd *)cmds->data)->args->next;
 //	if (curr == 0)
-//		return(chdir(path = find_value_from_env("$HOME", env)));
+//		return(chdir(path = find_env_from_env("$HOME", env)));
 	//dir = ((t_token *)((t_cmd *)cmds->data)->args->next->data)->arg;
 	dir = ((t_token *)curr->data)->arg;
 	if (dir[0] == '.' || dir[0] == '~' || dir == 0)
-		path = find_value_from_env("$HOME", env);
+		path = find_env_from_env("$HOME", env);
 	else
 		path = dir;
 	 */
@@ -56,9 +50,9 @@ void	ft_cd(int argc, char **argv, t_env *env)
 	// arg1 = ((t_token *)cmd->tokens->next->data)->word;
 	// if (ft_strncmp(arg1, ".", 1) == 0)
 	// 	printf("----cd .\n");
-	// path = find_value_from_env("$HOME", env);
+	// path = find_env_from_env("$HOME", env);
 	// if (((t_lst *)cmd->args->next->data)->next == 0)
-	// 	path = find_value_from_env("$HOME", env);
+	// 	path = find_env_from_env("$HOME", env);
 	// else
 	// {
 	// 	arg1 = ((t_token *)cmd->args->next->data)->arg;
@@ -91,19 +85,20 @@ void	ft_pwd(void)
 
 char *find_path(char *str, t_env *env)
 {
-	int	i;
-	char *tmp;
-	char *new_path;
-	char **path_arr;
+	int		i;
+	t_env	*tmp;
+	char	*new_path;
+	char	**path_arr;
 	struct stat s;
 
-	tmp = find_value_from_env("$PATH", env);
-	path_arr = ft_split(tmp, ':');
+	tmp = find_env_from_env("$PATH", env);
+	path_arr = ft_split(tmp->value, ':');
 	i = 0;
 	while(path_arr[i])
 	{
-		tmp = ft_strjoin("/", str);
-		new_path = ft_strjoin(path_arr[i], tmp);
+		tmp->value = ft_strjoin("/", str);
+		new_path = ft_strjoin(path_arr[i], tmp->value);
+		free(tmp->value);
 		free(tmp);
 		//printf("new_path %d: %s\n", i, new_path);
 		if (!stat(new_path, &s))
@@ -166,12 +161,12 @@ int builtin_function(t_cmd_arg *ca)
 		ft_exit(ca->argc, ca->argv);
 	else if (!ft_strncmp(ca->argv[0], "env", 3) && len == 3)
 		ft_env(ca->env);
+	else if (!ft_strncmp(ca->argv[0], "export", 6) && len == 6)
+		ft_export(ca->argc, ca->argv, ca->env);
 	else if (!ft_strncmp(ca->argv[0], "cd", 2) && len == 2)
 		ft_cd(ca->argc, ca->argv, ca->env);
 	else
 		return (EXIT_FAILURE);
-	// else if (!ft_strncmp(ca->argv[0], "export", 6) && len == 6)
-	// 	ft_export(argc, argv, env);
 	return (EXIT_SUCCESS);
 }
 
