@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
+/*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/29 18:52:24 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/29 20:41:58 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,6 @@ int builtin_function(t_cmd_arg *ca)
 		ft_cd(ca->argc, ca->argv, ca->env);
 	else
 		return (EXIT_FAILURE);
-	// else if (!ft_strncmp(ca->argv[0], "export", 6) && len == 6)
-	// 	ft_export(argc, argv, env);
 	return (EXIT_SUCCESS);
 }
 
@@ -170,30 +168,34 @@ int	execute1(t_cmd_lst *cmds, t_env *env)
 	return (EXIT_SUCCESS);
 }
 
-int	execute2(t_cmd_lst *cmds, t_env *env)
+int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 {
 	t_cmd_lst	*curr;
 	t_cmd_arg	*cmd_arg;
 	pid_t	pid;
 	int		status;
+	int		write;
 	
 	curr = cmds;
-	cmd_arg = pasre_cmd_arg(curr->cmd, env);
+	cmd_arg = parse_cmd_arg(curr->cmd, env);
+	write = STDOUT_FILENO;
 	if (curr->next)
 	{
 		pipe(cmd_arg->fd);
+		write = cmd_arg->fd[READ];
 	}
 	pid = fork();
 	if (pid == 0)
 	{
 		close(cmd_arg->fd[WRITE]);
-		execute1(curr, env);
+		execute1(curr, env, read, write);
 		exec_child_process(str, env);
 		return(1);
 	}
-	close(cmd_arg->fd[READ]);
-	close(cmd_arg->fd[WRITE]);
+	close(read);
+	close(write);
 	waitpid(pid, &status, 0);
+	return (execute2(curr->next, env, cmd_arg->fd[WRITE], pid));
 }
 
 
@@ -209,6 +211,6 @@ int	execute(t_cmd_lst *cmds, t_env *env)
 	if (count == 1)
 		execute1(cmds, env);
 	else
-	 	execute2(cmds, env);
+	 	execute2(cmds, env, STDIN_FILENO, -1);
 	return (1);
 }
