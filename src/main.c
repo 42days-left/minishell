@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 17:57:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:40:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /**
  * @param script string entered at the prompt
  */
-int	parse(char *script, t_env *env, t_lst **cmds)
+int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 {
 	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 		str = readline(MAGENTA"minihell🐚"RESET": ");
 		add_history(str);
 		if (!str)
-			ft_exit();
+			ft_exit(1, NULL);
 		cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
 		cmds = NULL;
 		if (*str)

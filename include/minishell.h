@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 21:05:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/29 14:42:16 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	set_signal(void);
 
 /*builtin*/
 
-int		execute(t_lst *cmds, t_env *env);
+int		execute(t_cmd_lst *cmds, t_env *env);
 
 void	ft_cd(int argc, char **argv, t_env *env);
 void	ft_env(t_env *env_lst);

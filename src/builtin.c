@@ -73,6 +73,8 @@ void	ft_cd(int argc, char **argv, t_env *env)
 
 void	ft_exit(int argc, char **argv)
 {
+		(void)argc;
+		(void)argv;
 		printf("exit\n");
 		exit(1);
 }
@@ -173,25 +175,27 @@ int builtin_function(t_cmd_arg *ca)
 	return (EXIT_SUCCESS);
 }
 
-int	execute1(t_lst *cmds, t_env *env)
+int	execute1(t_cmd_lst *cmds, t_env *env)
 {
 	t_cmd_arg	*cmd_arg;
 
-	cmd_arg = parse_cmd_arg(cmds, env);
+	cmd_arg = parse_cmd_arg(cmds->cmd, env);
 	builtin_function(cmd_arg);
+	return (EXIT_SUCCESS);
 }
 
 
-int	execute(t_lst *cmds, t_env *env)
+int	execute(t_cmd_lst *cmds, t_env *env)
 {
-	int			count;
-	t_lst		*curr;
+	int				count;
+	t_cmd_lst		*curr;
 
 	curr = cmds;
-	count = lst_size(curr);
+	// count = lst_size(curr);
+	count = 1;
 	if (count == 1)
 		execute1(cmds, env);
-	else
-		execute2(cmds, env);
+	// else
+	// 	execute2(cmds, env);
 	return (1);
 }
