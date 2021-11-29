@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/29 14:40:45 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/30 02:06:32 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,20 @@ int	main(int argc, char **argv, char **envp)
 		if (*str)
 		{
 			add_history(str);
-			cmds = NULL;
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
-			print_cmds_list(cmds);
-			test = parse_cmd_arg(cmds->cmd, env);
-			int i = 0;
-			printf("test->argc : [%d]\n", test->argc);
-			printf("test->argv : ");
-			while (test->argv[i])
-			{
-				printf(CYAN"[%s]"RESET, test->argv[i]);
-				i++;
-			}
+			// print_cmds_list(cmds);
+			// test = parse_cmd_arg(cmds->cmd, env);
+			// int i = 0;
+			// printf("test->argc : [%d]\n", test->argc);
+			// printf("test->argv : ");
+			// while (test->argv[i])
+			// {
+			// 	printf(CYAN"[%s]"RESET, test->argv[i]);
+			// 	i++;
+			// }
 			printf("\n");
-			free(test);
+			// free(test);
 			execute(cmds, env);
 		}
 		free(str);

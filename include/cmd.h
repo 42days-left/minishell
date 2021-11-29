@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/29 14:30:41 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/30 02:08:01 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 typedef struct	s_cmd
 {
-	// t_lst	*args;
 	t_lst	*tokens;
 	t_lst	*rd;
 }			t_cmd;

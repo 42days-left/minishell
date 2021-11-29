@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/11/29 15:27:03 by jisokang         ###   ########.fr        #
+#    Updated: 2021/11/30 02:10:42 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,4 +15,5 @@ CFLAGS	= -I include/ -I /Users/$(USER)/.brew/opt/readline/include -L/opt/homebre
 CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 
 all :
-	gcc $(FSAN) $(CFLAGS) $(CLIB) ./src/*.c ./include/*.h
+	gcc $(CFLAGS) $(CLIB) ./src/*.c ./include/*.h
+# gcc $(FSAN) $(CFLAGS) $(CLIB) ./src/*.c ./include/*.h

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/29 20:40:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/30 02:20:25 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_env	*find_env_from_env(char *in_key, t_env *env)
 	while (curr)
 	{
 		//printf("["YELLOW"%s"RESET"]\n", curr->key);
-		if (ft_strncmp(curr->key, in_key, 10000) == SAME)	//in_key + 1 = '$'다음 문자들
+		if (ft_strncmp(curr->key, in_key, 10000) == SAME)	//in_key + 1 = '$USER'다음 문자들
 			break;
 		curr = curr->next;
 	}
@@ -106,7 +106,9 @@ int	replace_env_token(t_token *token, t_env *env)
 	buf_ptr = buf;
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
+		str_ptr++;
 		str_key = find_key_from_str(str_ptr);
+		printf("\t\tstr_key : [%s]\n", str_key);
 		tmp = find_env_from_env(str_key, env);
 		if (tmp->value)
 		{
@@ -131,6 +133,7 @@ void	remove_quote_token(t_token *token)
 		return ;
 	str_ptr = token->word;
 	buf_ptr = buf;
+	int i = 0;
 	while (*str_ptr != '\0')
 	{
 		while (*str_ptr == '\"' || *str_ptr == '\'')
