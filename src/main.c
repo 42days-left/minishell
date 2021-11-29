@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/26 14:41:28 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/29 14:40:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /**
  * @param script string entered at the prompt
  */
-int	parse(char *script, t_env *env, t_lst **cmds)
+int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 {
 	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
@@ -33,17 +33,24 @@ int	parse(char *script, t_env *env, t_lst **cmds)
 	printf("PARSER STRAT\n");
 	parser(tokens, cmds);
 	printf("PARSER "GREEN"DONE"RESET"\n");
-	print_cmds_list(*cmds);
-	//free_strings(strs)
+
+	int i = 0;
+	while (strs[i] != NULL)
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
 	//free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
-	t_env	*env;
-	t_lst	*cmds;
+	char		*str;
+	t_env		*env;
+	t_cmd_lst	*cmds;
+	t_cmd_arg	*test;
 
 	(void)argc;
 	(void)argv;
@@ -52,17 +59,33 @@ int	main(int argc, char **argv, char **envp)
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
+		add_history(str);
 		if (!str)
-			ft_exit();
+			ft_exit(1, NULL);
+		cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
+		cmds = NULL;
 		if (*str)
 		{
 			add_history(str);
 			cmds = NULL;
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
+			print_cmds_list(cmds);
+			test = parse_cmd_arg(cmds->cmd, env);
+			int i = 0;
+			printf("test->argc : [%d]\n", test->argc);
+			printf("test->argv : ");
+			while (test->argv[i])
+			{
+				printf(CYAN"[%s]"RESET, test->argv[i]);
+				i++;
+			}
+			printf("\n");
+			free(test);
 			execute(cmds, env);
 		}
 		free(str);
 	}
+	free(cmds);
 	return (0);
 }

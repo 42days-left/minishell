@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/22 19:17:52 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/28 17:54:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	init_cmd(t_cmd *cmd)
 {
-	cmd->args = NULL;
+	cmd->tokens = NULL;
 	cmd->rd = NULL;
 }
 
-int	print_cmds_list(t_lst *cmds)
+int	print_cmds_list(t_cmd_lst *cmds)
 {
-	t_lst	*curr;
-	t_lst	*curr2;
-	int		i;
+	t_cmd_lst	*curr;
+	t_lst		*curr2;
+	int			i;
 
 	if (cmds == NULL)
 	{
@@ -35,7 +35,7 @@ int	print_cmds_list(t_lst *cmds)
 	while(curr != NULL)
 	{
 		printf("cmd["BLUE"%d"RESET"]\n{\n", i++);
-		curr2 = ((t_cmd *)(curr->data))->args;
+		curr2 = curr->cmd->tokens;
 		while (curr2)
 		{
 			printf("\t");
@@ -49,7 +49,7 @@ int	print_cmds_list(t_lst *cmds)
 	return (1);
 }
 
-int	parser(t_lst *tokens, t_lst **cmds)
+int	parser(t_lst *tokens, t_cmd_lst **cmds)
 {
 	t_lst	*curr;
 	t_cmd	*cmd;
@@ -60,25 +60,28 @@ int	parser(t_lst *tokens, t_lst **cmds)
 	curr = tokens;
 	while (curr)
 	{
-		cmd = malloc(sizeof(t_cmd));
-		cmd->args = NULL;
+		cmd = (t_cmd *)malloc(sizeof(t_cmd));
+		cmd->tokens = NULL;
 		cmd->rd = NULL;
 		while (curr && ((t_token *)curr->data)->type != PIPE)
 		{
 			token = (t_token *)curr->data;
 			if (token->type == WORD)
 			{
-				printf("this token\ttype:[%d]\tvalue:[%s]\n", token->type, token->arg);
-				lst_add_back(&cmd->args, lst_new((void *)token));
+				printf("\ttoken check\ttype:[%d]\tvalue:[%s]\n", token->type, token->word);
+				lst_add_back(&cmd->tokens, lst_new((void *)token));
 			}
 			else
 				lst_add_back(&cmd->rd, lst_new((void *)token));
 			curr = curr->next;
 		}
-		lst_add_back(cmds, lst_new((void *)cmd));
+		cmd_lst_add_back(cmds, cmd_lst_new(cmd));
 		if (curr)
 			curr = curr->next;
 	}
-	free(cmd);
+	// !!!!!!!!!!!!!!!!!!!
+	// free(cmd);	여기에서 프리하면 안되지 멍청아!
+	// 				cmd_lst 안에 있는 t_cmd cmd가 날라가잖아!
+	// !!!!!!!!!!!!!!!!!!!
 	return (EXIT_SUCCESS);
 }

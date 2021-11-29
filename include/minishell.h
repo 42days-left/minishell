@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 16:41:15 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/29 16:40:32 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	set_signal(void);
 
 /*builtin*/
 
-int		execute(t_lst *cmds, t_env *env);
+int		execute(t_cmd_lst *cmds, t_env *env);
 
-void	ft_cd(t_cmd *cmd, t_env *env);
+void	ft_cd(int argc, char **argv, t_env *env);
 void	ft_env(t_env *env_lst);
-void	ft_exit(void);
+void	ft_exit(int argc, char **argv);
 void	ft_export(t_cmd *cmd, t_env *env);
 void	ft_pwd(void);
 void	ft_echo(t_lst *cmds);
@@ -69,6 +69,7 @@ char	*find_value_from_env(char *in_key, t_env *env);
 void	env_to_envp(t_env *env, char **envp);
 int		print_envp(char **envp);
 void	free_envp(char **envp);
+int		env_count(t_env *env);
 
 #endif
 
