@@ -19,10 +19,10 @@ void	ft_env(t_env *env)
 	print_envp_lst(env);
 }
 
-void	ft_echo(t_lst *cmds)
-{
-	return ;
-}
+// void	ft_echo(t_lst *cmds)
+// {
+// 	return ;
+// }
 
 void	ft_cd(int argc, char **argv, t_env *env)
 {
@@ -159,6 +159,8 @@ int builtin_function(t_cmd_arg *ca)
 		ft_pwd();
 	else if (!ft_strncmp(ca->argv[0], "exit", 4) && len == 4)
 		ft_exit(ca->argc, ca->argv);
+	else if (!ft_strncmp(ca->argv[0], "echo", 4) && len == 4)
+		builtin_echo(ca->argc, ca->argv);
 	else if (!ft_strncmp(ca->argv[0], "env", 3) && len == 3)
 		ft_env(ca->env);
 	else if (!ft_strncmp(ca->argv[0], "export", 6) && len == 6)

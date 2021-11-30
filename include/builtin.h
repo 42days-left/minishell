@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:12:41 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 19:55:30 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 00:38:42 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int		ft_export(int argc, char **argv, t_env *env);
 void	ft_pwd(void);
 void	ft_echo(t_lst *cmds);
 int		builtin_unset(int argc, char **argv, t_env *env);
+int		builtin_echo(int argc, char **argv);
 
 #endif
