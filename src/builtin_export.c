@@ -6,15 +6,16 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 12:56:09 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/30 23:56:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_valid_key(char *key)
+int	is_valid_key_value(char *key)
 {
 	int	i;
+
 	if (key[0] == '\0' || ft_isdigit(key[0]) || ft_isspace(key[0]))
 		return (FALSE);
 	i = 1;
@@ -31,31 +32,32 @@ int	is_valid_key(char *key)
 
 int	set_export_var(int argc, char **argv, t_env *env)
 {
-	t_env	*curr;
+	t_env	*argv_env;
 	t_env	*tmp;
-	t_env	*tmp2;
 	int		i;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (!is_valid_key(argv[i]))
+		if (!is_valid_key_value(argv[i]))
 			printf(YELLOW\
 			"export : '%s' : not a valid identifier\n"RESET, argv[i]);
 		else
 		{
-			tmp = get_env_line(argv[i]);
-			tmp2 = find_env_from_env(tmp->key, env);
-			if (tmp2)
-				tmp2->value = tmp->value;
+			argv_env = get_env_line(argv[i]);
+			tmp = find_env_from_env(argv_env->key, env);
+			if (tmp)
+				tmp->value = argv_env->value;
 			else
-				env_add_back(&env, tmp);
+				env_add_back(&env, argv_env);
 		}
 		i++;
 	}
-	free(tmp->key);
-	free(tmp->value);
-	free(tmp);
+	// free(argv_env->key);
+	// free(argv_env->value);
+	// free(argv_env);
+	// malloc: *** error for object 0x333231: pointer being freed was not allocated
+	// malloc: *** set a breakpoint in malloc_error_break to debug
 	return (0);
 }
 

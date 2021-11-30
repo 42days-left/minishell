@@ -163,6 +163,8 @@ int builtin_function(t_cmd_arg *ca)
 		ft_env(ca->env);
 	else if (!ft_strncmp(ca->argv[0], "export", 6) && len == 6)
 		ft_export(ca->argc, ca->argv, ca->env);
+	else if (!ft_strncmp(ca->argv[0], "unset", 5) && len == 5)
+		builtin_unset(ca->argc, ca->argv, ca->env);
 	else if (!ft_strncmp(ca->argv[0], "cd", 2) && len == 2)
 		ft_cd(ca->argc, ca->argv, ca->env);
 	else
