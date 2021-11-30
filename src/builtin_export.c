@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 02:41:50 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/30 12:56:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_valid_key(char *key)
 	return (TRUE);
 }
 
-void	set_export_var(int argc, char **argv, t_env *env)
+int	set_export_var(int argc, char **argv, t_env *env)
 {
 	t_env	*curr;
 	t_env	*tmp;
@@ -40,7 +40,8 @@ void	set_export_var(int argc, char **argv, t_env *env)
 	while (i < argc)
 	{
 		if (!is_valid_key(argv[i]))
-			printf(RED"export : '%s' : not a valid identifier\n"RESET, argv[i]);
+			printf(YELLOW\
+			"export : '%s' : not a valid identifier\n"RESET, argv[i]);
 		else
 		{
 			tmp = get_env_line(argv[i]);
@@ -49,13 +50,16 @@ void	set_export_var(int argc, char **argv, t_env *env)
 				tmp2->value = tmp->value;
 			else
 				env_add_back(&env, tmp);
-			printf(GREEN"export : '%s' : is valid KEY!\n"RESET, argv[i]);
 		}
 		i++;
 	}
+	free(tmp->key);
+	free(tmp->value);
+	free(tmp);
+	return (0);
 }
 
-int	print_export_lst(t_env *env)
+void	print_export_lst(t_env *env)
 {
 	t_env	*curr;
 
@@ -68,14 +72,15 @@ int	print_export_lst(t_env *env)
 		printf("\n");
 		curr = curr->next;
 	}
-	return (TRUE);
 }
 
 int	ft_export(int argc, char **argv, t_env *env)
 {
 	if (argc == 1)
+	{
 		print_export_lst(env);
-	else
-		set_export_var(argc, argv, env);
+		return (0);
+	}
+	set_export_var(argc, argv, env);
 	return(EXIT_SUCCESS);
 }

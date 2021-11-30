@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 02:06:32 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/30 13:48:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 # include "../include/minishell.h"
 
+void	free_strings(char **strs)
+{
+	int i = 0;
+	while (strs[i] != NULL)
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+}
 
 /**
  * @param script string entered at the prompt
@@ -27,20 +37,11 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 		return (EXIT_FAILURE);
 	tokens = NULL;
 	lexer(strs, &tokens);
-	print_token_list(tokens);
+	DEBUG && print_token_list(tokens);
 	replace(tokens, env);
-	print_token_list(tokens);
-	printf("PARSER STRAT\n");
+	DEBUG && print_token_list(tokens);
 	parser(tokens, cmds);
-	printf("PARSER "GREEN"DONE"RESET"\n");
-
-	int i = 0;
-	while (strs[i] != NULL)
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
+	free_strings(strs);
 	//free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
 }
@@ -66,25 +67,12 @@ int	main(int argc, char **argv, char **envp)
 		cmds = NULL;
 		if (*str)
 		{
-			add_history(str);
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
-			// print_cmds_list(cmds);
-			// test = parse_cmd_arg(cmds->cmd, env);
-			// int i = 0;
-			// printf("test->argc : [%d]\n", test->argc);
-			// printf("test->argv : ");
-			// while (test->argv[i])
-			// {
-			// 	printf(CYAN"[%s]"RESET, test->argv[i]);
-			// 	i++;
-			// }
-			printf("\n");
-			// free(test);
 			execute(cmds, env);
 		}
+		free(cmds);
 		free(str);
 	}
-	free(cmds);
 	return (0);
 }

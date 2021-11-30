@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/25 20:14:03 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/11/30 13:50:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new)
 	}
 	else
 	{
-		printf("LST NEW!!\n");
+		DEBUG && printf("LST NEW!!\n");
 		*lst = new;
 		return ;
 	}
