@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 23:43:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 17:04:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,40 @@ void	lst_clear(t_lst *head)
 			return ;
 	}
 }
+
+void	free_token_without_close(void *v_token)
+{
+	t_token	*token;
+
+	token = (t_token *)v_token;
+	if (token->word)
+		free(token->word);
+	free(token);
+}
+
+void	ft_lstdelone2(t_lst *lst, void (*del)(void *))
+{
+	if (lst == NULL || del == NULL)
+		return ;
+	del(lst->data);
+	free(lst);
+}
+
+void	ft_lstclear2(t_lst **lst, void (*del)(void *))
+{
+	t_lst	*curr;
+	t_lst	*next_lst;
+
+	curr = *lst;
+	while (curr != NULL)
+	{
+		next_lst = curr->next;
+		ft_lstdelone2(curr, del);
+		curr = next_lst;
+	}
+	*lst = NULL;
+}
+
 
 int	lst_size(t_lst *head)
 {

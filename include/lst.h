@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 15:46:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 00:31:25 by devleo           ###   ########.fr       */
+/*   Updated: 2021/12/01 15:53:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,9 @@ void	lst_insert(t_lst *before, t_lst *new);
 void	lst_add_front(t_lst **lst, t_lst *new);
 void	lst_add_back(t_lst **lst, t_lst *new);
 void	print_lst_nul(t_lst *head);
+
+void	free_token_without_close(void *v_token);
+void	ft_lstdelone2(t_lst *lst, void (*del)(void *));
+void	ft_lstclear2(t_lst **lst, void (*del)(void *));
 
 #endif

@@ -6,13 +6,36 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 01:33:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 17:06:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* gcc -lreadline *.c */
-
 # include "../include/minishell.h"
+
+void	free_cmd(void *data)
+{
+	t_cmd	*cmd;
+
+	cmd = (t_cmd *)data;
+	ft_lstclear2(&cmd->tokens, free_token_without_close);
+	ft_lstclear2(&cmd->rd, free_token_without_close);
+	free(cmd);
+}
+
+void	free_cmds(t_cmd_lst **lst)
+{
+	t_cmd_lst	*curr;
+	t_cmd_lst	*next_lst;
+
+	curr = *lst;
+	while (curr != NULL)
+	{
+		next_lst = curr->next;
+		free_cmd(curr);
+		curr = next_lst;
+	}
+	*lst = NULL;
+}
 
 void	free_strings(char **strs)
 {
@@ -23,6 +46,20 @@ void	free_strings(char **strs)
 		i++;
 	}
 	free(strs);
+}
+
+void	free_tokens(t_lst *tokens)
+{
+	t_lst	*curr;
+
+	curr = tokens;
+	while (curr)
+	{
+		// free(((t_token *)curr->data)->type);
+		free(((t_token *)curr->data)->word);
+		curr = curr->next;
+	}
+	lst_clear(tokens);
 }
 
 /**
@@ -42,6 +79,7 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	DEBUG && print_token_list(tokens);
 	parser(tokens, cmds);
 	free_strings(strs);
+	ft_lstclear2(&tokens, free_token_without_close);
 	//free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
 }
@@ -51,7 +89,6 @@ int	main(int argc, char **argv, char **envp)
 	char		*str;
 	t_env		*env;
 	t_cmd_lst	*cmds;
-	t_cmd_arg	*test;
 
 	(void)argc;
 	(void)argv;
@@ -72,7 +109,8 @@ int	main(int argc, char **argv, char **envp)
 			execute(cmds, env);
 		}
 		free(str);
-		free(cmds);
+		free_cmds(&cmds);
+		// free(cmds);
 	}
 	return (0);
 }
