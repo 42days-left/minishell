@@ -19,11 +19,6 @@ void	ft_env(t_env *env)
 	print_envp_lst(env);
 }
 
-// void	ft_echo(t_lst *cmds)
-// {
-// 	return ;
-// }
-
 void	ft_cd(int argc, char **argv, t_env *env)
 {
 	char	*path;
