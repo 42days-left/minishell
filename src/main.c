@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 13:48:27 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 01:33:43 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	main(int argc, char **argv, char **envp)
 				exit_err(2, "Parse Error");
 			execute(cmds, env);
 		}
-		free(cmds);
 		free(str);
+		free(cmds);
 	}
 	return (0);
 }

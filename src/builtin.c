@@ -152,22 +152,19 @@ int		exec_fork(char *str, t_env *env)
 
 int builtin_function(t_cmd_arg *ca)
 {
-	int	len;
-
-	len = ft_strlen(ca->argv[0]);
-	if (!ft_strncmp(ca->argv[0], "pwd", 3) && len == 3)
+	if (ft_strncmp(ca->argv[0], "pwd", 4) == 0)
 		ft_pwd();
-	else if (!ft_strncmp(ca->argv[0], "exit", 4) && len == 4)
+	else if (!ft_strncmp(ca->argv[0], "exit", 5))
 		ft_exit(ca->argc, ca->argv);
-	else if (!ft_strncmp(ca->argv[0], "echo", 4) && len == 4)
+	else if (!ft_strncmp(ca->argv[0], "echo", 5))
 		builtin_echo(ca->argc, ca->argv);
-	else if (!ft_strncmp(ca->argv[0], "env", 3) && len == 3)
+	else if (!ft_strncmp(ca->argv[0], "env", 4))
 		ft_env(ca->env);
-	else if (!ft_strncmp(ca->argv[0], "export", 6) && len == 6)
+	else if (!ft_strncmp(ca->argv[0], "export", 7))
 		ft_export(ca->argc, ca->argv, ca->env);
-	else if (!ft_strncmp(ca->argv[0], "unset", 5) && len == 5)
+	else if (!ft_strncmp(ca->argv[0], "unset", 6))
 		builtin_unset(ca->argc, ca->argv, ca->env);
-	else if (!ft_strncmp(ca->argv[0], "cd", 2) && len == 2)
+	else if (!ft_strncmp(ca->argv[0], "cd", 3))
 		ft_cd(ca->argc, ca->argv, ca->env);
 	else
 		return (EXIT_FAILURE);
