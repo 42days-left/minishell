@@ -6,16 +6,20 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 13:49:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:15:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/minishell.h"
 
-void	init_cmd(t_cmd *cmd)
+t_cmd	*init_cmd(void)
 {
+	t_cmd	*cmd;
+
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	cmd->tokens = NULL;
 	cmd->rd = NULL;
+	return (cmd);
 }
 
 int	print_cmds_list(t_cmd_lst *cmds)
@@ -60,12 +64,12 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 	curr = tokens;
 	while (curr)
 	{
-		cmd = (t_cmd *)malloc(sizeof(t_cmd));
-		cmd->tokens = NULL;
-		cmd->rd = NULL;
+		cmd = init_cmd();
 		while (curr && ((t_token *)curr->data)->type != PIPE)
 		{
-			token = (t_token *)curr->data;
+			//dup_token here
+			// token = (t_token *)curr->data;
+			token = init_token(((t_token *)curr->data)->type, ft_strdup(((t_token *)curr->data)->word));
 			if (token->type == WORD)
 			{
 				DEBUG && printf("\ttoken check\ttype:[%d]\tvalue:[%s]\n", token->type, token->word);

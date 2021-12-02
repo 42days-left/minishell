@@ -74,9 +74,8 @@ void	ft_pwd(void)
 
 	pwd = getcwd(0, 1024); // maxsize
 	printf("%s\n",pwd);
-	free(pwd);
+	// free(pwd);
 }
-
 
 char *find_path(char *str, t_env *env)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/28 17:31:13 by devleo           ###   ########.fr       */
+/*   Updated: 2021/12/01 16:25:02 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int get_type(char *str)
 
 int lexer(char **strs, t_lst **tokens)
 {
-	int	i;
-	int	type;
-	char *word;
+	int		type;
+	char	*word;
+	int		i;
 
 	i = 0;
 	while(strs[i])
