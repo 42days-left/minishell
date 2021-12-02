@@ -1,42 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 13:11:14 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/02 18:04:28 by yubae            ###   ########.fr       */
+/*   Created: 2021/12/01 00:34:49 by jisokang          #+#    #+#             */
+/*   Updated: 2021/12/01 15:02:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-extern void rl_replace_line (const char *text, int clear_undo);
-
-void	signal_handler(int sig)
+/**
+ * @brief builtin echo with option '-n'
+ *
+ * @param argc
+ * @param argv
+ * @return int 0
+ */
+int	builtin_echo(int argc, char **argv)
 {
-	if (sig == SIGINT)
+	int	opt;
+	int	i;
+
+	opt = FALSE;
+	i = 1;
+	if (argc == 1)
 	{
-		printf("\b\b  \b\b\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		printf("\n");
+		return (0);
 	}
-	if (sig == SIGQUIT)
+	if (!ft_strncmp("-n", argv[1], 3))
 	{
-		printf("\b\b  \b\b");
+		opt = TRUE;
+		i++;
 	}
-}
-
-void	set_signal(void)
-{
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
-}
-
-void	off_signal(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	while (i < argc - 1)
+		printf("%s ", argv[i++]);
+	if (argv[i] != NULL)
+		printf("%s", argv[i]);
+	if (opt == FALSE)
+		printf("\n");
+	return (0);
 }

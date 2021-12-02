@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 15:43:03 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/02 18:34:49 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define MINISHELL_H
 
 # include	<stdio.h>
+# include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
 # include	<readline/readline.h> /* readline함수를 사용하기위한 헤더 */
 # include	<readline/history.h> /* add_history함수를 사용하기위한 헤더 */
-# include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
 # include	<sys/stat.h>
 
 # include	<termios.h>
@@ -29,6 +29,9 @@
 # include	"cmd.h"
 # include	"token.h"
 # include	"error.h"
+# include	"builtin.h"
+
+# define	DEBUG		0
 
 /* TYPE */
 # define	SCRIPT		0
@@ -42,6 +45,7 @@
 
 # define	TRUE		1
 # define	FALSE		0
+# define	ERROR		-1
 # define	SAME		0
 
 # define	BUF_SIZE	10000
@@ -56,16 +60,12 @@ void	off_signal(void);
 
 int		execute(t_cmd_lst *cmds, t_env *env);
 
-void	ft_cd(int argc, char **argv, t_env *env);
-void	ft_env(t_env *env_lst);
-void	ft_exit(int argc, char **argv);
-void	ft_export(t_cmd *cmd, t_env *env);
-void	ft_pwd(void);
-void	ft_echo(t_lst *cmds);
 char	*find_path(char *str, t_env *env);
 void	exec_child_process(char *str, t_env *env);
-int		exec_fork(char *str, t_env  *env);
-char	*find_value_from_env(char *in_key, t_env *env);
+
+int		exec_fork(char *str, t_env  *env, int read, int write);
+
+t_env	*find_env_from_env(char *in_key, t_env *env);
 void	env_to_envp(t_env *env, char **envp);
 int		print_envp(char **envp);
 void	free_envp(char **envp);

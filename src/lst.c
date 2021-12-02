@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: devleo <devleo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/28 17:29:57 by devleo           ###   ########.fr       */
+/*   Updated: 2021/12/01 22:59:49 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,39 @@ void	lst_clear(t_lst *head)
 	}
 }
 
+void	free_token_without_close(void *v_token)
+{
+	t_token	*token;
+
+	token = (t_token *)v_token;
+	if (token->word)
+		free(token->word);
+	free(token);
+}
+
+void	ft_lstdelone2(t_lst *lst, void (*del)(void *))
+{
+	if (lst == NULL || del == NULL)
+		return ;
+	del(lst->data);
+	free(lst);
+}
+
+void	ft_lstclear2(t_lst **lst, void (*del)(void *))
+{
+	t_lst	*curr;
+	t_lst	*next_lst;
+
+	curr = *lst;
+	while (curr != NULL)
+	{
+		next_lst = curr->next;
+		ft_lstdelone2(curr, del);
+		curr = next_lst;
+	}
+	*lst = NULL;
+}
+
 int	lst_size(t_lst *head)
 {
 	int		size;
@@ -99,9 +132,33 @@ int	lst_size(t_lst *head)
 	return (size);
 }
 
-void	lst_del(t_lst *lst)
+void	lst_del(t_lst *head, int key)
 {
+	// Store head node
+	t_lst	*temp;
+	t_lst	*prev;
 
+	temp = head;
+	// If head node itself holds the key to be deleted
+	if (temp != NULL && *(int *)(temp->data) == key)
+	{
+		*head = *temp->next; // Changed head
+		free(temp); // free old head
+		return ;
+	}
+	// Search for the key to be deleted, keep track of the
+	// previous node as we need to change 'prev->next'
+	while (temp != NULL && *(int *)(temp->data) != key)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	// If key was not present in linked list
+	if (temp == NULL)
+		return ;
+	// Unlink the node from linked list
+	prev->next = temp->next;
+	free(temp); // Free memory
 }
 
 void	lst_add_front(t_lst **lst, t_lst *new)

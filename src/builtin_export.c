@@ -1,0 +1,107 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
+/*   Updated: 2021/12/01 23:16:52 by jisokang         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minishell.h"
+
+int	is_valid_key_value(char *key)
+{
+	int	i;
+
+	if (key[0] == '\0' || ft_isdigit(key[0]) || ft_isspace(key[0]))
+		return (FALSE);
+	i = 1;
+	while (key[i])
+	{
+		if (key[i] == '=')
+			break ;
+		else if (!is_valid_env_char(key[i]))
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
+int	set_export_var(int argc, char **argv, t_env *env)
+{
+	t_env	*argv_env;
+	t_env	*tmp;
+	int		i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (!is_valid_key_value(argv[i]))
+			printf(YELLOW\
+			"export : '%s' : not a valid identifier\n"RESET, argv[i]);
+		else
+		{
+			argv_env = get_env_from_str(argv[i]);
+			tmp = find_env_from_env(argv_env->key, env);
+			if (tmp)
+				tmp->value = argv_env->value;
+			else
+				env_add_back(&env, argv_env);
+		}
+		i++;
+	}
+	// free(argv_env->key);
+	// free(argv_env->value);
+	// free(argv_env);
+	// malloc: *** error for object 0x333231: pointer being freed was not allocated
+	// malloc: *** set a breakpoint in malloc_error_break to debug
+	return (0);
+}
+
+void	sort_env_key_lst(t_env *env)
+{
+	t_env	*curr;
+	int		len;
+
+	curr = env;
+	len = 0;
+	while (curr)
+	{
+		len++;
+		curr = curr->next;
+	}
+
+
+}
+
+void	print_export_lst(t_env *env)
+{
+	t_env	*curr;
+	int		i = 0;
+
+	curr = env;
+	while (curr)
+	{
+		printf("[%d] declare -x %s", i, curr->key);
+		if (curr->value)
+			printf("=\"%s\"", curr->value);
+		printf("\n");
+		curr = curr->next;
+		i++;
+	}
+}
+
+int	ft_export(int argc, char **argv, t_env *env)
+{
+	if (argc == 1)
+	{
+		env_sort(env);
+		print_export_lst(env);
+		return (0);
+	}
+	set_export_var(argc, argv, env);
+	return(EXIT_SUCCESS);
+}

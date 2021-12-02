@@ -6,14 +6,62 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/29 14:40:45 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:57:39 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* gcc -lreadline *.c */
-
 # include "../include/minishell.h"
 
+void	free_tokens(t_lst *tokens)
+{
+	t_lst	*curr;
+
+	curr = tokens;
+	while (curr)
+	{
+		// free(((t_token *)curr->data)->type);
+		free(((t_token *)curr->data)->word);
+		curr = curr->next;
+	}
+	lst_clear(tokens);
+}
+
+void	free_cmd(void *data)
+{
+	t_cmd	*cmd;
+
+	cmd = (t_cmd *)data;
+	// free_tokens(&cmd->tokens);
+	ft_lstclear2(&cmd->tokens, free_token_without_close);
+	ft_lstclear2(&cmd->rd, free_token_without_close);
+	free(cmd);
+}
+
+void	free_cmds(t_cmd_lst **lst)
+{
+	t_cmd_lst	*curr;
+	t_cmd_lst	*next_lst;
+
+	curr = *lst;
+	while (curr != NULL)
+	{
+		next_lst = curr->next;
+		free_cmd(curr);
+		curr = next_lst;
+	}
+	*lst = NULL;
+}
+
+void	free_strings(char **strs)
+{
+	int i = 0;
+	while (strs[i] != NULL)
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+}
 
 /**
  * @param script string entered at the prompt
@@ -27,20 +75,12 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 		return (EXIT_FAILURE);
 	tokens = NULL;
 	lexer(strs, &tokens);
-	print_token_list(tokens);
+	DEBUG && print_token_list(tokens);
 	replace(tokens, env);
-	print_token_list(tokens);
-	printf("PARSER STRAT\n");
+	DEBUG && print_token_list(tokens);
 	parser(tokens, cmds);
-	printf("PARSER "GREEN"DONE"RESET"\n");
-
-	int i = 0;
-	while (strs[i] != NULL)
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
+	free_strings(strs);
+	ft_lstclear2(&tokens, free_token_without_close);
 	//free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
 }
@@ -50,7 +90,6 @@ int	main(int argc, char **argv, char **envp)
 	char		*str;
 	t_env		*env;
 	t_cmd_lst	*cmds;
-	t_cmd_arg	*test;
 
 	(void)argc;
 	(void)argv;
@@ -66,26 +105,13 @@ int	main(int argc, char **argv, char **envp)
 		cmds = NULL;
 		if (*str)
 		{
-			add_history(str);
-			cmds = NULL;
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
-			print_cmds_list(cmds);
-			test = parse_cmd_arg(cmds->cmd, env);
-			int i = 0;
-			printf("test->argc : [%d]\n", test->argc);
-			printf("test->argv : ");
-			while (test->argv[i])
-			{
-				printf(CYAN"[%s]"RESET, test->argv[i]);
-				i++;
-			}
-			printf("\n");
-			free(test);
 			execute(cmds, env);
 		}
 		free(str);
+		free_cmds(&cmds);
+		// free(cmds);
 	}
-	free(cmds);
 	return (0);
 }

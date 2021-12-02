@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 13:11:14 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/02 18:04:28 by yubae            ###   ########.fr       */
+/*   Created: 2021/12/01 22:39:33 by jisokang          #+#    #+#             */
+/*   Updated: 2021/12/02 00:27:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-extern void rl_replace_line (const char *text, int clear_undo);
 
-void	signal_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\b\b  \b\b\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	if (sig == SIGQUIT)
-	{
-		printf("\b\b  \b\b");
-	}
-}
 
-void	set_signal(void)
+void	env_sort(t_env *head)
 {
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
-}
+	int		size;
+	t_env	*curr;
 
-void	off_signal(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	curr = head;
+	size = env_lst_size(curr);
+	printf("size is = [%d]\n", size);
 }
