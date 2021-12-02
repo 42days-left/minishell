@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 12:46:48 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:31:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new)
 
 	if (lst == NULL || new == NULL)
 	{
-		printf(RED"LST_ADD_BACK ERR\n"RESET);
+		printf(RED"CMD_LST_ADD_BACK ERR\n"RESET);
 		return ;
 	}
 	if (*lst)
@@ -93,7 +93,6 @@ void	cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new)
 	}
 	else
 	{
-		DEBUG && printf("LST NEW!!\n");
 		*lst = new;
 		return ;
 	}

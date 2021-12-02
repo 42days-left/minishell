@@ -19,13 +19,18 @@ void	ft_env(t_env *env)
 	print_envp_lst(env);
 }
 
-void	ft_cd(int argc, char **argv, t_env *env)
+int	ft_cd(int argc, char **argv, t_env *env)
 {
 	char	*path;
 	char	*home;
 	t_env	*tmp;
 
 	tmp = find_env_from_env("HOME", env);
+	if (tmp == NULL)
+	{
+		printf("cd: HOME not set\n");
+		return (2);
+	}
 	if (argc ==	1)
 		path = tmp->value;
 	else if (argc == 2)
@@ -34,11 +39,13 @@ void	ft_cd(int argc, char **argv, t_env *env)
 		if (path[0] == '~' && path[1] == 0)
 			path = tmp->value;
 	}
-	if (chdir(path) == -1)
+	if (chdir(path) == ERROR)
 	{
 			printf("cd: string not in pwd: %s\n", argv[1]);
 			chdir(".");
+			return (2);
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	ft_exit(int argc, char **argv)
@@ -55,7 +62,7 @@ void	ft_pwd(void)
 
 	pwd = getcwd(0, 1024); // maxsize
 	printf("%s\n",pwd);
-	// free(pwd);
+	free(pwd);
 }
 
 char *find_path(char *str, t_env *env)
@@ -69,18 +76,23 @@ char *find_path(char *str, t_env *env)
 	tmp = find_env_from_env("PATH", env);
 	path_arr = ft_split(tmp->value, ':');
 	i = 0;
+	DEBUG && printf("----------------"GREEN"FIND NEW_PATH"RESET"---------------\n");
 	while(path_arr[i])
 	{
 		tmp->value = ft_strjoin("/", str);
 		new_path = ft_strjoin(path_arr[i], tmp->value);
 		free(tmp->value);
 		free(tmp);
-		printf("new_path %d: %s\n", i, new_path);
+		DEBUG && printf("\tnew_path ["MAGENTA"%d"RESET"] : ["MAGENTA"%s"RESET"]\n", i, new_path);
 		if (!stat(new_path, &s))
+		{
+			DEBUG && printf("--------------------------------------------\n");
 			return (new_path);
+		}
 		free(new_path);
 		i++;
 	}
+	DEBUG && printf("--------------------------------------------\n");
 	return (ft_strdup(str));
 }
 
@@ -91,7 +103,7 @@ void	exec_child_process(char *str, t_env *env)
 	char **envp;
 	int	cnt;
 
-	printf("exec_child_process\n");
+	DEBUG && printf("exec_child_process()\t"GREEN"START"RESET"\n");
 	path = find_path(str, env);
 	cmd[0] = str;
 	cmd[1] = 0;
@@ -111,7 +123,7 @@ int		exec_fork(char *str, t_env *env)
 {
 	pid_t	pid;
 	int		status;
-	printf("exec_fork\n");
+	DEBUG && printf("exec_fork()\t\t"GREEN"START"RESET"\n");
 	pid = fork();
 	if (pid == 0)
 	{

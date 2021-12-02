@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:12:41 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 00:38:42 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:01:36 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include	"lst.h"
 # include	"env.h"
 
-void	ft_cd(int argc, char **argv, t_env *env);
+int		ft_cd(int argc, char **argv, t_env *env);
 void	ft_env(t_env *env_lst);
 void	ft_exit(int argc, char **argv);
 int		ft_export(int argc, char **argv, t_env *env);

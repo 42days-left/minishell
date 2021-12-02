@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 16:15:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:36:35 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 	if (tokens == NULL)
 		return (0);
 	curr = tokens;
+	DEBUG && printf("--------------------"GREEN"PARSER"RESET"------------------\n");
 	while (curr)
 	{
 		cmd = init_cmd();
 		while (curr && ((t_token *)curr->data)->type != PIPE)
 		{
-			//dup_token here
-			// token = (t_token *)curr->data;
+			//dup_token() here
 			token = init_token(((t_token *)curr->data)->type, ft_strdup(((t_token *)curr->data)->word));
 			if (token->type == WORD)
 			{
-				DEBUG && printf("\ttoken check\ttype:[%d]\tvalue:[%s]\n", token->type, token->word);
+				DEBUG && printf("\t[WORD]\ttype:[%d]\tvalue:[%s]\n", token->type, token->word);
 				lst_add_back(&cmd->tokens, lst_new((void *)token));
 			}
 			else
@@ -87,5 +87,6 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 	// free(cmd);	여기에서 프리하면 안되지 멍청아!
 	// 				cmd_lst 안에 있는 t_cmd cmd가 날라가잖아!
 	// !!!!!!!!!!!!!!!!!!!
+	DEBUG && printf("--------------------------------------------\n");
 	return (EXIT_SUCCESS);
 }
