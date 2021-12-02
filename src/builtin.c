@@ -78,7 +78,6 @@ void	ft_pwd(void)
 	// free(pwd);
 }
 
-
 char *find_path(char *str, t_env *env)
 {
 	int		i;

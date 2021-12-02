@@ -6,17 +6,32 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 17:06:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:57:39 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/minishell.h"
+
+void	free_tokens(t_lst *tokens)
+{
+	t_lst	*curr;
+
+	curr = tokens;
+	while (curr)
+	{
+		// free(((t_token *)curr->data)->type);
+		free(((t_token *)curr->data)->word);
+		curr = curr->next;
+	}
+	lst_clear(tokens);
+}
 
 void	free_cmd(void *data)
 {
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)data;
+	// free_tokens(&cmd->tokens);
 	ft_lstclear2(&cmd->tokens, free_token_without_close);
 	ft_lstclear2(&cmd->rd, free_token_without_close);
 	free(cmd);
@@ -46,20 +61,6 @@ void	free_strings(char **strs)
 		i++;
 	}
 	free(strs);
-}
-
-void	free_tokens(t_lst *tokens)
-{
-	t_lst	*curr;
-
-	curr = tokens;
-	while (curr)
-	{
-		// free(((t_token *)curr->data)->type);
-		free(((t_token *)curr->data)->word);
-		curr = curr->next;
-	}
-	lst_clear(tokens);
 }
 
 /**

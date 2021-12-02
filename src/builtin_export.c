@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 23:56:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 23:16:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	set_export_var(int argc, char **argv, t_env *env)
 			"export : '%s' : not a valid identifier\n"RESET, argv[i]);
 		else
 		{
-			argv_env = get_env_line(argv[i]);
+			argv_env = get_env_from_str(argv[i]);
 			tmp = find_env_from_env(argv_env->key, env);
 			if (tmp)
 				tmp->value = argv_env->value;
@@ -61,18 +61,36 @@ int	set_export_var(int argc, char **argv, t_env *env)
 	return (0);
 }
 
+void	sort_env_key_lst(t_env *env)
+{
+	t_env	*curr;
+	int		len;
+
+	curr = env;
+	len = 0;
+	while (curr)
+	{
+		len++;
+		curr = curr->next;
+	}
+
+
+}
+
 void	print_export_lst(t_env *env)
 {
 	t_env	*curr;
+	int		i = 0;
 
 	curr = env;
 	while (curr)
 	{
-		printf("declare -x %s", curr->key);
+		printf("[%d] declare -x %s", i, curr->key);
 		if (curr->value)
 			printf("=\"%s\"", curr->value);
 		printf("\n");
 		curr = curr->next;
+		i++;
 	}
 }
 
@@ -80,6 +98,7 @@ int	ft_export(int argc, char **argv, t_env *env)
 {
 	if (argc == 1)
 	{
+		env_sort(env);
 		print_export_lst(env);
 		return (0);
 	}

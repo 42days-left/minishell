@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 16:30:39 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:56:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,8 @@ int	replace(t_lst *tokens, t_env *env)
 	curr = tokens;
 	while (curr)
 	{
-		// replace_env_token(curr->data, env);
-		// remove_quote_token(curr->data);
+		replace_env_token(curr->data, env);
+		remove_quote_token(curr->data);
 		curr= curr->next;
 	}
 	return (0);

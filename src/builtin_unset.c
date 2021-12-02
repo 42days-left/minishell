@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:02:58 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 23:57:12 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:56:16 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	remove_env_var(int argc, char **argv, t_env *env)
 			"export : '%s' : not a valid identifier\n"RESET, argv[i]);
 		else
 		{
-			argv_env = get_env_line(argv[i]);
+			argv_env = get_env_from_str(argv[i]);
 			env_lst_del(env, argv_env->key);
 		}
 		i++;
