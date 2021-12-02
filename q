@@ -6,11 +6,17 @@
 /*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/29 18:52:24 by yubae            ###   ########.fr       */
+/*   Updated: 2021/11/29 18:26:40 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_export(t_cmd *cmd, t_env *env)
+{
+	if (((t_token *)cmd->tokens->next) == NULL)
+		print_envp_lst(env);
+}
 
 void	ft_env(t_env *env)
 {
@@ -19,20 +25,24 @@ void	ft_env(t_env *env)
 	print_envp_lst(env);
 }
 
+void	ft_echo(t_lst *cmds)
+{
+	return ;
+}
+
 void	ft_cd(int argc, char **argv, t_env *env)
 {
 	char	*path;
 	char	*home;
-	t_env	*tmp;
 
-	tmp = find_env_from_env("HOME", env);
+	home = find_value_from_env("$HOME", env);
 	if (argc ==	1)
-		path = tmp->value;
+		path = home;
 	else if (argc == 2)
 	{
 		path = argv[1];
 		if (path[0] == '~' && path[1] == 0)
-			path = tmp->value;
+			path = home;
 	}
 	if (chdir(path) == -1)
 	{
@@ -55,25 +65,25 @@ void	ft_pwd(void)
 
 	pwd = getcwd(0, 1024); // maxsize
 	printf("%s\n",pwd);
-	// free(pwd);
+	free(pwd);
 }
+
 
 char *find_path(char *str, t_env *env)
 {
-	int		i;
-	t_env	*tmp;
-	char	*new_path;
-	char	**path_arr;
+	int	i;
+	char *tmp;
+	char *new_path;
+	char **path_arr;
 	struct stat s;
 
-	tmp = find_env_from_env("PATH", env);
-	path_arr = ft_split(tmp->value, ':');
-	i = 0;
+	tmp = find_value_from_env("$PATH", env);
+	path_arr = ft_split(tmp, ':');
+		i = 0;
 	while(path_arr[i])
 	{
-		tmp->value = ft_strjoin("/", str);
-		new_path = ft_strjoin(path_arr[i], tmp->value);
-		free(tmp->value);
+		tmp = ft_strjoin("/", str);
+		new_path = ft_strjoin(path_arr[i], tmp);
 		free(tmp);
 		printf("new_path %d: %s\n", i, new_path);
 		if (!stat(new_path, &s))
@@ -132,22 +142,21 @@ int extern_function(t_cmd_arg *ca)
 
 int builtin_function(t_cmd_arg *ca)
 {
-	if (ft_strncmp(ca->argv[0], "pwd", 4) == 0)
+	int	len;
+
+	len = ft_strlen(ca->argv[0]);
+	if (!ft_strncmp(ca->argv[0], "pwd", 3) && len == 3)
 		ft_pwd();
-	else if (!ft_strncmp(ca->argv[0], "exit", 5))
+	else if (!ft_strncmp(ca->argv[0], "exit", 4) && len == 4)
 		ft_exit(ca->argc, ca->argv);
-	else if (!ft_strncmp(ca->argv[0], "echo", 5))
-		builtin_echo(ca->argc, ca->argv);
-	else if (!ft_strncmp(ca->argv[0], "env", 4))
+	else if (!ft_strncmp(ca->argv[0], "env", 3) && len == 3)
 		ft_env(ca->env);
-	else if (!ft_strncmp(ca->argv[0], "export", 7))
-		ft_export(ca->argc, ca->argv, ca->env);
-	else if (!ft_strncmp(ca->argv[0], "unset", 6))
-		builtin_unset(ca->argc, ca->argv, ca->env);
-	else if (!ft_strncmp(ca->argv[0], "cd", 3))
+	else if (!ft_strncmp(ca->argv[0], "cd", 2) && len == 2)
 		ft_cd(ca->argc, ca->argv, ca->env);
 	else
 		return (EXIT_FAILURE);
+	// else if (!ft_strncmp(ca->argv[0], "export", 6) && len == 6)
+	// 	ft_export(argc, argv, env);
 	return (EXIT_SUCCESS);
 }
 
@@ -163,7 +172,16 @@ int	execute1(t_cmd_lst *cmds, t_env *env)
 
 int	execute2(t_cmd_lst *cmds, t_env *env)
 {
-	return (0);
+	t_cmd_lst	*curr;
+	t_cmd_arg *cmd_arg
+
+	if (curr->next == 0)
+	{
+		cmd_arg = parse_cmd_arg(curr->cmd, env);
+		execute1(cmds_arg);
+	}
+
+
 }
 
 
