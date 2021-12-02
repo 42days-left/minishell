@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 13:50:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/02 12:46:48 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,21 @@ void	cmd_lst_clear(t_cmd_lst *head)
 		if (curr == head)
 			return ;
 	}
+}
+
+int	cmd_lst_size(t_cmd_lst *head)
+{
+	int			size;
+	t_cmd_lst	*curr;
+
+	size = 0;
+	curr = head;
+	while (curr)
+	{
+		size++;
+		curr = curr->next;
+	}
+	return (size);
 }
 
 t_cmd_lst	*cmd_lst_last(t_cmd_lst *lst)
