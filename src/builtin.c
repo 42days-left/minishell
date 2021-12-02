@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/29 20:41:58 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/02 13:50:55 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,24 +145,26 @@ int builtin_function(t_cmd_arg *ca)
 	int	len;
 
 	len = ft_strlen(ca->argv[0]);
-	if (!ft_strncmp(ca->argv[0], "pwd", 3) && len == 3)
+	if (!ft_strncmp(ca->argv[0], "pwd", 4))
 		ft_pwd();
-	else if (!ft_strncmp(ca->argv[0], "exit", 4) && len == 4)
+	else if (!ft_strncmp(ca->argv[0], "exit", 5))
 		ft_exit(ca->argc, ca->argv);
-	else if (!ft_strncmp(ca->argv[0], "env", 3) && len == 3)
+	else if (!ft_strncmp(ca->argv[0], "env", 4))
 		ft_env(ca->env);
-	else if (!ft_strncmp(ca->argv[0], "cd", 2) && len == 2)
+	else if (!ft_strncmp(ca->argv[0], "cd", 3))
 		ft_cd(ca->argc, ca->argv, ca->env);
 	else
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int	execute1(t_cmd_lst *cmds, t_env *env)
+int	execute1(t_cmd_lst *cmds, t_env *env, int read, int write)
 {
 	t_cmd_arg	*cmd_arg;
 
 	cmd_arg = parse_cmd_arg(cmds->cmd, env);
+	cmd_arg->fd[READ] = read;
+	cmd_arg->fd[WRITE] = write;
 	if (builtin_function(cmd_arg))
 		extern_function(cmd_arg);
 	return (EXIT_SUCCESS);
@@ -189,7 +191,7 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 	{
 		close(cmd_arg->fd[WRITE]);
 		execute1(curr, env, read, write);
-		exec_child_process(str, env);
+		//exec_child_process(str, env);
 		return(1);
 	}
 	close(read);
@@ -206,10 +208,10 @@ int	execute(t_cmd_lst *cmds, t_env *env)
 	t_cmd_lst		*curr;
 
 	curr = cmds;
-	// count = lst_size(curr);
-	count = 1;
+	count = cmd_lst_size(curr);
+	printf("################%d\n", count);
 	if (count == 1)
-		execute1(cmds, env);
+		execute1(cmds, env, STDIN_FILENO, STDOUT_FILENO);
 	else
 	 	execute2(cmds, env, STDIN_FILENO, -1);
 	return (1);
