@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:11:14 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/28 18:02:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/02 15:42:29 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,10 @@ void	set_signal(void)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
+}
+
+void	off_signal(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 }

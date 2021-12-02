@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/29 16:40:32 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/02 15:43:03 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define	WRITE		1
 
 void	set_signal(void);
-
+void	off_signal(void);
 
 /*builtin*/
 

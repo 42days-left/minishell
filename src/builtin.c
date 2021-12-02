@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/02 13:50:55 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/02 15:44:09 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,12 +207,14 @@ int	execute(t_cmd_lst *cmds, t_env *env)
 	int				count;
 	t_cmd_lst		*curr;
 
+	off_signal();
 	curr = cmds;
 	count = cmd_lst_size(curr);
 	printf("################%d\n", count);
 	if (count == 1)
 		execute1(cmds, env, STDIN_FILENO, STDOUT_FILENO);
-	else
-	 	execute2(cmds, env, STDIN_FILENO, -1);
+	//else
+	 //	execute2(cmds, env, STDIN_FILENO, -1);
+	set_signal();
 	return (1);
 }
