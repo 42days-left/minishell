@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 19:56:29 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/02 23:13:55 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,7 @@ int	copy_before_dollar(char **ptr, char **buf)
 	return (FALSE);
 }
 
-/**
- * @brief white-space character test
- *
- * @param c
- * @return int TRUE / FALSE
- */
-int		ft_isspace(char c)
-{
-	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || c == ' ')
-		return (TRUE);
-	return (FALSE);
-}
+
 
 int	is_valid_env_char(char c)
 {

@@ -12,50 +12,6 @@
 
 #include "../include/minishell.h"
 
-void	ft_env(t_env *env)
-{
-	if (env == NULL)
-		exit_err(2, "env err");
-	print_envp_lst(env);
-}
-
-int	ft_cd(int argc, char **argv, t_env *env)
-{
-	char	*path;
-	char	*home;
-	t_env	*tmp;
-
-	tmp = find_env_from_env("HOME", env);
-	if (argc ==	1 && tmp)
-		path = tmp->value;
-	else if (argc == 1 && tmp == NULL)
-	{
-		printf("cd: HOME not set\n");
-		return (2);
-	}
-	else if (argc == 2)
-	{
-		path = argv[1];
-		if (path[0] == '~' && path[1] == 0)
-			path = tmp->value;
-	}
-	if (chdir(path) == ERROR)
-	{
-			printf("cd: string not in pwd: %s\n", argv[1]);
-			chdir(".");
-			return (2);
-	}
-	return (EXIT_SUCCESS);
-}
-
-void	ft_exit(int argc, char **argv)
-{
-		(void)argc;
-		(void)argv;
-		printf("exit\n");
-		exit(1);
-}
-
 int	ft_pwd(int fd_out)
 {
 	char *pwd;
@@ -151,11 +107,11 @@ int builtin_function(t_cmd_arg *ca)
 	if (ft_strncmp(ca->argv[0], "pwd", 4) == 0)
 		ft_pwd(ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))
-		ft_exit(ca->argc, ca->argv);
+		builtin_exit(ca->argc, ca->argv);
 	else if (!ft_strncmp(ca->argv[0], "echo", 5))
 		builtin_echo(ca->argc, ca->argv);
 	else if (!ft_strncmp(ca->argv[0], "env", 4))
-		ft_env(ca->env);
+		builtin_env(ca->env);
 	else if (!ft_strncmp(ca->argv[0], "export", 7))
 		ft_export(ca->argc, ca->argv, ca->env);
 	else if (!ft_strncmp(ca->argv[0], "unset", 6))

@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 16:12:41 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 23:52:39 by jisokang         ###   ########.fr       */
+/*   Created: 2021/12/02 23:10:27 by jisokang          #+#    #+#             */
+/*   Updated: 2021/12/02 23:12:17 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "../../include/libft.h"
 
-# include	"lst.h"
-# include	"env.h"
-
-int		ft_cd(int argc, char **argv, t_env *env);
-int		builtin_env(t_env *env_lst);
-int		builtin_exit(int argc, char **argv);
-int		ft_export(int argc, char **argv, t_env *env);
-int		ft_pwd(int fd_out);
-void	ft_echo(t_lst *cmds);
-int		builtin_unset(int argc, char **argv, t_env *env);
-int		builtin_echo(int argc, char **argv);
-
-#endif
+/**
+ * @brief white-space character test
+ *
+ * @param c
+ * @return int TRUE / FALSE
+ */
+int		ft_isspace(int c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || c == ' ')
+		return (1);
+	return (0);
+}

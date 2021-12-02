@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 19:57:39 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/02 23:52:39 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 		str = readline(MAGENTA"minihell🐚"RESET": ");
 		add_history(str);
 		if (!str)
-			ft_exit(1, NULL);
+			builtin_exit(1, NULL);
 		cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
 		cmds = NULL;
 		if (*str)
