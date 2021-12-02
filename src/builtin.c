@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/02 20:58:49 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/02 21:51:44 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ printf("read:%d, write: %d\n", read,  write);
 		close(read);
 	if (write != STDOUT_FILENO)
 		close(write);
-	printf("close \n");
 	return (EXIT_SUCCESS);
 }
 
@@ -231,7 +230,7 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 	{
 		printf("curr=>next\n");
 		pipe(cmd_arg->fd);
-		write = cmd_arg->fd[READ];
+		write = cmd_arg->fd[WRITE];
 		printf("read:%d, write: %d\n", read,  write);
 		printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
 	}
@@ -245,13 +244,14 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 		printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
 //		close(cmd_arg->fd[WRITE]);
 		execute1(curr, env, read, write);
-		printf("execute 1 finished\n");
 		return(1);
 	}
-	close(read);
-	close(write);
+//	if (read != STDIN_FILENO)
+		close(read);
+//	if (write != STDOUT_FILENO)
+		close(write);
 	//waitpid(pid, &status, 0);
-	return (execute2(curr->next, env, cmd_arg->fd[WRITE], pid));
+	return (execute2(curr->next, env, cmd_arg->fd[READ], pid));
 }
 
 
