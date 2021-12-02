@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 15:25:10 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:08:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include	"error.h"
 # include	"builtin.h"
 
-# define	DEBUG		1
+# define	DEBUG		0
 
 /* TYPE */
 # define	SCRIPT		0

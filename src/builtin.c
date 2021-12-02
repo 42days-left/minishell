@@ -26,13 +26,13 @@ int	ft_cd(int argc, char **argv, t_env *env)
 	t_env	*tmp;
 
 	tmp = find_env_from_env("HOME", env);
-	if (tmp == NULL)
+	if (argc ==	1 && tmp)
+		path = tmp->value;
+	else if (argc == 1 && tmp == NULL)
 	{
 		printf("cd: HOME not set\n");
 		return (2);
 	}
-	if (argc ==	1)
-		path = tmp->value;
 	else if (argc == 2)
 	{
 		path = argv[1];
@@ -56,13 +56,17 @@ void	ft_exit(int argc, char **argv)
 		exit(1);
 }
 
-void	ft_pwd(void)
+int	ft_pwd(int fd_out)
 {
 	char *pwd;
 
-	pwd = getcwd(0, 1024); // maxsize
-	printf("%s\n",pwd);
+	pwd = getcwd(NULL, 1024); // maxsize
+	if (pwd == NULL)
+		return (2);
+	ft_putstr_fd(pwd, fd_out);
+	ft_putstr_fd("\n", fd_out);
 	free(pwd);
+	return (EXIT_SUCCESS);
 }
 
 char *find_path(char *str, t_env *env)
@@ -119,7 +123,7 @@ void	exec_child_process(char *str, t_env *env)
 	exit(1);
 }
 
-int		exec_fork(char *str, t_env *env)
+int	exec_fork(char *str, t_env *env)
 {
 	pid_t	pid;
 	int		status;
@@ -145,7 +149,7 @@ int extern_function(t_cmd_arg *ca)
 int builtin_function(t_cmd_arg *ca)
 {
 	if (ft_strncmp(ca->argv[0], "pwd", 4) == 0)
-		ft_pwd();
+		ft_pwd(ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))
 		ft_exit(ca->argc, ca->argv);
 	else if (!ft_strncmp(ca->argv[0], "echo", 5))
