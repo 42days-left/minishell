@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 13:33:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/04 00:34:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void	env_lst_del(t_env *head, char *key)
 
 t_env	*get_env_from_str(char *str)
 {
+	t_env	*node;
 	char	*curr;
 
 	curr = str;
@@ -178,7 +179,9 @@ t_env	*get_env_from_str(char *str)
 		if (*curr == '=')
 		{
 			*curr = '\0';
-			return (new_env_node(ft_strdup(str), ft_strdup(curr + 1)));
+			node = new_env_node(ft_strdup(str), ft_strdup(curr + 1));
+			*curr = '=';
+			return (node);
 		}
 		curr++;
 	}

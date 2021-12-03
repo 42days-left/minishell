@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 16:08:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/03 13:35:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 # define	FALSE		0
 # define	ERROR		-1
 # define	SAME		0
+
+# define	PATH_MAX	1024
 
 # define	BUF_SIZE	10000
 

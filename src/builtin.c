@@ -12,19 +12,6 @@
 
 #include "../include/minishell.h"
 
-int	ft_pwd(int fd_out)
-{
-	char *pwd;
-
-	pwd = getcwd(NULL, 1024); // maxsize
-	if (pwd == NULL)
-		return (2);
-	ft_putstr_fd(pwd, fd_out);
-	ft_putstr_fd("\n", fd_out);
-	free(pwd);
-	return (EXIT_SUCCESS);
-}
-
 char *find_path(char *str, t_env *env)
 {
 	int		i;
@@ -104,7 +91,7 @@ int extern_function(t_cmd_arg *ca)
 
 int builtin_function(t_cmd_arg *ca)
 {
-	if (ft_strncmp(ca->argv[0], "pwd", 4) == 0)
+	if (!ft_strncmp(ca->argv[0], "pwd", 4))
 		ft_pwd(ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))
 		builtin_exit(ca->argc, ca->argv);

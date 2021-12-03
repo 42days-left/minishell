@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 22:37:20 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 22:37:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/04 00:39:50 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,15 @@ int	ft_cd(int argc, char **argv, t_env *env)
 	{
 		path = argv[1];
 		if (path[0] == '~' && path[1] == 0)
-			path = tmp->value;
+		{
+			if (tmp == NULL)
+			{
+				path = ft_strdup(getenv("HOME"));
+				printf("path = [%s]\n", path);
+			}
+			else
+				path = tmp->value;
+		}
 	}
 	if (chdir(path) == ERROR)
 	{
