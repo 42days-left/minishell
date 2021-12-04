@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 20:09:25 by jisokang          #+#    #+#             */
-/*   Updated: 2021/10/16 12:30:57 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/05 01:17:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define YELLOW		"\x1b[33m"
 # define MAGENTA	"\x1b[35m"
 # define CYAN		"\x1b[36m"
+# define GRAY		"\x1b[30;1m"
 
 # define RESET		"\x1b[0m"
 

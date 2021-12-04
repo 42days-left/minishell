@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 23:16:52 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/05 01:29:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,33 +73,35 @@ void	sort_env_key_lst(t_env *env)
 		len++;
 		curr = curr->next;
 	}
-
-
 }
 
-void	print_export_lst(t_env *env)
+void	print_export_lst(t_env *env, int fd_out)
 {
 	t_env	*curr;
-	int		i = 0;
 
 	curr = env;
 	while (curr)
 	{
-		printf("[%d] declare -x %s", i, curr->key);
+		ft_putstr_fd(GRAY"declare -x "RESET, fd_out);
+		ft_putstr_fd(curr->key, fd_out);
 		if (curr->value)
-			printf("=\"%s\"", curr->value);
-		printf("\n");
+		{
+			ft_putstr_fd(MAGENTA"="RESET, fd_out);
+			ft_putstr_fd("\"", fd_out);
+			ft_putstr_fd(curr->value, fd_out);
+			ft_putstr_fd("\"", fd_out);
+		}
+		ft_putstr_fd("\n", fd_out);
 		curr = curr->next;
-		i++;
 	}
 }
 
-int	ft_export(int argc, char **argv, t_env *env)
+int	builtin_export(int argc, char **argv, t_env *env, int fd_out)
 {
 	if (argc == 1)
 	{
 		env_sort(env);
-		print_export_lst(env);
+		print_export_lst(env, fd_out);
 		return (0);
 	}
 	set_export_var(argc, argv, env);

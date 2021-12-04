@@ -6,13 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:33:31 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/03 13:35:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/05 00:23:54 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_pwd(int fd_out)
+int	builtin_pwd(int fd_out)
 {
 	char *pwd;
 

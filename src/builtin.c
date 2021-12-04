@@ -70,6 +70,7 @@ int	exec_fork(char *str, t_env *env)
 {
 	pid_t	pid;
 	int		status;
+
 	DEBUG && printf("exec_fork()\t\t"GREEN"START"RESET"\n");
 	pid = fork();
 	if (pid == 0)
@@ -92,19 +93,19 @@ int extern_function(t_cmd_arg *ca)
 int builtin_function(t_cmd_arg *ca)
 {
 	if (!ft_strncmp(ca->argv[0], "pwd", 4))
-		ft_pwd(ca->fd[WRITE]);
+		builtin_pwd(ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))
 		builtin_exit(ca->argc, ca->argv);
 	else if (!ft_strncmp(ca->argv[0], "echo", 5))
 		builtin_echo(ca->argc, ca->argv, ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "env", 4))
-		builtin_env(ca->env);
+		builtin_env(ca->env, ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "export", 7))
-		ft_export(ca->argc, ca->argv, ca->env);
+		builtin_export(ca->argc, ca->argv, ca->env, ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "unset", 6))
 		builtin_unset(ca->argc, ca->argv, ca->env);
 	else if (!ft_strncmp(ca->argv[0], "cd", 3))
-		ft_cd(ca->argc, ca->argv, ca->env);
+		builtin_cd(ca->argc, ca->argv, ca->env);
 	else
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
