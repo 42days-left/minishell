@@ -96,7 +96,7 @@ int builtin_function(t_cmd_arg *ca)
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))
 		builtin_exit(ca->argc, ca->argv);
 	else if (!ft_strncmp(ca->argv[0], "echo", 5))
-		builtin_echo(ca->argc, ca->argv);
+		builtin_echo(ca->argc, ca->argv, ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "env", 4))
 		builtin_env(ca->env);
 	else if (!ft_strncmp(ca->argv[0], "export", 7))
