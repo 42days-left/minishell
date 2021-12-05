@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/03 13:35:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/06 01:22:07 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int		execute(t_cmd_lst *cmds, t_env *env);
 
 char	*find_path(char *str, t_env *env);
 void	exec_child_process(char *str, t_env *env);
-int		exec_fork(char *str, t_env  *env);
+int		exec_fork(char *cmd_name, t_env  *env);
 t_env	*find_env_from_env(char *in_key, t_env *env);
-void	env_to_envp(t_env *env, char **envp);
+char	**env_to_envp(t_env *env);
 int		print_envp(char **envp);
 void	free_envp(char **envp);
 int		env_count(t_env *env);

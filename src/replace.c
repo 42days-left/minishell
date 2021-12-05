@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 23:13:55 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/06 00:54:06 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_key_from_str(char *str_ptr)
 	char	buf[BUF_SIZE];
 	int		i;
 
-	if (ft_isdigit(str_ptr[0]) || ft_isspace(str_ptr[0]))
+	if (ft_isdigit(str_ptr[0]) || ft_isspace(str_ptr[0]) || str_ptr[0] == 0)
 		return (NULL);
 	buf[0] = str_ptr[0];
 	i = 1;
@@ -97,7 +97,8 @@ int	replace_env_token(t_token *token, t_env *env)
 	{
 		str_ptr++;
 		str_key = find_key_from_str(str_ptr);
-		printf("\t\tstr_key : [%s]\n", str_key);
+		if (str_key == NULL)
+			break ;
 		tmp = find_env_from_env(str_key, env);
 		if (tmp->value)
 		{

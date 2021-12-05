@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char *find_path(char *str, t_env *env)
+char *find_path(char *cmd_name, t_env *env)
 {
 	int		i;
 	t_env	*tmp;
@@ -26,7 +26,7 @@ char *find_path(char *str, t_env *env)
 	DEBUG && printf("----------------"GREEN"FIND NEW_PATH"RESET"---------------\n");
 	while(path_arr[i])
 	{
-		tmp->value = ft_strjoin("/", str);
+		tmp->value = ft_strjoin("/", cmd_name);
 		new_path = ft_strjoin(path_arr[i], tmp->value);
 		free(tmp->value);
 		free(tmp);
@@ -40,42 +40,60 @@ char *find_path(char *str, t_env *env)
 		i++;
 	}
 	DEBUG && printf("--------------------------------------------\n");
-	return (ft_strdup(str));
+	// return (ft_strdup(cmd_name));
+	return (NULL);
 }
 
-void	exec_child_process(char *str, t_env *env)
+// void	exec_child_process(char *str, t_env *env)
+// {
+// 	char *path;
+// 	char *cmd[2];
+// 	char **envp;
+// 	int	cnt;
+
+// 	DEBUG && printf("exec_child_process()\t"GREEN"START"RESET"\n");
+// 	path = find_path(str, env);
+// 	cmd[0] = str;
+// 	cmd[1] = 0;
+
+// 	cnt = env_count(env);
+// 	envp = malloc(sizeof(char *) * (cnt + 1));
+// 	env_to_envp(env, envp);
+// 	execve(path, cmd, envp);
+
+// 	free(path);
+// 	free_envp(envp);
+// 	free(envp);
+// 	exit(1);
+// }
+
+void	exec_child_process2(t_cmd_arg *ca)
 {
 	char *path;
-	char *cmd[2];
 	char **envp;
 	int	cnt;
 
 	DEBUG && printf("exec_child_process()\t"GREEN"START"RESET"\n");
-	path = find_path(str, env);
-	cmd[0] = str;
-	cmd[1] = 0;
-
-	cnt = env_count(env);
-	envp = malloc(sizeof(char *) * (cnt + 1));
-	env_to_envp(env, envp);
-	execve(path, cmd, envp);
-
+	envp = env_to_envp(ca->env);
+	path = find_path(ca->argv[0], ca->env);
+	if (path != NULL)
+		execve(path, ca->argv, envp);
+	else
+		printf(YELLOW"%s: command not found\n"RESET, ca->argv[0]);
 	free(path);
 	free_envp(envp);
-	free(envp);
 	exit(1);
 }
 
-int	exec_fork(char *str, t_env *env)
+int	exec_fork2(t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
 	int		status;
 
-	DEBUG && printf("exec_fork()\t\t"GREEN"START"RESET"\n");
 	pid = fork();
 	if (pid == 0)
 	{
-		exec_child_process(str, env);
+		exec_child_process2(cmd_arg);
 		return(1);
 	}
 	waitpid(pid, &status, 0);
@@ -84,9 +102,27 @@ int	exec_fork(char *str, t_env *env)
 	return (1);
 }
 
+// int	exec_fork(char *cmd_name, t_env *env)
+// {
+// 	pid_t	pid;
+// 	int		status;
+
+// 	DEBUG && printf("exec_fork()\t\t"GREEN"START"RESET"\n");
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		exec_child_process(cmd_name, env);
+// 		return(1);
+// 	}
+// 	waitpid(pid, &status, 0);
+// //	close(fd[1]);
+// //	close(fd[0]);
+// 	return (1);
+// }
+
 int extern_function(t_cmd_arg *ca)
 {
-	exec_fork(ca->argv[0], ca->env);
+	exec_fork2(ca);
 	return (EXIT_SUCCESS);
 }
 
