@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/07 16:51:25 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:15:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,22 @@ t_env	*find_env_from_env(char *in_key, t_env *env)
 	t_env	*curr;
 
 	curr = env;
+	if (in_key[0] == '?')
+		return (new_env_node("?", ft_itoa(g_exitstat)));
 	while (curr)
 	{
-		if (ft_strncmp(curr->key, in_key, 10000) == SAME)	//in_key + 1 = '$USER'다음 문자들
+		if (ft_strncmp(curr->key, in_key, 10000) == SAME)
 			break;
 		curr = curr->next;
 	}
 	if (curr == NULL)
 		return (NULL);
 	return (curr);
+}
+static void free_compound_cmd_node(t_env *tmp)
+{
+	if (tmp && tmp->key[0] == '?')
+		free(tmp);
 }
 
 int	replace_env_token(t_token *token, t_env *env)
@@ -90,11 +97,10 @@ int	replace_env_token(t_token *token, t_env *env)
 		return (0);
 	str_ptr = token->word;
 	buf_ptr = buf;
+	tmp = NULL;
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
 		str_ptr++;
-		if (*str_ptr == '$')
-			break ;
 		str_key = find_key_from_str(str_ptr);
 		if (str_key == NULL)
 			break ;
@@ -108,6 +114,7 @@ int	replace_env_token(t_token *token, t_env *env)
 	}
 	*buf_ptr = '\0';
 	free(token->word);
+	free_compound_cmd_node(tmp);
 	token->word = ft_strdup(buf);
 	return (EXIT_SUCCESS);
 }

@@ -79,7 +79,9 @@ void	exec_child_process2(t_cmd_arg *ca)
 	if (path != NULL)
 		execve(path, ca->argv, envp);
 	else
+	{
 		printf(YELLOW"%s: command not found\n"RESET, ca->argv[0]);
+	}
 	free(path);
 	free_envp(envp);
 	exit(1);

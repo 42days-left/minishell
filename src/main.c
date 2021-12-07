@@ -6,11 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/04 23:42:35 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/07 18:07:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/minishell.h"
+
+int 	g_exitstat = 0;
 
 void	free_tokens(t_lst *tokens)
 {
@@ -71,6 +73,7 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	t_lst	*tokens;
 	char	**strs;	//token들을 저장할 2차원 배열
 
+	DEBUG && printf("script = \"%s\"\n", script);
 	if(tokenizer(script, &strs))
 		return (EXIT_FAILURE);
 	tokens = NULL;
@@ -98,6 +101,7 @@ int	main(int argc, char **argv, char **envp)
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
+		printf("input = [%s]\n", str);
 		add_history(str);
 		if (!str)
 			builtin_exit(1, NULL);
@@ -105,6 +109,7 @@ int	main(int argc, char **argv, char **envp)
 		cmds = NULL;
 		if (*str)
 		{
+			printf("input = [%s]\n", str);
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
 			execute(cmds, env);

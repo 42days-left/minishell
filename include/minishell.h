@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/06 01:22:07 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/07 18:07:28 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include	"error.h"
 # include	"builtin.h"
 
-# define	DEBUG		0
+# define	DEBUG		1
 
 /* TYPE */
 # define	SCRIPT		0
@@ -67,6 +67,8 @@ char	**env_to_envp(t_env *env);
 int		print_envp(char **envp);
 void	free_envp(char **envp);
 int		env_count(t_env *env);
+
+int		g_exitstat;
 
 #endif
 

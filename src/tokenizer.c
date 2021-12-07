@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:35:03 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/30 13:46:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/07 17:19:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	convert_symbols(char *script, char *buf)
 {
 	while (*script != '\0')
 	{
-		if (ft_strchr("()?;\\", *script))
+		if (ft_strchr("();\\", *script))
 			return (EXIT_FAILURE);
 		if (ft_strchr("|<>", *script))
 		{
