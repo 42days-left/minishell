@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/06 15:52:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/07 16:51:25 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	copy_before_dollar(char **ptr, char **buf)
 	}
 	return (FALSE);
 }
-
-
 
 int	is_valid_env_char(char c)
 {
@@ -71,7 +69,6 @@ t_env	*find_env_from_env(char *in_key, t_env *env)
 	curr = env;
 	while (curr)
 	{
-		//printf("["YELLOW"%s"RESET"]\n", curr->key);
 		if (ft_strncmp(curr->key, in_key, 10000) == SAME)	//in_key + 1 = '$USER'다음 문자들
 			break;
 		curr = curr->next;
@@ -96,11 +93,13 @@ int	replace_env_token(t_token *token, t_env *env)
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
 		str_ptr++;
+		if (*str_ptr == '$')
+			break ;
 		str_key = find_key_from_str(str_ptr);
 		if (str_key == NULL)
 			break ;
 		tmp = find_env_from_env(str_key, env);
-		if (tmp->value)
+		if (tmp && tmp->value)
 		{
 			ft_memcpy(buf_ptr, tmp->value, ft_strlen(tmp->value));
 			buf_ptr += (char)ft_strlen(tmp->value);
