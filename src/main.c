@@ -6,13 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/07 18:07:05 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/07 21:03:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../include/minishell.h"
-
-int 	g_exitstat = 0;
 
 void	free_tokens(t_lst *tokens)
 {
@@ -109,10 +107,10 @@ int	main(int argc, char **argv, char **envp)
 		cmds = NULL;
 		if (*str)
 		{
-			printf("input = [%s]\n", str);
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
 			execute(cmds, env);
+			printf(BLUE"[[%d]]\n"RESET, g_exitstat);
 		}
 		free(str);
 		free_cmds(&cmds);

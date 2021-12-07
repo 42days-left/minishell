@@ -80,11 +80,13 @@ void	exec_child_process2(t_cmd_arg *ca)
 		execve(path, ca->argv, envp);
 	else
 	{
-		printf(YELLOW"%s: command not found\n"RESET, ca->argv[0]);
+		// printf(YELLOW"%s: command not found\n"RESET, ca->argv[0]);
+		printf(YELLOW"%s"RESET, ca->argv[0]);
+		exit_err(127, ": command not found");
 	}
 	free(path);
 	free_envp(envp);
-	exit(1);
+	exit(0);
 }
 
 int	exec_fork2(t_cmd_arg *cmd_arg)
@@ -99,9 +101,11 @@ int	exec_fork2(t_cmd_arg *cmd_arg)
 		return(1);
 	}
 	waitpid(pid, &status, 0);
+	g_exitstat = WEXITSTATUS(status);//자식의 종료상태를 받아오게 만드는 wait/waitpid의 매크로 -> 함수로 변환해야함.
+
 //	close(fd[1]);
 //	close(fd[0]);
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 // int	exec_fork(char *cmd_name, t_env *env)
