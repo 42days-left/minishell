@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 22:37:20 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/05 00:18:59 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 13:11:46 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	builtin_cd(int argc, char **argv, t_env *env)
 	else if (argc == 1 && tmp == NULL)
 	{
 		printf("cd: HOME not set\n");
-		return (2);
+		return (EXIT_FAILURE);
 	}
 	else if (argc == 2)
 	{
@@ -42,9 +42,9 @@ int	builtin_cd(int argc, char **argv, t_env *env)
 	}
 	if (chdir(path) == ERROR)
 	{
-		printf("cd: string not in pwd: %s\n", argv[1]);
+		printf("cd: %s: No such file or directory\n", argv[1]);
 		chdir(".");
-		return (2);
+		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }

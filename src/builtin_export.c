@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/05 01:29:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 13:17:42 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ int	set_export_var(int argc, char **argv, t_env *env)
 	while (i < argc)
 	{
 		if (!is_valid_key_value(argv[i]))
-			printf(YELLOW\
-			"export : '%s' : not a valid identifier\n"RESET, argv[i]);
+		{
+			printf(YELLOW"export : '%s' : not a valid identifier\n"RESET, argv[i]);
+			return (EXIT_FAILURE);
+		}
 		else
 		{
 			argv_env = get_env_from_str(argv[i]);
@@ -58,7 +60,7 @@ int	set_export_var(int argc, char **argv, t_env *env)
 	// free(argv_env);
 	// malloc: *** error for object 0x333231: pointer being freed was not allocated
 	// malloc: *** set a breakpoint in malloc_error_break to debug
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 void	sort_env_key_lst(t_env *env)
@@ -102,8 +104,9 @@ int	builtin_export(int argc, char **argv, t_env *env, int fd_out)
 	{
 		env_sort(env);
 		print_export_lst(env, fd_out);
-		return (0);
+		return (EXIT_SUCCESS);
 	}
-	set_export_var(argc, argv, env);
-	return(EXIT_SUCCESS);
+	if (set_export_var(argc, argv, env) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

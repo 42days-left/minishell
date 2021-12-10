@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:02:58 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 19:56:16 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 13:19:33 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ int	remove_env_var(int argc, char **argv, t_env *env)
 	while (i < argc)
 	{
 		if (!is_valid_key(argv[i]))
-			printf(YELLOW\
-			"export : '%s' : not a valid identifier\n"RESET, argv[i]);
+		{
+			printf(YELLOW"export : '%s' : not a valid identifier\n"RESET, argv[i]);
+			return (EXIT_FAILURE);
+		}
 		else
 		{
 			argv_env = get_env_from_str(argv[i]);
@@ -53,13 +55,14 @@ int	remove_env_var(int argc, char **argv, t_env *env)
 	// free(argv_env);
 	// malloc: *** error for object 0x333231: pointer being freed was not allocated
 	// malloc: *** set a breakpoint in malloc_error_break to debug
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	builtin_unset(int argc, char **argv, t_env *env)
 {
 	if (argc == 1)
 		return (1);
-	remove_env_var(argc, argv, env);
+	if (remove_env_var(argc, argv, env) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

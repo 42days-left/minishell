@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 00:34:49 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/04 16:29:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 13:02:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	builtin_echo(int argc, char **argv, int fd)
 	if (argc == 1)
 	{
 		ft_putstr_fd("\n", fd);
-		return (0);
+		return (EXIT_SUCCESS);
 	}
 	opt = FALSE;
 	if (!ft_strncmp("-n", argv[1], 3))
@@ -45,5 +45,5 @@ int	builtin_echo(int argc, char **argv, int fd)
 		ft_putstr_fd(argv[i++], fd);
 	if (opt == FALSE)
 		ft_putstr_fd("\n", fd);
-	return (0);
+	return (EXIT_SUCCESS);
 }

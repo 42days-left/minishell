@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/07 21:03:27 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:55:00 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	main(int argc, char **argv, char **envp)
 			if (parse(str, env, &cmds) == EXIT_FAILURE)
 				exit_err(2, "Parse Error");
 			execute(cmds, env);
-			printf(BLUE"[[%d]]\n"RESET, g_exitstat);
+			// printf(BLUE"[[%d]]\n"RESET, g_exitstat);
 		}
 		free(str);
 		free_cmds(&cmds);

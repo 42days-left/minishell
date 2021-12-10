@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/07 18:07:28 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 13:01:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@
 
 # define	READ		0
 # define	WRITE		1
+
+# define	EXIT_SYNTAXERR	2
+# define	EXIT_WRONGPATH	127
+
 
 void	set_signal(void);
 
