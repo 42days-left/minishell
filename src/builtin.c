@@ -44,29 +44,6 @@ char *find_path(char *cmd_name, t_env *env)
 	return (NULL);
 }
 
-// void	exec_child_process(char *str, t_env *env)
-// {
-// 	char *path;
-// 	char *cmd[2];
-// 	char **envp;
-// 	int	cnt;
-
-// 	DEBUG && printf("exec_child_process()\t"GREEN"START"RESET"\n");
-// 	path = find_path(str, env);
-// 	cmd[0] = str;
-// 	cmd[1] = 0;
-
-// 	cnt = env_count(env);
-// 	envp = malloc(sizeof(char *) * (cnt + 1));
-// 	env_to_envp(env, envp);
-// 	execve(path, cmd, envp);
-
-// 	free(path);
-// 	free_envp(envp);
-// 	free(envp);
-// 	exit(1);
-// }
-
 void	exec_child_process2(t_cmd_arg *ca)
 {
 	char *path;
@@ -107,24 +84,6 @@ int	exec_fork2(t_cmd_arg *cmd_arg)
 //	close(fd[0]);
 	return (EXIT_SUCCESS);
 }
-
-// int	exec_fork(char *cmd_name, t_env *env)
-// {
-// 	pid_t	pid;
-// 	int		status;
-
-// 	DEBUG && printf("exec_fork()\t\t"GREEN"START"RESET"\n");
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		exec_child_process(cmd_name, env);
-// 		return(1);
-// 	}
-// 	waitpid(pid, &status, 0);
-// //	close(fd[1]);
-// //	close(fd[0]);
-// 	return (1);
-// }
 
 int extern_function(t_cmd_arg *ca)
 {
