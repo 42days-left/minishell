@@ -12,7 +12,18 @@
 
 #include "../include/minishell.h"
 
-char *find_path(char *cmd_name, t_env *env)
+void	check_dot_path(char *path)
+{
+	if (path[0] == '.')
+	{
+		if (path[1] == '\0')
+			exit_err(EXIT_SYNTAXERR, ".: filename argument required");
+		else if (path[1] == '.' && path[2] == '\0')
+			exit_err(EXIT_WRONGPATH, "..: command not found");
+	}
+}
+
+char *find_path(char *in_path, t_env *env)
 {
 	int		i;
 	t_env	*tmp;
@@ -22,25 +33,39 @@ char *find_path(char *cmd_name, t_env *env)
 
 	tmp = find_env_from_env("PATH", env);
 	path_arr = ft_split(tmp->value, ':');
-	i = 0;
 	DEBUG && printf("----------------"GREEN"FIND NEW_PATH"RESET"---------------\n");
+	if (!stat(in_path, &s))
+	{
+		check_dot_path(in_path);
+		if ((s.st_mode & S_IFMT) == S_IFDIR)
+		{
+			printf(YELLOW"%s: "RESET, in_path);
+			exit_err(EXIT_EXCUTE, "is a directory");
+		}
+		return(in_path);
+	}
+	if (in_path[0] == '/')
+	{
+		printf(YELLOW"%s: "RESET, in_path);
+		exit_err(EXIT_WRONGPATH, "No such file or directory");
+	}
+	i = 0;
 	while(path_arr[i])
 	{
-		tmp->value = ft_strjoin("/", cmd_name);
+		tmp->value = ft_strjoin("/", in_path);
 		new_path = ft_strjoin(path_arr[i], tmp->value);
 		free(tmp->value);
 		free(tmp);
 		DEBUG && printf("\tnew_path ["MAGENTA"%d"RESET"] : ["MAGENTA"%s"RESET"]\n", i, new_path);
 		if (!stat(new_path, &s))
 		{
-			DEBUG && printf("--------------------------------------------\n");
+			DEBUG && printf("-----------------------------------FIND_"GREEN"DONE"RESET"\n");
 			return (new_path);
 		}
 		free(new_path);
 		i++;
 	}
-	DEBUG && printf("--------------------------------------------\n");
-	// return (ft_strdup(cmd_name));
+	DEBUG && printf("-----------------------------------FIND_"RED"FAIL"RESET"\n");
 	return (NULL);
 }
 
@@ -57,13 +82,12 @@ void	exec_child_process2(t_cmd_arg *ca)
 		execve(path, ca->argv, envp);
 	else
 	{
-		// printf(YELLOW"%s: command not found\n"RESET, ca->argv[0]);
 		printf(YELLOW"%s"RESET, ca->argv[0]);
-		exit_err(127, ": command not found");
+		exit_err(EXIT_WRONGPATH, ": command not found");
 	}
 	free(path);
 	free_envp(envp);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 int	exec_fork2(t_cmd_arg *cmd_arg)
@@ -94,19 +118,19 @@ int extern_function(t_cmd_arg *ca)
 int builtin_function(t_cmd_arg *ca)
 {
 	if (!ft_strncmp(ca->argv[0], "pwd", 4))
-		builtin_pwd(ca->fd[WRITE]);
+		g_exitstat = builtin_pwd(ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))
-		builtin_exit(ca->argc, ca->argv);
+		g_exitstat = builtin_exit(ca->argc, ca->argv);
 	else if (!ft_strncmp(ca->argv[0], "echo", 5))
-		builtin_echo(ca->argc, ca->argv, ca->fd[WRITE]);
+		g_exitstat = builtin_echo(ca->argc, ca->argv, ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "env", 4))
-		builtin_env(ca->env, ca->fd[WRITE]);
+		g_exitstat = builtin_env(ca->env, ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "export", 7))
-		builtin_export(ca->argc, ca->argv, ca->env, ca->fd[WRITE]);
+		g_exitstat = builtin_export(ca->argc, ca->argv, ca->env, ca->fd[WRITE]);
 	else if (!ft_strncmp(ca->argv[0], "unset", 6))
-		builtin_unset(ca->argc, ca->argv, ca->env);
+		g_exitstat = builtin_unset(ca->argc, ca->argv, ca->env);
 	else if (!ft_strncmp(ca->argv[0], "cd", 3))
-		builtin_cd(ca->argc, ca->argv, ca->env);
+		g_exitstat = builtin_cd(ca->argc, ca->argv, ca->env);
 	else
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

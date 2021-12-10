@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 13:01:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 14:54:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define	WRITE		1
 
 # define	EXIT_SYNTAXERR	2
+# define	EXIT_EXCUTE		126
 # define	EXIT_WRONGPATH	127
 
 
@@ -63,7 +64,7 @@ void	set_signal(void);
 
 int		execute(t_cmd_lst *cmds, t_env *env);
 
-char	*find_path(char *str, t_env *env);
+char	*find_path(char *in_path, t_env *env);
 void	exec_child_process(char *str, t_env *env);
 int		exec_fork(char *cmd_name, t_env  *env);
 t_env	*find_env_from_env(char *in_key, t_env *env);
