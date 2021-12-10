@@ -90,6 +90,17 @@ void	exec_child_process2(t_cmd_arg *ca)
 	exit(EXIT_SUCCESS);
 }
 
+/**
+ * @brief Get the WEXITSTATUS object
+ *
+ * @param stat
+ * @return int
+ */
+static int	get_wexitstat(int stat)
+{
+	return ((((*(int *)&(stat)) >> 8) & 0x000000ff));
+}
+
 int	exec_fork2(t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
@@ -102,8 +113,7 @@ int	exec_fork2(t_cmd_arg *cmd_arg)
 		return(1);
 	}
 	waitpid(pid, &status, 0);
-	g_exitstat = WEXITSTATUS(status);//자식의 종료상태를 받아오게 만드는 wait/waitpid의 매크로 -> 함수로 변환해야함.
-
+	g_exitstat = get_wexitstat(status);
 //	close(fd[1]);
 //	close(fd[0]);
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/07 20:54:39 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 16:22:03 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ t_env	*find_env_from_env(char *in_key, t_env *env)
 
 	curr = env;
 	if (in_key[0] == '?')
-	{
-		printf("[%d][%s]\n", g_exitstat, ft_itoa(g_exitstat));
 		return (new_env_node("?", ft_itoa(g_exitstat)));
-	}
 	while (curr)
 	{
 		if (ft_strncmp(curr->key, in_key, 10000) == SAME)
