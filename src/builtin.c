@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/10 16:12:36 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/10 17:36:37 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,21 @@ void	ft_close(int fd)
 	if (fd == STDERR_FILENO)
 		return ;
 	close(fd);
+	printf("close :%d\n", fd);
 }
 
 int		ft_dup2(int oldfd, int newfd)
 {
 	int res;
+	printf("dup2\n");
 	if (oldfd == newfd)
 		return (1);
 	printf("%d, %d\n", oldfd, newfd);
 	res = dup2(oldfd, newfd);
+	printf("%d, %d\n", oldfd, newfd);
 	printf("res: %d \n", res);
 	ft_close(oldfd);
-	return (newfd);
+	return (res);
 }
 
 int	ft_cd(int argc, char **argv, t_env *env)
@@ -89,8 +92,6 @@ int	ft_pwd(int fd_out)
 		return (2);
 	ft_putstr_fd(pwd, fd_out);
 	ft_putstr_fd("\n", fd_out);
-
-	printf("fd_out%d\n", fd_out);
 	free(pwd);
 	return (EXIT_SUCCESS);
 }
@@ -259,8 +260,8 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 		execute1(curr, env, read, write);
 		exit (1);
 	}
-	ft_close(read);
-	ft_close(write);
+	//ft_close(read);
+	//ft_close(write);
 	return (execute2(curr->next, env, cmd_arg->fd[READ], pid));
 }
 

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 18:34:49 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/10 17:22:25 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # include	<stdio.h>
 # include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
+# include	<unistd.h>
 # include	<readline/readline.h> /* readline함수를 사용하기위한 헤더 */
 # include	<readline/history.h> /* add_history함수를 사용하기위한 헤더 */
 # include	<sys/stat.h>
-
 # include	<termios.h>
 
 # include	"../lib/include/libft.h"

@@ -21,6 +21,7 @@ int main(int argc, char **argv, char **envp){
 	int fd[2];
 	pid_t pid;
 	char buf[MAX_BUF];
+	printf("main2========\n");
 //
 //	if (pipe(fd) < 0)
 //	{
@@ -32,6 +33,7 @@ int main(int argc, char **argv, char **envp){
 		printf("fork error\n");
 		exit(1);
 	}
+	printf("asdf\n");
 	if (pid > 0) //parent process
 	{
 //		printf("fd[0]: %d\n", fd[0]);
