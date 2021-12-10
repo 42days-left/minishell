@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/01 19:57:39 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:50:45 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	main(int argc, char **argv, char **envp)
 			execute(cmds, env);
 		}
 		free(str);
-		free_cmds(&cmds);
+		//free_cmds(&cmds);
 		// free(cmds);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/02 21:51:44 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/10 13:54:35 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,27 @@ void	ft_env(t_env *env)
 	if (env == NULL)
 		exit_err(2, "env err");
 	print_envp_lst(env);
+}
+
+void	ft_close(int fd)
+{
+	if (fd == STDIN_FILENO)
+		return ;
+	if (fd == STDOUT_FILENO)
+		return ;
+	if (fd == STDERR_FILENO)
+		return ;
+	close(fd);
+}
+
+int		ft_dup2(int oldfd, int newfd)
+{
+	if (oldfd == newfd)
+		return (1);
+	printf("%d, %d\n", oldfd, newfd);
+	dup2(oldfd, newfd);
+	ft_close(oldfd);
+	return (newfd);
 }
 
 int	ft_cd(int argc, char **argv, t_env *env)
@@ -153,12 +174,8 @@ int extern_function(t_cmd_arg *ca, int read, int write)
 	if (pid == 0)
 	{
 		//exec_fork(ca->argv[0], ca->env, read, write);
-		dup2(read, STDIN_FILENO);
-		if (read != STDIN_FILENO)
-			close(read);
-		dup2(write, STDOUT_FILENO);
-		if (write != STDOUT_FILENO)
-			close(write);
+		ft_dup2(read, STDIN_FILENO);
+		ft_dup2(write, STDOUT_FILENO);
 		exec_extern_process(ca->argv[0], ca->env);
 	}
 	waitpid(pid, &status, 0);
@@ -195,20 +212,13 @@ int	execute1(t_cmd_lst *cmds, t_env *env, int read, int write)
 	cmd_arg = parse_cmd_arg(cmds->cmd, env);
 	cmd_arg->fd[READ] = read;
 	cmd_arg->fd[WRITE] = write;
-	dup2(read, STDIN_FILENO);
-		if (read != STDIN_FILENO)
-			close(read);
-		dup2(write, STDOUT_FILENO);
-		if (write != STDOUT_FILENO)
-			close(write);
-printf("read:%d, write: %d\n", read,  write);
+	ft_dup2(read, STDIN_FILENO);
+	ft_dup2(write, STDOUT_FILENO);
+	printf("read:%d, write: %d\n", read,  write);
 	printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
+	set_signal();
 	if (builtin_function(cmd_arg, read, write))
 		extern_function(cmd_arg, read, write);
-	if (read != STDIN_FILENO)
-		close(read);
-	if (write != STDOUT_FILENO)
-		close(write);
 	return (EXIT_SUCCESS);
 }
 
@@ -242,14 +252,12 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 		
 		printf("read:%d, write: %d\n", read,  write);
 		printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
-//		close(cmd_arg->fd[WRITE]);
+		ft_close(cmd_arg->fd[READ]);
 		execute1(curr, env, read, write);
 		return(1);
 	}
-//	if (read != STDIN_FILENO)
-		close(read);
-//	if (write != STDOUT_FILENO)
-		close(write);
+	ft_close(read);
+	ft_close(write);
 	//waitpid(pid, &status, 0);
 	return (execute2(curr->next, env, cmd_arg->fd[READ], pid));
 }
@@ -264,7 +272,6 @@ int	execute(t_cmd_lst *cmds, t_env *env)
 	off_signal();
 	curr = cmds;
 	count = cmd_lst_size(curr);
-	printf("################%d\n", count);
 	if (count == 1)
 		execute1(cmds, env, STDIN_FILENO, STDOUT_FILENO);
 	else
