@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/10 13:54:35 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/10 16:12:36 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ void	ft_close(int fd)
 
 int		ft_dup2(int oldfd, int newfd)
 {
+	int res;
 	if (oldfd == newfd)
 		return (1);
 	printf("%d, %d\n", oldfd, newfd);
-	dup2(oldfd, newfd);
+	res = dup2(oldfd, newfd);
+	printf("res: %d \n", res);
 	ft_close(oldfd);
 	return (newfd);
 }
@@ -174,9 +176,10 @@ int extern_function(t_cmd_arg *ca, int read, int write)
 	if (pid == 0)
 	{
 		//exec_fork(ca->argv[0], ca->env, read, write);
-		ft_dup2(read, STDIN_FILENO);
-		ft_dup2(write, STDOUT_FILENO);
+	//	ft_dup2(read, STDIN_FILENO);
+	//	ft_dup2(write, STDOUT_FILENO);
 		exec_extern_process(ca->argv[0], ca->env);
+		return (1);
 	}
 	waitpid(pid, &status, 0);
 	return (EXIT_SUCCESS);
@@ -210,12 +213,12 @@ int	execute1(t_cmd_lst *cmds, t_env *env, int read, int write)
 
 	printf("execute1 in\n");
 	cmd_arg = parse_cmd_arg(cmds->cmd, env);
-	cmd_arg->fd[READ] = read;
-	cmd_arg->fd[WRITE] = write;
+	//cmd_arg->fd[READ] = read;
+	//cmd_arg->fd[WRITE] = write;
 	ft_dup2(read, STDIN_FILENO);
 	ft_dup2(write, STDOUT_FILENO);
 	printf("read:%d, write: %d\n", read,  write);
-	printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
+	//printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
 	set_signal();
 	if (builtin_function(cmd_arg, read, write))
 		extern_function(cmd_arg, read, write);
@@ -230,8 +233,8 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 	int		status;
 	int		write;
 	
-	waitpid(pid, &status, 0);
-
+	if (!cmds->next)
+		return(waitpid(last_pid, &status, 0));
 	printf("\nexecute2 !!!!!!!!!!!!\n");
 	curr = cmds;
 	cmd_arg = parse_cmd_arg(curr->cmd, env);
@@ -254,11 +257,10 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 		printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
 		ft_close(cmd_arg->fd[READ]);
 		execute1(curr, env, read, write);
-		return(1);
+		exit (1);
 	}
 	ft_close(read);
 	ft_close(write);
-	//waitpid(pid, &status, 0);
 	return (execute2(curr->next, env, cmd_arg->fd[READ], pid));
 }
 
