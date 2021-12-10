@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:02:58 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 13:19:33 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int	is_valid_key(char *key)
 {
@@ -50,11 +50,6 @@ int	remove_env_var(int argc, char **argv, t_env *env)
 		}
 		i++;
 	}
-	// free(argv_env->key);
-	// free(argv_env->value);
-	// free(argv_env);
-	// malloc: *** error for object 0x333231: pointer being freed was not allocated
-	// malloc: *** set a breakpoint in malloc_error_break to debug
 	return (EXIT_SUCCESS);
 }
 

@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:27:11 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/17 15:16:50 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 //void	remove_quote_token(t_token *token)
 //{

@@ -6,11 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 00:34:49 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 13:02:57 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /**
  * @brief builtin echo with option '-n'

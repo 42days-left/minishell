@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	check_dot_path(char *path)
 {
@@ -160,8 +160,6 @@ int	execute2(t_cmd_lst *cmds, t_env *env)
 {
 	return (0);
 }
-
-
 
 int	execute(t_cmd_lst *cmds, t_env *env)
 {
