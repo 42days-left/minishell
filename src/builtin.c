@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/10 17:36:37 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/10 18:07:43 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		ft_dup2(int oldfd, int newfd)
 		return (1);
 	printf("%d, %d\n", oldfd, newfd);
 	res = dup2(oldfd, newfd);
+	printf("asdf\n");
 	printf("%d, %d\n", oldfd, newfd);
 	printf("res: %d \n", res);
 	ft_close(oldfd);
@@ -226,6 +227,8 @@ int	execute1(t_cmd_lst *cmds, t_env *env, int read, int write)
 	return (EXIT_SUCCESS);
 }
 
+
+
 int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 {
 	t_cmd_lst	*curr;
@@ -233,7 +236,7 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 	pid_t	pid;
 	int		status;
 	int		write;
-	
+
 	if (!cmds->next)
 		return(waitpid(last_pid, &status, 0));
 	printf("\nexecute2 !!!!!!!!!!!!\n");
@@ -257,11 +260,12 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 		printf("read:%d, write: %d\n", read,  write);
 		printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
 		ft_close(cmd_arg->fd[READ]);
-		execute1(curr, env, read, write);
-		exit (1);
+		exit(execute1(curr, env, read, write));
+		//exit (1);
 	}
-	//ft_close(read);
-	//ft_close(write);
+	waitpid(pid, &status, 0);
+	ft_close(read);
+	ft_close(write);
 	return (execute2(curr->next, env, cmd_arg->fd[READ], pid));
 }
 
