@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:02:58 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/10 17:17:13 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	remove_env_var(int argc, char **argv, t_env *env)
 	{
 		if (!is_valid_key(argv[i]))
 		{
-			printf(YELLOW"export : '%s' : not a valid identifier\n"RESET, argv[i]);
+			printf(YELLOW"unset : '%s' : not a valid identifier\n"RESET, argv[i]);
 			return (EXIT_FAILURE);
 		}
 		else
