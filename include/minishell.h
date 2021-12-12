@@ -6,13 +6,16 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 16:21:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/12 00:29:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+
+# include	<unistd.h>
+# include	<fcntl.h>
 # include	<stdio.h>
 # include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
 # include	<readline/readline.h> /* readline함수를 사용하기위한 헤더 */
@@ -30,6 +33,7 @@
 # include	"token.h"
 # include	"error.h"
 # include	"builtin.h"
+# include	"redirect.h"
 
 # define	DEBUG		0
 
@@ -63,6 +67,7 @@
 void	set_signal(void);
 
 int		execute(t_cmd_lst *cmds, t_env *env);
+void	free_strings(char **strs);
 
 char	*find_path(char *in_path, t_env *env);
 void	exec_child_process(char *str, t_env *env);
