@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/12 00:17:00 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/13 13:06:15 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	left_double_redir(char *fd)
 }
 
 /**
- * @brief 0644 : 소유자는 읽기/쓰기가 가능하며, 나머지 모든 사람은 읽기만 가능.
+ * @brief 0644 : 권한 설정, 소유자는 읽기/쓰기가 가능하며, 나머지 모든 사람은 읽기만 가능.
  *
  * @param file
  * @return int
@@ -85,6 +85,5 @@ int	get_redir_fd(t_lst *rds, int fds[2])
 		// 	return (0);
 		node = node->next;
 	}
-	// printf("get_fd END token->word/type = ["BLUE"%s/%d"RESET"] : fds["BLUE"%d"RESET"] == "BLUE"%d"RESET"\n", token->word, token->type, fd_type, fds[fd_type]);
 	return (1);
 }
