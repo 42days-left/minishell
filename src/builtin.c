@@ -6,24 +6,12 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/13 15:37:43 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/13 17:27:17 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-typedef struct s_signal_handler
-{
-	void	(*sigint)();
-	void	(*sigquit)();
-}	t_signal_handler;
-
-t_signal_handler	*sig_handler(void)
-{
-	static t_signal_handler	signals;
-
-	return (&signals);
-}
 int	wait_cmds(int last_pid)
 {	
 	int status;
@@ -141,15 +129,15 @@ int	ft_dup(int fd1, int fd2)
 
 	if (fd1 == fd2)
 		return (1);
-	printf(" fd1: %d, fd2: %d\n", fd1, fd2);
+	printf("dup2==== fd1: %d, fd2: %d\n", fd1, fd2);
 	rt = dup2(fd1, fd2);
-	printf("dup2 %d\n", rt);
+	printf("dup2====  %d\n", rt);
 	ft_close(fd1);
 	return (rt);
 }
 
 
-int	exec_fork2(t_cmd_arg *cmd_arg)
+int	extern_function(t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
 	int		status;
@@ -157,8 +145,7 @@ int	exec_fork2(t_cmd_arg *cmd_arg)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGINT, sig_handler()->sigint);
-		signal(SIGQUIT, sig_handler()->sigquit);
+		on_signal();
 		// ft_dup(cmd_arg->fd[WRITE], STDIN_FILENO);
 		// ft_dup(cmd_arg->fd[READ], STDOUT_FILENO);
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
@@ -169,14 +156,7 @@ int	exec_fork2(t_cmd_arg *cmd_arg)
 	// waitpid(pid, &status, 0);
 	wait(&status);
 	g_exitstat = get_wexitstat(status);
-
-	return (EXIT_SUCCESS);
-}
-
-int extern_function(t_cmd_arg *ca)
-{
-	exec_fork2(ca);
-	free_proc(ca);
+	free_proc(cmd_arg);
 	return (EXIT_SUCCESS);
 }
 
@@ -231,7 +211,6 @@ int	execute1(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 
 	cmd_arg = parse_cmd_arg(cmds->cmd, env, fd_in, fd_out);
 	printf("execute1\n");
-	printf("fd_in: %d, fd_out: %d\n", cmd_arg->fd_in, cmd_arg->fd_out);
 	if (builtin_function(cmd_arg))
 		extern_function(cmd_arg);
 	return (EXIT_SUCCESS);
@@ -242,7 +221,6 @@ int	execute1(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 {
 	t_cmd_lst	*curr;
-	t_cmd_arg	*cmd_arg;
 	pid_t	pid;
 	int		status;
 	int		fd_out;
@@ -252,31 +230,25 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 		return(wait_cmds(last_pid));
 	printf("\nexecute2 !!!!!!!!!!!!\n");
 	curr = cmds;
-	// cmd_arg = parse_cmd_arg(curr->cmd, env, fd_in, );
 	fd_out = STDOUT_FILENO;
 	if (curr->next)
 	{
+		printf(">>curr->next exist<<\n");
+
 		pipe(pipe_fd);
 		fd_out = pipe_fd[WRITE];
 		printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
-		printf("cmd_arg->fd_in: %d, cmd_arg->fd_out : %d\n", fd_in, fd_out);
-//		pipe(fd);
-//		write = fd[WRITE];
 	}	
 	pid = fork();
 	if (pid == 0)
 	{
 		off_signal();
-		printf("child process\n");
-		printf("read:%d, write: %d\n", fd_in,  fd_out);
-		printf("cmd_arg->fd_in: %d, cmd_arg->fd_out : %d\n", fd_in, fd_out);
+		printf(">>child process<<\n");
+		printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
 		ft_close(pipe_fd[READ]);
-		//		ft_close(fd[READ]);
 		exit(execute1(curr, env, fd_in, fd_out));
-		//exit (1);
 	}
 	waitpid(pid, &status, 0);
-	printf("%d, parent process\n", pid);
 	ft_close(fd_in);
 	ft_close(fd_out);
 	printf("fd_in:%d, fd_out:%d\n", fd_in, fd_out);

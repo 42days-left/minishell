@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/13 13:41:49 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/13 17:12:08 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 
 
 void	set_signal(void);
+void	on_signal(void);
 void	off_signal(void);
 
 /*builtin*/
