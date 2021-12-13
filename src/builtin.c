@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/13 20:12:23 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/13 20:24:33 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int	extern_function(t_cmd_arg *cmd_arg)
 	pid = fork();
 	if (pid == 0)
 	{
-		set_signal();
+		on_signal();
 		// ft_dup(cmd_arg->fd[WRITE], STDIN_FILENO);
 		// ft_dup(cmd_arg->fd[READ], STDOUT_FILENO);
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
@@ -208,7 +208,8 @@ static void	wait_process(t_cmd_arg *proc)
 int	execute1(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 {
 	t_cmd_arg	*cmd_arg;
-
+	
+	on_signal();
 	cmd_arg = parse_cmd_arg(cmds->cmd, env, fd_in, fd_out);
 	printf("execute1\n");
 	if (builtin_function(cmd_arg))
@@ -267,5 +268,5 @@ void	execute(t_cmd_lst *cmds, t_env *env)
 		execute1(cmds, env, STDIN_FILENO, STDOUT_FILENO);
 	else
 		execute2(cmds, env, STDIN_FILENO, -1);
-	set_signal();
+	on_signal();
 }
