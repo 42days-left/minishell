@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/12 00:34:29 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/13 13:42:25 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ int	print_cmds_list(t_cmd_lst *cmds);
 
 char	**get_cmd_argv(t_lst *tokens);
 t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env, int fd_in, int fd_out);
+int	cmd_lst_size(t_cmd_lst *head);
 
 #endif

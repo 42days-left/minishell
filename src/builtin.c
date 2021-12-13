@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubae <yubae@student.42seoul.kr>:           +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/11/29 18:52:24 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/13 14:03:19 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char *find_path(char *in_path, t_env *env)
 		tmp->value = ft_strjoin("/", in_path);
 		new_path = ft_strjoin(path_arr[i], tmp->value);
 		free(tmp->value);
-		free(tmp);
+		//free(tmp);
 		DEBUG && printf("\tnew_path ["MAGENTA"%d"RESET"] : ["MAGENTA"%s"RESET"]\n", i, new_path);
 		if (!stat(new_path, &s))
 		{
@@ -232,9 +232,48 @@ int	execute1(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 	return (EXIT_SUCCESS);
 }
 
-int	execute2(t_cmd_lst *cmds, t_env *env)
+
+
+int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 {
-	return (0);
+	t_cmd_lst	*curr;
+	t_cmd_arg	*cmd_arg;
+	pid_t	pid;
+	int		status;
+	int		fd_out;
+	int		pipe_fd[2];
+
+	if (!cmds->next)
+		return(waitpid(last_pid,&status, 0));
+	printf("\nexecute2 !!!!!!!!!!!!\n");
+	curr = cmds;
+	// cmd_arg = parse_cmd_arg(curr->cmd, env, fd_in, );
+	fd_out = STDOUT_FILENO;
+	if (curr)
+	{
+		pipe(pipe_fd);
+		fd_out = pipe_fd[READ];
+		// printf("read:%d, write: %d\n", read,  write);
+		// printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
+//		pipe(fd);
+//		write = fd[WRITE];
+	}
+	pid = fork();
+	if (pid == 0)
+	{
+		off_signal();
+		// printf("child process\n");
+		// printf("read:%d, write: %d\n", read,  write);
+		// printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
+		ft_close(cmd_arg->fd_in);
+		//		ft_close(fd[READ]);
+		exit(execute1(curr, env, fd_in, fd_out));
+		//exit (1);
+	}
+	waitpid(pid, &status, 0);
+	ft_close(fd_in);
+	ft_close(fd_out);
+	return (execute2(curr->next, env, cmd_arg->fd_in, pid));
 }
 
 int	execute(t_cmd_lst *cmds, t_env *env)
@@ -242,12 +281,13 @@ int	execute(t_cmd_lst *cmds, t_env *env)
 	int				count;
 	t_cmd_lst		*curr;
 
+	off_signal();
 	curr = cmds;
-	// count = lst_size(curr);
-	count = 1;
+	count = cmd_lst_size(curr);
 	if (count == 1)
 		execute1(cmds, env, STDIN_FILENO, STDOUT_FILENO);
 	else
-	 	execute2(cmds, env);
+		execute2(cmds, env, STDIN_FILENO, -1);
+	set_signal();
 	return (1);
 }

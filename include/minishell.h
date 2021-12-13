@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/12 00:29:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/13 13:41:49 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # include	<fcntl.h>
 # include	<stdio.h>
 # include	<stdlib.h> /* free함수를 사용하기위한 헤더 */
+# include	<unistd.h>
 # include	<readline/readline.h> /* readline함수를 사용하기위한 헤더 */
 # include	<readline/history.h> /* add_history함수를 사용하기위한 헤더 */
 # include	<sys/stat.h>
-
 # include	<termios.h>
 
 # include	"../lib/include/libft.h"
@@ -65,6 +65,9 @@
 
 
 void	set_signal(void);
+void	off_signal(void);
+
+/*builtin*/
 
 int		execute(t_cmd_lst *cmds, t_env *env);
 void	free_strings(char **strs);
