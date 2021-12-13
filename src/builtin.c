@@ -19,6 +19,17 @@ void	ft_env(t_env *env)
 	print_envp_lst(env);
 }
 
+int	wait_cmds(int last_pid)
+{	
+	int status;
+	waitpid(last_pid, &status, 0);
+	WEXITSTATUS(status);
+	while (wait(&status) != -1)
+		;
+	return (1);
+}
+
+
 void	ft_close(int fd)
 {
 	if (fd == STDIN_FILENO)
@@ -27,8 +38,8 @@ void	ft_close(int fd)
 		return ;
 	if (fd == STDERR_FILENO)
 		return ;
-	close(fd);
-	printf("close :%d\n", fd);
+	int i =	close(fd);
+	printf("close :%d is 0\n", i);
 }
 
 int		ft_dup2(int oldfd, int newfd)
@@ -178,10 +189,10 @@ int extern_function(t_cmd_arg *ca, int read, int write)
 	if (pid == 0)
 	{
 		//exec_fork(ca->argv[0], ca->env, read, write);
-	//	ft_dup2(read, STDIN_FILENO);
-	//	ft_dup2(write, STDOUT_FILENO);
+		ft_dup2(read, STDIN_FILENO);
+		ft_dup2(write, STDOUT_FILENO);
 		exec_extern_process(ca->argv[0], ca->env);
-		return (1);
+		exit (1);
 	}
 	waitpid(pid, &status, 0);
 	return (EXIT_SUCCESS);
@@ -191,6 +202,7 @@ int builtin_function(t_cmd_arg *ca, int read, int write)
 {
 	printf("builtin_func\n");
 	if (ft_strncmp(ca->argv[0], "pwd", 4) == 0)
+
 		ft_pwd(write);
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))
 		ft_exit(ca->argc, ca->argv);
@@ -217,9 +229,7 @@ int	execute1(t_cmd_lst *cmds, t_env *env, int read, int write)
 	cmd_arg = parse_cmd_arg(cmds->cmd, env);
 	//cmd_arg->fd[READ] = read;
 	//cmd_arg->fd[WRITE] = write;
-	ft_dup2(read, STDIN_FILENO);
-	ft_dup2(write, STDOUT_FILENO);
-	printf("read:%d, write: %d\n", read,  write);
+//	printf("read:%d, write: %d\n", read,  write);
 	//printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
 	set_signal();
 	if (builtin_function(cmd_arg, read, write))
@@ -238,12 +248,12 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 	int		write;
 
 	if (!cmds->next)
-		return(waitpid(last_pid, &status, 0));
+		return(wait_cmds(last_pid));
 	printf("\nexecute2 !!!!!!!!!!!!\n");
 	curr = cmds;
 	cmd_arg = parse_cmd_arg(curr->cmd, env);
 	write = STDOUT_FILENO;
-	if (curr->next)
+	if (curr)
 	{
 		printf("curr=>next\n");
 		pipe(cmd_arg->fd);

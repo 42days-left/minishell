@@ -11,9 +11,9 @@
 # **************************************************************************** #
 
 FSAN	= -fsanitize=address
-CFLAGS	= -I include/ -I /Users/$(USER)/.brew/opt/readline/include
+CFLAGS	= -I include/ -I /Users/$(USER)/.brew/opt/readline/include -I/usr/local/opt/readline/include
 	#-L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include#
-CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -L/usr/local/opt/readline/lib
 
 all :
 	gcc $(FSAN) $(CFLAGS) $(CLIB) ./src/*.c ./include/*.h
