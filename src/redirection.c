@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/13 13:06:15 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/13 14:49:11 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_close(int fd)
 	if (fd == STDERR_FILENO)
 		return ;
 	close(fd);
+	printf("close: %d\n", fd);
 }
 
 int	left_redir(char *file)
