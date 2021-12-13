@@ -6,7 +6,7 @@
 /*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/10 18:07:43 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/13 13:32:25 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 	pid_t	pid;
 	int		status;
 	int		write;
+//	int		fd[2];
 
 	if (!cmds->next)
 		return(wait_cmds(last_pid));
@@ -260,6 +261,8 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 		write = cmd_arg->fd[WRITE];
 		printf("read:%d, write: %d\n", read,  write);
 		printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
+//		pipe(fd);
+//		write = fd[WRITE];
 	}
 	pid = fork();
 	if (pid == 0)
@@ -268,8 +271,9 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int read, pid_t last_pid)
 		printf("child process\n");
 		
 		printf("read:%d, write: %d\n", read,  write);
-		printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
-		ft_close(cmd_arg->fd[READ]);
+printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
+ft_close(cmd_arg->fd[READ]);
+//		ft_close(fd[READ]);
 		exit(execute1(curr, env, read, write));
 		//exit (1);
 	}

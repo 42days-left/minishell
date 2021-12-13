@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:16 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 16:38:46 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/13 13:30:35 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env)
 	token = curr->tokens->data;
 	cmd_arg->argc = lst_size(curr->tokens);
 	cmd_arg->argv = get_cmd_argv(curr->tokens);
-	cmd_arg->fd[READ] = STDIN_FILENO;
-	cmd_arg->fd[WRITE] = STDOUT_FILENO;
+	//cmd_arg->fd[READ] = STDIN_FILENO;
+	//cmd_arg->fd[WRITE] = STDOUT_FILENO;
 	cmd_arg->env = env;
 	return (cmd_arg);
 }
