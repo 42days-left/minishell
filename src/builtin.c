@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/13 17:27:17 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/13 20:12:23 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int	extern_function(t_cmd_arg *cmd_arg)
 	pid = fork();
 	if (pid == 0)
 	{
-		on_signal();
+		set_signal();
 		// ft_dup(cmd_arg->fd[WRITE], STDIN_FILENO);
 		// ft_dup(cmd_arg->fd[READ], STDOUT_FILENO);
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
@@ -255,12 +255,12 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	return (execute2(curr->next, env, pipe_fd[READ], pid));
 }
 
-int	execute(t_cmd_lst *cmds, t_env *env)
+void	execute(t_cmd_lst *cmds, t_env *env)
 {
 	int				count;
 	t_cmd_lst		*curr;
 
-	off_signal();
+	on_signal();
 	curr = cmds;
 	count = cmd_lst_size(curr);
 	if (count == 1)
@@ -268,5 +268,4 @@ int	execute(t_cmd_lst *cmds, t_env *env)
 	else
 		execute2(cmds, env, STDIN_FILENO, -1);
 	set_signal();
-	return (1);
 }

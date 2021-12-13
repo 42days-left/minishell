@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/13 17:12:08 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/13 18:53:45 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	off_signal(void);
 
 /*builtin*/
 
-int		execute(t_cmd_lst *cmds, t_env *env);
+void		execute(t_cmd_lst *cmds, t_env *env);
 void	free_strings(char **strs);
 
 char	*find_path(char *in_path, t_env *env);
