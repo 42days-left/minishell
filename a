@@ -1,0 +1,10 @@
+Makefile
+README.md
+a
+a.out
+a.out.dSYM
+include
+lib
+lst_test.c
+src
+test.sh

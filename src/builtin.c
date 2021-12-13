@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/13 14:03:19 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:49:15 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_signal_handler	*sig_handler(void)
 
 	return (&signals);
 }
-
-
 
 void	check_dot_path(char *path)
 {
@@ -151,15 +149,13 @@ int	exec_fork2(t_cmd_arg *cmd_arg)
 	{
 		signal(SIGINT, sig_handler()->sigint);
 		signal(SIGQUIT, sig_handler()->sigquit);
-		// ft_dup(cmd_arg->fd[WRITE], STDIN_FILENO);
-		// ft_dup(cmd_arg->fd[READ], STDOUT_FILENO);
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
 		ft_dup(cmd_arg->fd_out, STDOUT_FILENO);
 		exec_child_process2(cmd_arg);
 		// exit();
 	}
-	// waitpid(pid, &status, 0);
-	wait(&status);
+	waitpid(pid, &status, 0);
+	// wait(&status);
 	g_exitstat = get_wexitstat(status);
 
 	return (EXIT_SUCCESS);
@@ -222,58 +218,64 @@ static void	wait_process(t_cmd_arg *proc)
 // 	wait_process(ca);
 // }
 
+void	print_cmd_arg(t_cmd_arg *cmd_arg)
+{
+	printf("==== PRINT_CMD_ARG ====\n");
+	printf("argc:\t\t["BLUE"%d"RESET"]\n", cmd_arg->argc);
+	printf("argv[0]:\t["BLUE"%s"RESET"]\n", cmd_arg->argv[0]);
+	printf("fd_in:\t\t["BLUE"%d"RESET"]\n", cmd_arg->fd_in);
+	printf("fd_out:\t\t["BLUE"%d"RESET"]\n", cmd_arg->fd_out);
+}
+
 int	execute1(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 {
 	t_cmd_arg	*cmd_arg;
-
+	printf("excute_single\n");
 	cmd_arg = parse_cmd_arg(cmds->cmd, env, fd_in, fd_out);
+	print_cmd_arg(cmd_arg);
 	if (builtin_function(cmd_arg))
 		extern_function(cmd_arg);
 	return (EXIT_SUCCESS);
 }
 
-
+int	wait_cmds(int last_pid)
+{
+	int status;
+	waitpid(last_pid, &status, 0);
+	WEXITSTATUS(status);
+	while (wait(&status) != -1)
+		;
+	return (1);
+}
 
 int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 {
 	t_cmd_lst	*curr;
-	t_cmd_arg	*cmd_arg;
 	pid_t	pid;
 	int		status;
 	int		fd_out;
 	int		pipe_fd[2];
 
-	if (!cmds->next)
-		return(waitpid(last_pid,&status, 0));
-	printf("\nexecute2 !!!!!!!!!!!!\n");
+	if (!cmds)
+		return(wait_cmds(last_pid));
 	curr = cmds;
-	// cmd_arg = parse_cmd_arg(curr->cmd, env, fd_in, );
 	fd_out = STDOUT_FILENO;
-	if (curr)
+	if (curr->next)
 	{
 		pipe(pipe_fd);
-		fd_out = pipe_fd[READ];
-		// printf("read:%d, write: %d\n", read,  write);
-		// printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
-//		pipe(fd);
-//		write = fd[WRITE];
+		fd_out = pipe_fd[WRITE];
 	}
 	pid = fork();
 	if (pid == 0)
 	{
 		off_signal();
-		// printf("child process\n");
-		// printf("read:%d, write: %d\n", read,  write);
-		// printf("cmd_arg->fd[READ]: %d, cmd_arg->fd[WRiTE] : %d\n", cmd_arg->fd[READ], cmd_arg->fd[WRITE]);
-		ft_close(cmd_arg->fd_in);
-		//		ft_close(fd[READ]);
+		ft_close(pipe_fd[READ]);
 		exit(execute1(curr, env, fd_in, fd_out));
-		//exit (1);
 	}
 	waitpid(pid, &status, 0);
 	ft_close(fd_in);
 	ft_close(fd_out);
-	return (execute2(curr->next, env, cmd_arg->fd_in, pid));
+	return (execute2(curr->next, env, pipe_fd[READ], pid));
 }
 
 int	execute(t_cmd_lst *cmds, t_env *env)

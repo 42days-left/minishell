@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/13 13:06:15 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/13 14:40:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	get_redir_fd(t_lst *rds, int fds[2])
 			fds[fd_type] = right_redir(token->word);
 		else if (token->type == D_REDIR_R)
 			fds[fd_type] = right_double_redir(token->word);
-		// if (fds[fd_type] == -1)
-		// 	return (0);
+		if (fds[fd_type] == -1)
+			return (0);
 		node = node->next;
 	}
 	return (1);
