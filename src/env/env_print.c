@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:46:26 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 14:48:01 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 16:14:55 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,20 @@ void	print_envp_lst(t_env *head, int fd_out)
 	curr = head;
 	while (curr->next != NULL)
 	{
+		if (curr->value != NULL)
+		{
+			ft_putstr_fd(curr->key, fd_out);
+			ft_putstr_fd(MAGENTA"="RESET, fd_out);
+			ft_putstr_fd(curr->value, fd_out);
+			ft_putstr_fd("\n", fd_out);
+		}
+		curr = curr->next;
+	}
+	if (curr->value != NULL)
+	{
 		ft_putstr_fd(curr->key, fd_out);
 		ft_putstr_fd(MAGENTA"="RESET, fd_out);
 		ft_putstr_fd(curr->value, fd_out);
 		ft_putstr_fd("\n", fd_out);
-		curr = curr->next;
 	}
-	ft_putstr_fd(curr->key, fd_out);
-	ft_putstr_fd(MAGENTA"="RESET, fd_out);
-	ft_putstr_fd(curr->value, fd_out);
-	ft_putstr_fd("\n", fd_out);
 }
