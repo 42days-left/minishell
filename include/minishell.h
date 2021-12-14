@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/13 18:53:45 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/14 16:25:37 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@
 # define	EXIT_WRONGPATH	127
 
 
-void	set_signal(void);
 void	on_signal(void);
 void	off_signal(void);
+void	on_echoctl(void);
+void	off_echoctl(void);
 
 /*builtin*/
 

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:11:14 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/13 20:37:11 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/14 16:43:00 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,27 @@ void	signal_handler(int sig)
 	pid_t pid;
 	int		status;
 
-//	pid = -1;
 	pid = waitpid(-1, &status, WNOHANG);
-	if (sig == SIGINT)
+
+	if (pid == -1)
 	{
-		if (pid == -1)
-		{
-			printf("\b\b\b\b\n");
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-		}
-		else
+		if (sig == SIGINT)
 			printf("\n");
+		if (sig == SIGQUIT)
+			printf("");		
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-	if (sig == SIGQUIT)
+	else
 	{
-		if (pid == -1)
-			printf("\b\b\b\b");
-		else
-			printf("Quit: 3\n");
+		on_echoctl();
+		if (sig == SIGINT)
+			printf("\n");
+		if (sig == SIGQUIT)
+			printf("Quit:3 \n");
 	}
 }
-
-//void	set_signal(void)
-//{
-//	signal(SIGINT, signal_handler);
-//	signal(SIGQUIT, signal_handler);
-//}
-
-//void	on_signal_handler(int sig)
-//{
-//	if (sig == SIGINT)
-//	{
-//		rl_replace_line("", 0);
-//		rl_on_new_line();
-//		printf("\n");
-//	}
-//	if (sig == SIGQUIT)
-//	{
-//		printf("Quit: 3");
-//		printf("\n");
-//	}
-//	set_signal();
-////}
 
 void	on_signal(void)
 {
@@ -75,3 +52,22 @@ void	off_signal(void)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 }
+
+void	on_echoctl(void)
+{
+	struct termios new_term;
+
+	tcgetattr(STDOUT_FILENO, &new_term);
+	new_term.c_lflag |= ECHOCTL;
+	tcsetattr(STDOUT_FILENO, TCSANOW, &new_term);
+}
+
+void	off_echoctl(void)
+{
+	struct termios new_term;
+
+	tcgetattr(STDOUT_FILENO, &new_term);
+	new_term.c_lflag &= (~ECHOCTL);
+	tcsetattr(STDOUT_FILENO, TCSANOW, &new_term);
+}
+
