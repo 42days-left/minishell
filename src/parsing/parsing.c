@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:19:36 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 12:59:37 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 18:23:54 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	parser(tokens, cmds);
 	free_strings(strs);
 	ft_lstclear2(&tokens, free_token_without_close);
-	//free_lst(tokens, free_token)
+	// free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
 }

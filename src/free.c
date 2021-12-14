@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 12:53:17 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 12:57:53 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 18:43:55 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	free_cmd_arg(t_cmd_arg *ca)
 	free_strings(ca->argv);
 	fd_close(ca->fd_in);
 	fd_close(ca->fd_out);
+	// free(ca->env);
 	free(ca);
+	printf("HELLO\n");
 }
 
 void	free_tokens(t_lst *tokens)

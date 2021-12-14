@@ -6,22 +6,17 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 13:17:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 18:29:56 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	main_loop(t_env *env)
 {
 	char		*str;
-	t_env		*env;
 	t_cmd_lst	*cmds;
 
-	(void)argc;
-	(void)argv;
-	set_signal();
-	env = get_envp(envp);
 	while(TRUE)
 	{
 		str = readline(MAGENTA"minihell🐚"RESET": ");
@@ -39,8 +34,19 @@ int	main(int argc, char **argv, char **envp)
 			execute(cmds, env);
 		}
 		free(str);
-		//free_cmds(&cmds);
+		free_cmds(&cmds);
 		//free(cmds);
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_env		*env;
+
+	(void)argc;
+	(void)argv;
+	set_signal();
+	env = get_envp(envp);
+	main_loop(env);
 	return (0);
 }

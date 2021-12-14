@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:11:09 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 14:41:57 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 18:45:30 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int	exec_fork2(t_cmd_arg *cmd_arg)
 int extern_function(t_cmd_arg *ca)
 {
 	exec_fork2(ca);
-	free_cmd_arg(ca);
+	// free_cmd_arg(ca);
 	return (EXIT_SUCCESS);
 }
 
@@ -165,6 +165,7 @@ int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 	DEBUG && print_cmd_arg(cmd_arg);
 	if (builtin_function(cmd_arg))
 		extern_function(cmd_arg);
+	free_cmd_arg(cmd_arg);
 	return (EXIT_SUCCESS);
 }
 
