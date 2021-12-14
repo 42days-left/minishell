@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/12/14 13:25:38 by jisokang         ###   ########.fr        #
+#    Updated: 2021/12/14 15:08:56 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,6 @@ FLAGS	= -Wall -Wextra -Werror
 CLIB	= -L./lib/ -l_jisokang -lreadline -L/opt/homebrew/opt/readline/lib
 
 all :
-	gcc $(FLAGS) $(CFLAGS) $(CLIB) ./src/*.c ./src/builtin/*.c
+	gcc $(FLAGS) $(CFLAGS) $(CLIB) ./src/*.c ./src/*/*.c
 #gcc $(FSAN) $(CFLAGS) $(CLIB) ./src/*.c ./src/builtin/*.c
 # gcc $(FSAN) $(CFLAGS) $(CLIB) ./src/*.c ./include/*.h
