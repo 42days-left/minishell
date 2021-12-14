@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 13:27:22 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ void	remove_quote_token(t_token *token)
 		return ;
 	str_ptr = token->word;
 	buf_ptr = buf;
-	int i = 0;
 	while (*str_ptr != '\0')
 	{
 		while (*str_ptr == '\"' || *str_ptr == '\'')

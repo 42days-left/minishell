@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/13 15:49:46 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 14:33:14 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_cmd_arg
 {
 	char	**argv;
 	int		argc;
-	// int		fd[2];
 	int		fd_in;
 	int		fd_out;
 	t_env	*env;
@@ -46,6 +45,7 @@ void		cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new);
 int	parser(t_lst *tokens, t_cmd_lst **cmds);
 int	print_cmds_list(t_cmd_lst *cmds);
 
+int		print_cmd_arg(t_cmd_arg *cmd_arg);
 char	**get_cmd_argv(t_lst *tokens);
 t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env, int fd_in, int fd_out);
 int	cmd_lst_size(t_cmd_lst *head);

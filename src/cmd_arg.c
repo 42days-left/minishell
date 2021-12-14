@@ -6,11 +6,22 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:16 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/13 13:41:42 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 14:33:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+int	print_cmd_arg(t_cmd_arg *cmd_arg)
+{
+	printf("===== PRINT_CMD_ARG =====\n");
+	printf("argc:\t\t["BLUE"%d"RESET"]\n", cmd_arg->argc);
+	printf("argv[0]:\t["BLUE"%s"RESET"]\n", cmd_arg->argv[0]);
+	printf("fd_in:\t\t["BLUE"%d"RESET"]\n", cmd_arg->fd_in);
+	printf("fd_out:\t\t["BLUE"%d"RESET"]\n", cmd_arg->fd_out);
+	return (TRUE);
+}
 
 char	**get_cmd_argv(t_lst *tokens)
 {
@@ -33,16 +44,6 @@ char	**get_cmd_argv(t_lst *tokens)
 	return(str);
 }
 
-void	free_proc(t_cmd_arg *ca)
-{
-	free_strings(ca->argv);
-	// ft_close(ca->fd[0]);
-	// ft_close(ca->fd[1]);
-	ft_close(ca->fd_in);
-	ft_close(ca->fd_out);
-	free(ca);
-}
-
 t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env, int fd_in, int fd_out)
 {
 	t_cmd		*curr;
@@ -61,7 +62,7 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env, int fd_in, int fd_out)
 	get_fd[1] = fd_out;
 	if (!get_redir_fd(curr->rd, get_fd))
 	{
-		free_proc(cmd_arg);
+		free_cmd_arg(cmd_arg);
 		return (NULL);
 	}
 	cmd_arg->fd_in = get_fd[0];

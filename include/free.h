@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.h                                         :+:      :+:    :+:   */
+/*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 15:24:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 12:44:23 by jisokang         ###   ########.fr       */
+/*   Created: 2021/12/14 13:10:07 by jisokang          #+#    #+#             */
+/*   Updated: 2021/12/14 13:11:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef REDIRECT_H
-# define REDIRECT_H
+#include "minishell.h"
 
-# include "lst.h"
-
-void	fd_close(int fd);
-int	get_redir_fd(t_lst *tokens, int fds[2]);
-
-#endif
+void	free_cmd_arg(t_cmd_arg *ca);
+void	free_tokens(t_lst *tokens);
+void	free_cmd(void *data);
+void	free_cmds(t_cmd_lst **lst);
+void	free_strings(char **strs);

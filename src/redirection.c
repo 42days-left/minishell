@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/13 14:40:27 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/14 12:44:23 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define	FD_OUT	1
 
 
-void	ft_close(int fd)
+void	fd_close(int fd)
 {
 	if (fd == STDIN_FILENO)
 		return ;
@@ -72,7 +72,7 @@ int	get_redir_fd(t_lst *rds, int fds[2])
 	{
 		token = node->data;
 		fd_type = get_fd_type(token->type);
-		ft_close(fds[fd_type]);
+		fd_close(fds[fd_type]);
 		if (token->type == REDIR_L)
 			fds[fd_type] = left_redir(token->word);
 		else if (token->type == D_REDIR_L)
