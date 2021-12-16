@@ -23,21 +23,21 @@ void	signal_handler(int sig)
 
 	if (pid == -1)
 	{
-		if (sig == SIGINT)
-			printf("\n");
 		if (sig == SIGQUIT)
 			printf("");		
+		if (sig == SIGINT)
+			printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
 	else
 	{
-		on_echoctl();
+//		on_echoctl();
 		if (sig == SIGINT)
-			printf("\n");
+			printf("^Celse \n");
 		if (sig == SIGQUIT)
-			printf("Quit:3 \n");
+			printf("^\\Quit:3else\n");
 	}
 }
 

@@ -145,8 +145,6 @@ int	extern_function(t_cmd_arg *cmd_arg)
 	pid = fork();
 	if (pid == 0)
 	{
-		// ft_dup(cmd_arg->fd[WRITE], STDIN_FILENO);
-		// ft_dup(cmd_arg->fd[READ], STDOUT_FILENO);
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
 		ft_dup(cmd_arg->fd_out, STDOUT_FILENO);
 		exec_child_process2(cmd_arg);
@@ -241,7 +239,7 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	pid = fork();
 	if (pid == 0)
 	{
-		off_signal();
+		//off_signal();
 		printf(">>child process<<\n");
 		printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
 		ft_close(pipe_fd[READ]);
