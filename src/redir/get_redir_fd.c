@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.c                                      :+:      :+:    :+:   */
+/*   get_redir_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 12:44:23 by jisokang         ###   ########.fr       */
+/*   Created: 2021/12/16 13:11:07 by jisokang          #+#    #+#             */
+/*   Updated: 2021/12/16 13:16:54 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 # define	FD_IN	0
 # define	FD_OUT	1
-
 
 void	fd_close(int fd)
 {
@@ -25,32 +24,6 @@ void	fd_close(int fd)
 	if (fd == STDERR_FILENO)
 		return ;
 	close(fd);
-}
-
-int	left_redir(char *file)
-{
-	return (open(file, O_RDONLY));
-}
-
-int	left_double_redir(char *fd)
-{
-	return (ft_atoi(fd));
-}
-
-/**
- * @brief 0644 : 권한 설정, 소유자는 읽기/쓰기가 가능하며, 나머지 모든 사람은 읽기만 가능.
- *
- * @param file
- * @return int
- */
-int	right_redir(char *file)
-{
-	return (open(file, O_WRONLY | O_TRUNC | O_CREAT, 0644));
-}
-
-int	right_double_redir(char *file)
-{
-	return (open(file, O_WRONLY | O_APPEND | O_CREAT, 0644));
 }
 
 static int	get_fd_type(int type)
@@ -67,7 +40,6 @@ int	get_redir_fd(t_lst *rds, int fds[2])
 	t_lst	*node;
 
 	node = rds;
-	// printf("get_fd start\n");
 	while (node)
 	{
 		token = node->data;
