@@ -25,7 +25,6 @@ void	ft_close(int fd)
 	if (fd == STDERR_FILENO)
 		return ;
 	close(fd);
-	printf("close: %d\n", fd);
 }
 
 int	left_redir(char *file)

@@ -51,20 +51,21 @@ void	default_signal(void)
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
-void	off_signal(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
 
-void	on_echoctl(void)
-{
-	struct termios	new_term;
+//void	off_signal(void)
+//{
+//	signal(SIGINT, SIG_IGN);
+//	signal(SIGQUIT, SIG_IGN);
+//}
 
-	tcgetattr(STDOUT_FILENO, &new_term);
-	new_term.c_lflag |= ECHOCTL;
-	tcsetattr(STDOUT_FILENO, TCSANOW, &new_term);
-}
+//void	on_echoctl(void)
+//{
+//	struct termios	new_term;
+//
+//	tcgetattr(STDOUT_FILENO, &new_term);
+//	new_term.c_lflag |= ECHOCTL;
+//	tcsetattr(STDOUT_FILENO, TCSANOW, &new_term);
+//}
 
 void	off_echoctl(void)
 {

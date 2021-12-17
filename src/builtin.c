@@ -42,20 +42,20 @@ char *find_path(char *in_path, t_env *env)
 
 	tmp = find_env_from_env("PATH", env);
 	path_arr = ft_split(tmp->value, ':');
-	//DEBUG && //printf("----------------"GREEN"FIND NEW_PATH"RESET"---------------\n");
+	//DEBUG && ////printf("----------------"GREEN"FIND NEW_PATH"RESET"---------------\n");
 	if (!stat(in_path, &s))
 	{
 		check_dot_path(in_path);
 		if ((s.st_mode & S_IFMT) == S_IFDIR)
 		{
-			//printf(YELLOW"%s: "RESET, in_path);
+			////printf(YELLOW"%s: "RESET, in_path);
 			exit_err(EXIT_EXCUTE, "is a directory");
 		}
 		return(in_path);
 	}
 	if (in_path[0] == '/')
 	{
-		//printf(YELLOW"%s: "RESET, in_path);
+		////printf(YELLOW"%s: "RESET, in_path);
 		exit_err(EXIT_WRONGPATH, "No such file or directory");
 	}
 	i = 0;
@@ -89,17 +89,17 @@ void	exec_child_process2(t_cmd_arg *ca)
 
 	if (ca->argc == 0)
 		exit(0);
-	//DEBUG && //printf("exec_child_process()\t"GREEN"START"RESET"\n");
+	//DEBUG && ////printf("exec_child_process()\t"GREEN"START"RESET"\n");
 	envp = env_to_envp(ca->env);
 	path = find_path(ca->argv[0], ca->env);
 	if (path != NULL)
 		execve(path, ca->argv, envp);
 	else
 	{
-		//printf(YELLOW"%s"RESET, ca->argv[0]);
+		////printf(YELLOW"%s"RESET, ca->argv[0]);
 		exit_err(EXIT_WRONGPATH, ": command not found");
 	}
-	//printf(YELLOW"????\n"RESET);
+	////printf(YELLOW"????\n"RESET);
 	free(path);
 	free_envp(envp);
 	exit(42);
@@ -124,9 +124,9 @@ int	ft_dup(int fd1, int fd2)
 
 	if (fd1 == fd2)
 		return (1);
-	printf("dup2==== oldfd: %d, newfd: %d\n", fd1, fd2);
+	//printf("dup2==== oldfd: %d, newfd: %d\n", fd1, fd2);
 	rt = dup2(fd1, fd2);
-	printf("dup2====done%d\n", rt);
+	//printf("dup2====done%d\n", rt);
 	ft_close(fd1);
 	return (rt);
 }
@@ -140,7 +140,6 @@ int	extern_function(t_cmd_arg *cmd_arg)
 	pid = fork();
 	if (pid == 0)
 	{	
-		on_signal();
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
 		ft_dup(cmd_arg->fd_out, STDOUT_FILENO);
 		exec_child_process2(cmd_arg);
@@ -155,7 +154,7 @@ int	extern_function(t_cmd_arg *cmd_arg)
 
 int builtin_function(t_cmd_arg *ca)
 {
-	printf("builtin in\n");
+	//printf("builtin in\n");
 	if (!ft_strncmp(ca->argv[0], "pwd", 4))
 		g_exitstat = builtin_pwd(ca->fd_out);
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))
@@ -186,7 +185,7 @@ static void	wait_process(t_cmd_arg *proc)
 
 // void	execute_extern(t_cmd_arg *ca)
 // {
-// 	//printf("in execute_extern()\n");
+// 	////printf("in execute_extern()\n");
 // 	if (fork() == 0)
 // 	{
 // 		signal(SIGINT, sig_handler()->sigint);
@@ -203,7 +202,7 @@ int	execute1(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 	t_cmd_arg	*cmd_arg;
 	
 	cmd_arg = parse_cmd_arg(cmds->cmd, env, fd_in, fd_out);
-	printf("execute1\n");
+	//printf("execute1\n");
 	if (builtin_function(cmd_arg))
 		extern_function(cmd_arg);
 	return (EXIT_SUCCESS);
@@ -221,29 +220,28 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 
 	if (!cmds)
 		return(wait_cmds(last_pid));
-	printf("\nexecute2 !!!!!!!!!!!!\n");
+	//printf("\nexecute2 !!!!!!!!!!!!\n");
 	curr = cmds;
 	fd_out = STDOUT_FILENO;
 	if (curr->next)
 	{
-		printf(">>curr->next exist<<\n");
+		//printf(">>curr->next exist<<\n");
 		pipe(pipe_fd);
 		fd_out = pipe_fd[WRITE];
-		printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
+		//printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
 	}	
 	pid = fork();
 	if (pid == 0)
 	{
-		off_signal();
-		printf(">>child process<<\n");
-		printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
+		//printf(">>child process<<\n");
+		//printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
 		ft_close(pipe_fd[READ]);
 		exit(execute1(curr, env, fd_in, fd_out));
 	}
 	waitpid(pid, &status, 0);
 	ft_close(fd_in);
 	ft_close(fd_out);
-	printf("fd_in:%d, fd_out:%d\n", fd_in, fd_out);
+	//printf("fd_in:%d, fd_out:%d\n", fd_in, fd_out);
 	return (execute2(curr->next, env, pipe_fd[READ], pid));
 }
 
@@ -252,14 +250,11 @@ void	execute(t_cmd_lst *cmds, t_env *env)
 	int				count;
 	t_cmd_lst		*curr;
 
-//	signal(SIGINT, SIG_IGN);
-//	on_echoctl();
+	on_signal();
 	curr = cmds;
 	count = cmd_lst_size(curr);
 	if (count == 1)
 		execute1(cmds, env, STDIN_FILENO, STDOUT_FILENO);
 	else
 		execute2(cmds, env, STDIN_FILENO, -1);
-//	signal(SIGINT, signal_handler);
-//	off_echoctl();
 }
