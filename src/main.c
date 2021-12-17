@@ -6,7 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/12/14 18:29:56 by jisokang         ###   ########.fr       */
+=======
+/*   Updated: 2021/12/14 16:42:08 by yubae            ###   ########.fr       */
+>>>>>>> 20955a4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +21,20 @@ void	main_loop(t_env *env)
 	char		*str;
 	t_cmd_lst	*cmds;
 
+<<<<<<< HEAD
+=======
+	(void)argc;
+	(void)argv;
+	env = get_envp(envp);
+	default_signal();
+>>>>>>> 20955a4
 	while(TRUE)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		str = readline(MAGENTA"minihell🐚"RESET": ");
-		add_history(str);
 		if (!str)
 			builtin_exit(1, NULL);
+		add_history(str);
 		cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
 		if (!cmds)
 			exit_err(2, "Malloc Error");

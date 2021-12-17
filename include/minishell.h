@@ -6,7 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/12/16 13:15:50 by jisokang         ###   ########.fr       */
+=======
+/*   Updated: 2021/12/14 16:25:37 by yubae            ###   ########.fr       */
+>>>>>>> 20955a4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +70,16 @@
 # define	EXIT_EXCUTE		126
 # define	EXIT_WRONGPATH	127
 
-
-void	set_signal(void);
+void	default_signal(void);
+void	on_signal(void);
 void	off_signal(void);
+void	on_echoctl(void);
+void	off_echoctl(void);
+void	signal_handler(int sig);
 
 /*builtin*/
 
-int		execute(t_cmd_lst *cmds, t_env *env);
+void		execute(t_cmd_lst *cmds, t_env *env);
 void	free_strings(char **strs);
 
 char	*find_path(char *in_path, t_env *env);
