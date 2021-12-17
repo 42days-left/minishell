@@ -63,11 +63,12 @@
 # define	EXIT_EXCUTE		126
 # define	EXIT_WRONGPATH	127
 
-
+void	default_signal(void);
 void	on_signal(void);
 void	off_signal(void);
 void	on_echoctl(void);
 void	off_echoctl(void);
+void	signal_handler(int sig);
 
 /*builtin*/
 

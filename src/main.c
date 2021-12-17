@@ -95,14 +95,14 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = get_envp(envp);
-	on_signal();
+	default_signal();
 	while(TRUE)
 	{
-		off_echoctl();
+		signal(SIGQUIT, SIG_IGN);
 		str = readline(MAGENTA"minihell🐚"RESET": ");
-		add_history(str);
 		if (!str)
 			builtin_exit(1, NULL);
+		add_history(str);
 		cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
 		cmds = NULL;
 		if (*str)

@@ -65,16 +65,11 @@ char *find_path(char *in_path, t_env *env)
 		new_path = ft_strjoin(path_arr[i], tmp->value);
 		free(tmp->value);
 		//free(tmp);
-		//DEBUG && //printf("\tnew_path ["MAGENTA"%d"RESET"] : ["MAGENTA"%s"RESET"]\n", i, new_path);
 		if (!stat(new_path, &s))
-		{
-			//DEBUG && //printf("-----------------------------------FIND_"GREEN"DONE"RESET"\n");
 			return (new_path);
-		}
 		free(new_path);
 		i++;
 	}
-	//DEBUG && //printf("-----------------------------------FIND_"RED"FAIL"RESET"\n");
 	return (NULL);
 }
 
@@ -129,9 +124,9 @@ int	ft_dup(int fd1, int fd2)
 
 	if (fd1 == fd2)
 		return (1);
-	printf("dup2==== fd1: %d, fd2: %d\n", fd1, fd2);
+	printf("dup2==== oldfd: %d, newfd: %d\n", fd1, fd2);
 	rt = dup2(fd1, fd2);
-	printf("dup2====  %d\n", rt);
+	printf("dup2====done%d\n", rt);
 	ft_close(fd1);
 	return (rt);
 }
@@ -144,11 +139,12 @@ int	extern_function(t_cmd_arg *cmd_arg)
 
 	pid = fork();
 	if (pid == 0)
-	{
+	{	
+		on_signal();
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
 		ft_dup(cmd_arg->fd_out, STDOUT_FILENO);
 		exec_child_process2(cmd_arg);
-		// exit();
+		exit(1);
 	}
 	// waitpid(pid, &status, 0);
 	wait(&status);
@@ -231,7 +227,6 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	if (curr->next)
 	{
 		printf(">>curr->next exist<<\n");
-
 		pipe(pipe_fd);
 		fd_out = pipe_fd[WRITE];
 		printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
@@ -239,7 +234,7 @@ int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	pid = fork();
 	if (pid == 0)
 	{
-		//off_signal();
+		off_signal();
 		printf(">>child process<<\n");
 		printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
 		ft_close(pipe_fd[READ]);
@@ -257,11 +252,14 @@ void	execute(t_cmd_lst *cmds, t_env *env)
 	int				count;
 	t_cmd_lst		*curr;
 
-	on_echoctl();
+//	signal(SIGINT, SIG_IGN);
+//	on_echoctl();
 	curr = cmds;
 	count = cmd_lst_size(curr);
 	if (count == 1)
 		execute1(cmds, env, STDIN_FILENO, STDOUT_FILENO);
 	else
 		execute2(cmds, env, STDIN_FILENO, -1);
+//	signal(SIGINT, signal_handler);
+//	off_echoctl();
 }

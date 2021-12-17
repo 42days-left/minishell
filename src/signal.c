@@ -12,19 +12,18 @@
 
 #include "minishell.h"
 
-extern void rl_replace_line (const char *text, int clear_undo);
+extern void	rl_replace_line (const char *text, int clear_undo);
 
 void	signal_handler(int sig)
 {
-	pid_t pid;
+	pid_t	pid;
 	int		status;
 
 	pid = waitpid(-1, &status, WNOHANG);
-
 	if (pid == -1)
 	{
 		if (sig == SIGQUIT)
-			printf("");		
+			printf("");
 		if (sig == SIGINT)
 			printf("\n");
 		rl_replace_line("", 0);
@@ -33,11 +32,10 @@ void	signal_handler(int sig)
 	}
 	else
 	{
-//		on_echoctl();
 		if (sig == SIGINT)
-			printf("^Celse \n");
+			printf("^C\n");
 		if (sig == SIGQUIT)
-			printf("^\\Quit:3else\n");
+			printf("^\\Quit:3\n");
 	}
 }
 
@@ -47,6 +45,12 @@ void	on_signal(void)
 	signal(SIGQUIT, signal_handler);
 }
 
+void	default_signal(void)
+{
+	off_echoctl();
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
 void	off_signal(void)
 {
 	signal(SIGINT, SIG_IGN);
@@ -55,7 +59,7 @@ void	off_signal(void)
 
 void	on_echoctl(void)
 {
-	struct termios new_term;
+	struct termios	new_term;
 
 	tcgetattr(STDOUT_FILENO, &new_term);
 	new_term.c_lflag |= ECHOCTL;
@@ -64,10 +68,9 @@ void	on_echoctl(void)
 
 void	off_echoctl(void)
 {
-	struct termios new_term;
+	struct termios	new_term;
 
 	tcgetattr(STDOUT_FILENO, &new_term);
 	new_term.c_lflag &= (~ECHOCTL);
 	tcsetattr(STDOUT_FILENO, TCSANOW, &new_term);
 }
-
