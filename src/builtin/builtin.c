@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/14 14:41:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:22:36 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 int builtin_function(t_cmd_arg *ca)
 {
+	if (ca->argc == 0)
+		return (EXIT_FAILURE);
 	if (!ft_strncmp(ca->argv[0], "pwd", 4))
 		g_exitstat = builtin_pwd(ca->fd_out);
 	else if (!ft_strncmp(ca->argv[0], "exit", 5))

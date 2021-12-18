@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:16 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 14:33:29 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:20:31 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env, int fd_in, int fd_out)
 	t_cmd		*curr;
 	t_cmd_arg	*cmd_arg;
 	t_token		*token;
+	t_lst		*tokens_lst;
 	int			get_fd[2];
 
+	DEBUG && printf("parse_cmd_arg() in\n");
 	cmd_arg = (t_cmd_arg *)malloc(sizeof(t_cmd_arg));
 	if (!cmd_arg)
 		exit_err(2, "malloc err");
 	curr = cmd;
-	token = curr->tokens->data;
+	// tokens_lst = curr->tokens;
+	// token = tokens_lst->data;
 	cmd_arg->argc = lst_size(curr->tokens);
 	cmd_arg->argv = get_cmd_argv(curr->tokens);
 	get_fd[0] = fd_in;
@@ -68,5 +71,6 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env, int fd_in, int fd_out)
 	cmd_arg->fd_in = get_fd[0];
 	cmd_arg->fd_out = get_fd[1];
 	cmd_arg->env = env;
+	DEBUG && printf("parse_cmd_arg() out\n");
 	return (cmd_arg);
 }

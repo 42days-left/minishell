@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 14:14:20 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 16:26:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,12 @@ void	exec_child_process2(t_cmd_arg *ca)
 	char *path;
 	char **envp;
 
+	DEBUG && printf("exec_child_process()\t"GREEN"START"RESET"\n");
 	if (ca->argc == 0)
+	{
+		DEBUG && printf("ca->argc == 0\t\t"GREEN"OUT"RESET"\n");
 		exit(0);
-	//DEBUG && //printf("exec_child_process()\t"GREEN"START"RESET"\n");
+	}
 	envp = env_to_envp(ca->env);
 	path = find_path(ca->argv[0], ca->env);
 	if (path != NULL)
@@ -128,14 +131,16 @@ int	extern_function(t_cmd_arg *cmd_arg)
 	// waitpid(pid, &status, 0);
 	wait(&status);
 	g_exitstat = get_wexitstat(status);
-
+	DEBUG && printf("extern_fun fork DONE\n");
 	return (EXIT_SUCCESS);
 }
 
 int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 {
+	DEBUG && printf("SINGLE CMD\n");
 	t_cmd_arg	*cmd_arg;
 	cmd_arg = parse_cmd_arg(cmds->cmd, env, fd_in, fd_out);
+	DEBUG && printf("SINGLE CMD2\n");
 	DEBUG && print_cmd_arg(cmd_arg);
 	if (builtin_function(cmd_arg))
 		extern_function(cmd_arg);

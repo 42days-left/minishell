@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 14:57:58 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:40:23 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,18 @@ int	make_here_doc(char *end_str)
 	int		pipe_fd[2];
 	char	*str;
 
-	printf("end_str : [%s]\n", end_str);
+	DEBUG && printf("end_str : [%s]\n", end_str);
 	pipe(pipe_fd);
 	// signal(SIGINT, SIG_IGN);
 	if (fork() == 0)
 	{
 		fd_close(pipe_fd[PIPE_OUT]);
 		// signal(SIGINT, sigint_handler_in_heredoc);
-		printf("pipe_fd[PIPE_IN] = ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_IN]);
-		printf("pipe_fd[PIPE_OUT] = ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_OUT]);
+		DEBUG && printf("pipe_fd[PIPE_IN] = ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_IN]);
+		DEBUG && printf("pipe_fd[PIPE_OUT] = ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_OUT]);
 		while (1)
 		{
 			str = readline("> ");
-			// printf("input  [%s]\n", str);
 			if (!str)
 			{
 				printf("NO LINE\n");
@@ -61,14 +60,10 @@ int	make_here_doc(char *end_str)
 				printf("SAME LINE\n");
 				exit(0);
 			}
-			// ft_putstr_fd(line, pipe_fd[PIPE_IN]);
-			write(pipe_fd[PIPE_IN], str, ft_strlen(str));
-			write(pipe_fd[PIPE_IN], "\n", 1);
+			ft_putstr_fd(str, pipe_fd[PIPE_IN]);
+			ft_putstr_fd("\n", pipe_fd[PIPE_IN]);
 			free (str);
-			// printf("WHILE END\n");
 		}
-		// write(1, "HELLO WORLD!\n", 14);
-
 	}
 	fd_close(pipe_fd[PIPE_IN]);
 	wait(&status);
@@ -88,7 +83,6 @@ int	here_doc(t_lst *tokens)
 	while (curr)
 	{
 		token = curr->data;
-		curr = curr->next;
 		if (token->type == D_REDIR_L)
 		{
 			printf(RED"!HERE_DOC!\n"RESET);
@@ -102,6 +96,7 @@ int	here_doc(t_lst *tokens)
 			token->word = ft_itoa(fd);
 			printf("heredoc fd : [%s]\n", token->word);
 		}
+		curr = curr->next;
 	}
 	return (EXIT_SUCCESS);
 }

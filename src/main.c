@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 14:12:41 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 16:28:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	main_loop(t_env *env)
 			execute(cmds, env);
 		}
 		free(str);
-		free_cmds(&cmds);
+		// free_cmds(&cmds);
 		//free(cmds);
 	}
 }
