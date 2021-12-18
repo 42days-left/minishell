@@ -6,14 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 16:22:36 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:48:21 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int builtin_function(t_cmd_arg *ca)
+int	builtin_function(t_cmd_arg *ca)
 {
 	if (ca->argc == 0)
 		return (EXIT_FAILURE);
@@ -35,8 +34,6 @@ int builtin_function(t_cmd_arg *ca)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-
-
 // static void	wait_process(t_cmd_arg *proc)
 // {
 // 	int	status;

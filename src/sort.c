@@ -6,13 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 22:39:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:41:38 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 void	env_sort(t_env *head)
 {

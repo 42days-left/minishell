@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 22:40:19 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:19:00 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 static int	ft_isnum_str(char *str)
 {
 	int	i;
+
 	i = 0;
 	while (str[i])
 	{
-		if(!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}

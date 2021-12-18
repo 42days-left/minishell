@@ -6,12 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:16 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 16:20:31 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:48:17 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	print_cmd_arg(t_cmd_arg *cmd_arg)
 {
@@ -41,7 +40,7 @@ char	**get_cmd_argv(t_lst *tokens)
 		i++;
 	}
 	str[i] = 0;
-	return(str);
+	return (str);
 }
 
 t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env, int fd_in, int fd_out)

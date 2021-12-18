@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 18:19:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:02:22 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cmd_lst	*cmd_lst_new(t_cmd *cmd)
 	if (new == NULL)
 	{
 		printf(RED"MALLOC ERROR\n"RESET);
-		exit(12); //12가 무엇인지 확인해보기
+		exit(1);
 	}
 	new->cmd = cmd;
 	new->next = NULL;
@@ -73,7 +73,6 @@ t_cmd_lst	*cmd_lst_last(t_cmd_lst *lst)
 	}
 	return (curr);
 }
-
 
 void	cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new)
 {

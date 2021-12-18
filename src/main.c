@@ -6,18 +6,18 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 16:28:59 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:48:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 void	main_loop(t_env *env)
 {
 	char		*str;
 	t_cmd_lst	*cmds;
 
-	while(TRUE)
+	while (TRUE)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		str = readline(MAGENTA"minihell🐚"RESET": ");
