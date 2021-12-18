@@ -6,11 +6,26 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 19:45:23 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 23:54:14 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	logo()
+{
+
+printf(\
+RED	"______  ________________   ________________  __________________ ______ \n"\
+BLUE"___   |/  /____  _/___  | / /____  _/___  / / /___  ____/___  / ___  / \n"\
+RED	"__  /|_/ /  __  /  __   |/ /  __  /  __  /_/ / __  __/   __  /  __  /  \n"\
+BLUE"_  /  / /  __/ /   _  /|  /  __/ /   _  __  /  _  /___   _  /____  /___\n"\
+RED	"/_/  /_/   /___/   /_/ |_/   /___/   /_/ /_/   /_____/   /_____//_____/\n"\
+BLUE"                                                      @yubae @jisokang \n"\
+RESET\
+);
+
+}
 
 void	main_loop(t_env *env)
 {
@@ -47,6 +62,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = get_envp(envp);
 	default_signal();
+	logo();
 	main_loop(env);
 	return (0);
 }
