@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 12:14:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 13:01:00 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,29 @@ int	make_here_doc(char *end_str)
 	{
 		fd_close(pipe_fd[PIPE_OUT]);
 		// signal(SIGINT, sigint_handler_in_heredoc);
+		printf("pipe_fd[PIPE_IN] = ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_IN]);
+		printf("pipe_fd[PIPE_OUT] = ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_OUT]);
 		while (1)
 		{
 			str = readline("> ");
-			printf("input : [%s]\n", str);
-			// printf("WHILE START\n");
+			// printf("input : [%s]\n", str);
 			if (!str)
 			{
 				printf("NO LINE\n");
 				exit(0);
 			}
-			// printf("after no lien\n");
 			if (ft_strncmp(str, end_str, ft_strlen(end_str) + 1) == 0)
 			{
 				printf("SAME LINE\n");
 				exit(0);
 			}
-			// printf("afte same line\n");
 			// ft_putstr_fd(line, pipe_fd[PIPE_IN]);
 			write(pipe_fd[PIPE_IN], str, ft_strlen(str));
 			write(pipe_fd[PIPE_IN], "\n", 1);
-			// printf("afte write line\n");
 			free (str);
 			// printf("WHILE END\n");
 		}
+		// write(1, "HELLO WORLD!\n", 14);
 
 	}
 	fd_close(pipe_fd[PIPE_OUT]);
