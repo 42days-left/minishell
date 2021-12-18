@@ -6,21 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/17 20:22:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/17 21:13:58 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	wait_cmds(int last_pid)
-{
-	int status;
-	waitpid(last_pid, &status, 0);
-	WEXITSTATUS(status);
-	while (wait(&status) != -1)
-		;
-	return (1);
-}
 
 void	check_dot_path(char *path)
 {
@@ -89,7 +79,7 @@ void	exec_child_process2(t_cmd_arg *ca)
 		execve(path, ca->argv, envp);
 	else
 	{
-		//printf(YELLOW"%s"RESET, ca->argv[0]);
+		printf(YELLOW"%s"RESET, ca->argv[0]);
 		exit_err(EXIT_WRONGPATH, ": command not found");
 	}
 	free(path);
@@ -115,10 +105,8 @@ int	ft_dup(int fd1, int fd2)
 
 	if (fd1 == fd2)
 		return (1);
-	printf("dup2==== oldfd: %d, newfd: %d\n", fd1, fd2);
 	rt = dup2(fd1, fd2);
-	printf("dup2====done%d\n", rt);
-	ft_close(fd1);
+	fd_close(fd1);
 	return (rt);
 }
 
@@ -131,23 +119,16 @@ int	extern_function(t_cmd_arg *cmd_arg)
 	pid = fork();
 	if (pid == 0)
 	{
-		on_signal();
+		// on_signal();
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
 		ft_dup(cmd_arg->fd_out, STDOUT_FILENO);
 		exec_child_process2(cmd_arg);
 		exit(1);
 	}
-	waitpid(pid, &status, 0);
-	// wait(&status);
+	// waitpid(pid, &status, 0);
+	wait(&status);
 	g_exitstat = get_wexitstat(status);
 
-	return (EXIT_SUCCESS);
-}
-
-int extern_function(t_cmd_arg *ca)
-{
-	exec_fork2(ca);
-	// free_cmd_arg(ca);
 	return (EXIT_SUCCESS);
 }
 
@@ -186,14 +167,13 @@ int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	fd_out = STDOUT_FILENO;
 	if (curr->next)
 	{
-		printf(">>curr->next exist<<\n");
 		pipe(pipe_fd);
 		fd_out = pipe_fd[WRITE];
 	}
 	pid = fork();
 	if (pid == 0)
 	{
-		off_signal();
+		// off_signal();
 		fd_close(pipe_fd[READ]);
 		exit(execute_single_cmd(curr, env, fd_in, fd_out));
 	}
@@ -216,6 +196,4 @@ void	execute(t_cmd_lst *cmds, t_env *env)
 		execute_single_cmd(cmds, env, STDIN_FILENO, STDOUT_FILENO);
 	else
 		execute_multi_cmds(cmds, env, STDIN_FILENO, -1);
-	set_signal();
-	return (1);
 }

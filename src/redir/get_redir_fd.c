@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/17 20:20:05 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/17 20:28:56 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	fd_close(int fd)
 	if (fd == STDERR_FILENO)
 		return ;
 	close(fd);
-	printf("close: %d\n", fd);
 }
 
 static int	get_fd_type(int type)
