@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 14:14:20 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 16:30:11 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	exec_child_process2(t_cmd_arg *ca)
  * @param stat
  * @return int
  */
+
 static int	get_wexitstat(int stat)
 {
 	return ((((*(int *)&(stat)) >> 8) & 0x000000ff));
@@ -145,7 +146,7 @@ int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 
 int	wait_cmds(int last_pid)
 {
-	int status;
+	int	status;
 	waitpid(last_pid, &status, 0);
 	WEXITSTATUS(status);
 	while (wait(&status) != -1)
@@ -156,13 +157,13 @@ int	wait_cmds(int last_pid)
 int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 {
 	t_cmd_lst	*curr;
-	pid_t	pid;
-	int		status;
-	int		fd_out;
-	int		pipe_fd[2];
+	pid_t		pid;
+	int			status;
+	int			fd_out;
+	int			pipe_fd[2];
 
 	if (!cmds)
-		return(wait_cmds(last_pid));
+		return (wait_cmds(last_pid));
 	curr = cmds;
 	fd_out = STDOUT_FILENO;
 	if (curr->next)
@@ -173,7 +174,6 @@ int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	pid = fork();
 	if (pid == 0)
 	{
-		// off_signal();
 		fd_close(pipe_fd[READ]);
 		exit(execute_single_cmd(curr, env, fd_in, fd_out));
 	}
