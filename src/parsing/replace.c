@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/17 20:20:15 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:19:53 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ t_env	*find_env_from_env(char *in_key, t_env *env)
 	while (curr)
 	{
 		if (ft_strncmp(curr->key, in_key, 10000) == SAME)
-			break;
+			break ;
 		curr = curr->next;
 	}
 	if (curr == NULL)
 		return (NULL);
 	return (curr);
 }
+
 static void free_compound_cmd_node(t_env *tmp)
 {
 	if (tmp && tmp->key[0] == '?')
@@ -149,7 +150,7 @@ int	replace(t_lst *tokens, t_env *env)
 	{
 		replace_env_token(curr->data, env);
 		remove_quote_token(curr->data);
-		curr= curr->next;
+		curr = curr->next;
 	}
 	return (0);
 }

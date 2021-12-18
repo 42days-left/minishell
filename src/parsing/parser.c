@@ -6,17 +6,17 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:17:37 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 t_cmd	*init_cmd(void)
 {
 	t_cmd	*cmd;
 
-	cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	cmd = (t_cmd *)malloc(sizeof (t_cmd));
 	cmd->tokens = NULL;
 	cmd->rd = NULL;
 	return (cmd);
@@ -36,7 +36,7 @@ int	print_cmds_list(t_cmd_lst *cmds)
 	printf("--------------"GREEN"[PRINT cmds list]"RESET"-------------\n");
 	curr = cmds;
 	i = 0;
-	while(curr != NULL)
+	while (curr != NULL)
 	{
 		printf("cmd["BLUE"%d"RESET"]\n{\n", i++);
 		curr2 = curr->cmd->tokens;
