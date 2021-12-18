@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 19:47:32 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 22:25:16 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,6 @@
 
 #define	PIPE_OUT	0
 #define	PIPE_IN		1
-
-void	sigint_handler(int sig)
-{
-	(void)sig;
-	printf("\b\b  \b\b\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	g_exitstat = 1;
-}
-
-static void	sigint_handler_in_heredoc(int sig)
-{
-	(void)sig;
-	printf("\b\b  \b\b\n");
-	exit(1);
-}
 
 int	make_here_doc(char *end_str)
 {
