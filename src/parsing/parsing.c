@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:19:36 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 19:42:48 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 00:33:25 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	t_lst	*tokens;
 	char	**strs;
 
-	DEBUG && printf("script = \"%s\"\n", script);
+	DEBUG && printf(GRAY"script = \"%s\"\n"RESET, script);
 	if (tokenizer(script, &strs))
 		return (EXIT_FAILURE);
 	tokens = NULL;
@@ -36,5 +36,6 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	free_strings(strs);
 	ft_lstclear2(&tokens, free_token_without_close);
 	// free_lst(tokens, free_token)
+	DEBUG && printf("["GREEN"PARSE DONE"RESET"]\n");
 	return (EXIT_SUCCESS);
 }

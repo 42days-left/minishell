@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 16:48:23 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 00:30:46 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 			token = init_token(((t_token *)curr->data)->type, ft_strdup(((t_token *)curr->data)->word));
 			if (token->type == WORD)
 			{
-				DEBUG && printf("\t[WORD]\ttype:[%d]\tvalue:[%s]\n", token->type, token->word);
+				DEBUG && printf("type:[%d]\tvalue:[%s]\n", token->type, token->word);
 				lst_add_back(&cmd->tokens, lst_new((void *)token));
 			}
 			else

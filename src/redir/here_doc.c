@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 22:25:16 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 00:46:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,18 @@ int	make_here_doc(char *end_str)
 	int		pipe_fd[2];
 	char	*str;
 
-	DEBUG && printf("end_str : [%s]\n", end_str);
+	DEBUG && printf("----------------"GREEN"HERE DOCUMENT"RESET"---------------\n");
+	DEBUG && printf("end_str : ["BLUE"%s"RESET"]\n", end_str);
 	pipe(pipe_fd);
 	// signal(SIGINT, SIG_IGN);
 	if (fork() == 0)
 	{
 		fd_close(pipe_fd[PIPE_OUT]);
 		// signal(SIGINT, sigint_handler_in_heredoc);
-		DEBUG && printf("pipe_fd[PIPE_IN] = ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_IN]);
-		DEBUG && printf("pipe_fd[PIPE_OUT] = ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_OUT]);
-		while (1)
+		DEBUG && printf("pipe_fd[PIPE_IN]:  ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_IN]);
+		DEBUG && printf("pipe_fd[PIPE_OUT]: ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_OUT]);
+		DEBUG && printf("--------------------------------------------\n");
+		while (TRUE)
 		{
 			str = readline("> ");
 			if (!str)
@@ -62,7 +64,6 @@ int	here_doc(t_lst *tokens)
 		token = curr->data;
 		if (token->type == D_REDIR_L)
 		{
-			printf(RED"!HERE_DOC!\n"RESET);
 			fd = make_here_doc(token->word);
 			if (fd == -1)
 			{
@@ -71,7 +72,6 @@ int	here_doc(t_lst *tokens)
 			}
 			free(token->word);
 			token->word = ft_itoa(fd);
-			printf("heredoc fd : [%s]\n", token->word);
 		}
 		curr = curr->next;
 	}

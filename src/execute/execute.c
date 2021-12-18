@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 20:26:03 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 00:34:31 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	check_dot_path(char *path)
 
 char *find_path(char *in_path, t_env *env)
 {
-	int		i;
-	t_env	*tmp;
-	char	*new_path;
-	char	**path_arr;
-	struct stat s;
+	int			i;
+	t_env		*tmp;
+	char		*new_path;
+	char		**path_arr;
+	struct stat	s;
 
 	tmp = find_env_from_env("PATH", env);
 	path_arr = ft_split(tmp->value, ':');
@@ -132,18 +132,15 @@ int	extern_function(t_cmd_arg *cmd_arg)
 	// waitpid(pid, &status, 0);
 	wait(&status);
 	g_exitstat = get_wexitstat(status);
-	DEBUG && printf("extern_fun fork DONE\n");
 	return (EXIT_SUCCESS);
 }
 
 int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 {
-	DEBUG && printf("SINGLE CMD\n");
 	t_cmd_arg	*cmd_arg;
 	cmd_arg = parse_cmd_arg(cmds->cmd, env, fd_in, fd_out);
 	if (!cmd_arg)
 		return (EXIT_FAILURE);
-	DEBUG && printf("SINGLE CMD2\n");
 	DEBUG && print_cmd_arg(cmd_arg);
 	if (builtin_function(cmd_arg))
 		extern_function(cmd_arg);

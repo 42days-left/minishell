@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 22:37:20 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 15:54:19 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/19 00:15:03 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ char	*builtin_cd_tilde(char **argv, t_env *tmp)
 	if (path[0] == '~' && path[1] == 0)
 	{
 		if (tmp == NULL)
-		{
 			path = ft_strdup(getenv("HOME"));
-			printf("path = [%s]\n", path);
-		}
 		else
 			path = tmp->value;
 	}
@@ -47,7 +44,7 @@ int	builtin_cd(int argc, char **argv, t_env *env)
 		path = builtin_cd_tilde(argv, tmp);
 	if (chdir(path) == ERROR)
 	{
-		printf("cd: %s: no such file or directory\n", argv[1]);
+		printf(YELLOW"cd: %s: no such file or directory\n"RESET, argv[1]);
 		chdir(".");
 		return (EXIT_FAILURE);
 	}
