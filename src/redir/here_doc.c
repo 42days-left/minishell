@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 13:01:00 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:57:58 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	make_here_doc(char *end_str)
 		while (1)
 		{
 			str = readline("> ");
-			// printf("input : [%s]\n", str);
+			// printf("input  [%s]\n", str);
 			if (!str)
 			{
 				printf("NO LINE\n");
@@ -70,7 +70,7 @@ int	make_here_doc(char *end_str)
 		// write(1, "HELLO WORLD!\n", 14);
 
 	}
-	fd_close(pipe_fd[PIPE_OUT]);
+	fd_close(pipe_fd[PIPE_IN]);
 	wait(&status);
 	// signal(SIGINT, sigint_handler);
 	if (WEXITSTATUS(status) == 1)
