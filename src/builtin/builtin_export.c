@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 15:54:41 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 18:52:03 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,19 @@ int	set_export_var(int argc, char **argv, t_env *env)
 	return (EXIT_SUCCESS);
 }
 
+//env lst를 하나하나 버블 소팅을 할꺼야.
+//이 리스트를 직접 소팅하는게 아니라 새로 복사해서 할꺼야
+//그리고 그 리스트는 쓰고 free할 거임 GOOD
 void	sort_env_key_lst(t_env *env)
 {
 	t_env	*curr;
 	int		len;
 
 	curr = env;
-	len = 0;
+	len = env_lst_size(curr);
 	while (curr)
 	{
-		len++;
+		// env_add_back(z);
 		curr = curr->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:19:36 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 16:48:24 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:42:48 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	if (tokenizer(script, &strs))
 		return (EXIT_FAILURE);
 	tokens = NULL;
-	lexer(strs, &tokens);
+	if (lexer(strs, &tokens) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	DEBUG && print_token_list(tokens);
 	replace(tokens, env);
 	DEBUG && print_token_list(tokens);

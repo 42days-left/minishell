@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 15:40:23 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:47:32 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,9 @@ int	make_here_doc(char *end_str)
 		{
 			str = readline("> ");
 			if (!str)
-			{
-				printf("NO LINE\n");
 				exit(0);
-			}
 			if (ft_strncmp(str, end_str, ft_strlen(end_str) + 1) == 0)
-			{
-				printf("SAME LINE\n");
 				exit(0);
-			}
 			ft_putstr_fd(str, pipe_fd[PIPE_IN]);
 			ft_putstr_fd("\n", pipe_fd[PIPE_IN]);
 			free (str);

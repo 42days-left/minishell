@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 16:48:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:45:23 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	main_loop(t_env *env)
 		cmds = NULL;
 		if (*str)
 		{
-			if (parse(str, env, &cmds) == EXIT_FAILURE)
-				exit_err(2, "Parse Error");
-			execute(cmds, env);
+			if (parse(str, env, &cmds) == EXIT_SUCCESS)
+				execute(cmds, env);
 		}
 		free(str);
 		// free_cmds(&cmds);

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 16:48:22 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:56:07 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 	DEBUG && printf("SINGLE CMD\n");
 	t_cmd_arg	*cmd_arg;
 	cmd_arg = parse_cmd_arg(cmds->cmd, env, fd_in, fd_out);
+	if (!cmd_arg)
+		return (EXIT_FAILURE);
 	DEBUG && printf("SINGLE CMD2\n");
 	DEBUG && print_cmd_arg(cmd_arg);
 	if (builtin_function(cmd_arg))

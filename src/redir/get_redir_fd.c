@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/17 20:28:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 20:12:01 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ int	get_redir_fd(t_lst *rds, int fds[2])
 			fds[fd_type] = right_redir(token->word);
 		else if (token->type == D_REDIR_R)
 			fds[fd_type] = right_double_redir(token->word);
-		if (fds[fd_type] == -1)
+		if (fds[fd_type] == ERROR)
+		{
+			printf(YELLOW"redir: ambiguous redirect\n"RESET);
 			return (0);
+		}
 		node = node->next;
 	}
 	return (1);

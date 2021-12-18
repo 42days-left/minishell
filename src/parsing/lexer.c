@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 16:16:50 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 19:46:10 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	lexer(char **strs, t_lst **tokens)
 		}
 		else
 		{
-			printf(RED"LEXER ERR\n"RESET);
-			return (0); //error check pls here!
+			printf(YELLOW"lexer: syntax error near unexpected token `newline'\n"RESET);
+			return (EXIT_FAILURE);
 		}
 		lst_add_back(tokens, lst_new(init_token(type, word)));
 		i++;
