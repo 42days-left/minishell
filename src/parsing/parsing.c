@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:19:36 by jisokang          #+#    #+#             */
-/*   Updated: 2021/11/08 13:04:37 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:48:24 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 
-/*int	parser(t_lst *tokens, t_lst *cmds)
+/**
+ * @param script string entered at the prompt
+ */
+
+int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 {
-	t_lst	*node;
-	t_cmd	*cmd;
-	t_token	*token;
+	t_lst	*tokens;
+	char	**strs;
 
-	node = tokens->next;	//??? why?
-	while (node)
-	{
-		//cmd = init_cmd();
-		while (node && ((t_token *)node->data)->type != PIPE)
-		{
-			//token = dup_token()
-			if (token->type == WORD)
-				//push_lst() -> cmd->args
-			else
-				//push_lst() -> cmd->rd
-			node = node->next;
-		}
-		//push_list(cmds, (void *)cmd);
-		if (node)		//?? why???
-			node = node->next;
-	}
+	DEBUG && printf("script = \"%s\"\n", script);
+	if (tokenizer(script, &strs))
+		return (EXIT_FAILURE);
+	tokens = NULL;
+	lexer(strs, &tokens);
+	DEBUG && print_token_list(tokens);
+	replace(tokens, env);
+	DEBUG && print_token_list(tokens);
+	if (here_doc(tokens) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	parser(tokens, cmds);
+	free_strings(strs);
+	ft_lstclear2(&tokens, free_token_without_close);
+	// free_lst(tokens, free_token)
 	return (EXIT_SUCCESS);
-}*/
+}

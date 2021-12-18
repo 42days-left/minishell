@@ -1,26 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 12:28:01 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 19:56:28 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	wait_cmds(int last_pid)
-{	
-	int status;
-	waitpid(last_pid, &status, 0);
-	WEXITSTATUS(status);
-	while (wait(&status) != -1)
-		;
-	return (1);
-}
 void	check_dot_path(char *path)
 {
 	if (path[0] == '.')
@@ -73,37 +64,30 @@ char *find_path(char *in_path, t_env *env)
 	return (NULL);
 }
 
-static void	free_proc(t_cmd_arg *ca)
-{
-	free_strings(ca->argv);
-	ft_close(ca->fd_in);
-	ft_close(ca->fd_out);
-	free(ca);
-}
 
-// int	exec_child_process2(t_cmd_arg *ca)
 void	exec_child_process2(t_cmd_arg *ca)
 {
 	char *path;
 	char **envp;
 
+	DEBUG && printf("exec_child_process()\t"GREEN"START"RESET"\n");
 	if (ca->argc == 0)
+	{
+		DEBUG && printf("ca->argc == 0\t\t"GREEN"OUT"RESET"\n");
 		exit(0);
-	//DEBUG && ////printf("exec_child_process()\t"GREEN"START"RESET"\n");
+	}
 	envp = env_to_envp(ca->env);
 	path = find_path(ca->argv[0], ca->env);
 	if (path != NULL)
 		execve(path, ca->argv, envp);
 	else
 	{
-		////printf(YELLOW"%s"RESET, ca->argv[0]);
+		printf(YELLOW"%s"RESET, ca->argv[0]);
 		exit_err(EXIT_WRONGPATH, ": command not found");
 	}
-	////printf(YELLOW"????\n"RESET);
 	free(path);
 	free_envp(envp);
 	exit(42);
-	// return(1);
 }
 
 /**
@@ -112,6 +96,7 @@ void	exec_child_process2(t_cmd_arg *ca)
  * @param stat
  * @return int
  */
+
 static int	get_wexitstat(int stat)
 {
 	return ((((*(int *)&(stat)) >> 8) & 0x000000ff));
@@ -124,10 +109,8 @@ int	ft_dup(int fd1, int fd2)
 
 	if (fd1 == fd2)
 		return (1);
-	//printf("dup2==== oldfd: %d, newfd: %d\n", fd1, fd2);
 	rt = dup2(fd1, fd2);
-	//printf("dup2====done%d\n", rt);
-	ft_close(fd1);
+	fd_close(fd1);
 	return (rt);
 }
 
@@ -139,7 +122,7 @@ int	extern_function(t_cmd_arg *cmd_arg)
 
 	pid = fork();
 	if (pid == 0)
-	{	
+	{
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
 		ft_dup(cmd_arg->fd_out, STDOUT_FILENO);
 		exec_child_process2(cmd_arg);
@@ -148,101 +131,60 @@ int	extern_function(t_cmd_arg *cmd_arg)
 	// waitpid(pid, &status, 0);
 	wait(&status);
 	g_exitstat = get_wexitstat(status);
-	free_proc(cmd_arg);
+	DEBUG && printf("extern_fun fork DONE\n");
 	return (EXIT_SUCCESS);
 }
 
-int builtin_function(t_cmd_arg *ca)
+int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 {
-	//printf("builtin in\n");
-	if (!ft_strncmp(ca->argv[0], "pwd", 4))
-		g_exitstat = builtin_pwd(ca->fd_out);
-	else if (!ft_strncmp(ca->argv[0], "exit", 5))
-		g_exitstat = builtin_exit(ca->argc, ca->argv);
-	else if (!ft_strncmp(ca->argv[0], "echo", 5))
-		g_exitstat = builtin_echo(ca->argc, ca->argv, ca->fd_out);
-	else if (!ft_strncmp(ca->argv[0], "env", 4))
-		g_exitstat = builtin_env(ca->env, ca->fd_out);
-	else if (!ft_strncmp(ca->argv[0], "export", 7))
-		g_exitstat = builtin_export(ca->argc, ca->argv, ca->env, ca->fd_out);
-	else if (!ft_strncmp(ca->argv[0], "unset", 6))
-		g_exitstat = builtin_unset(ca->argc, ca->argv, ca->env);
-	else if (!ft_strncmp(ca->argv[0], "cd", 3))
-		g_exitstat = builtin_cd(ca->argc, ca->argv, ca->env);
-	else
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-
-static void	wait_process(t_cmd_arg *proc)
-{
-	int	status;
-
-	wait(&status);
-	g_exitstat = WEXITSTATUS(status);
-	}
-
-// void	execute_extern(t_cmd_arg *ca)
-// {
-// 	////printf("in execute_extern()\n");
-// 	if (fork() == 0)
-// 	{
-// 		signal(SIGINT, sig_handler()->sigint);
-// 		signal(SIGQUIT, sig_handler()->sigquit);
-// 		ft_dup(ca->fd[WRITE], STDIN_FILENO);
-// 		ft_dup(ca->fd[READ], STDOUT_FILENO);
-// 		exit(extern_function(ca));
-// 	}
-// 	wait_process(ca);
-// }
-
-int	execute1(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
-{
+	DEBUG && printf("SINGLE CMD\n");
 	t_cmd_arg	*cmd_arg;
-	
 	cmd_arg = parse_cmd_arg(cmds->cmd, env, fd_in, fd_out);
-	//printf("execute1\n");
+	DEBUG && printf("SINGLE CMD2\n");
+	DEBUG && print_cmd_arg(cmd_arg);
 	if (builtin_function(cmd_arg))
 		extern_function(cmd_arg);
+	free_cmd_arg(cmd_arg);
 	return (EXIT_SUCCESS);
 }
 
+int	wait_cmds(int last_pid)
+{
+	int	status;
+	waitpid(last_pid, &status, 0);
+	WEXITSTATUS(status);
+	while (wait(&status) != -1)
+		;
+	return (1);
+}
 
-
-int	execute2(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
+int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 {
 	t_cmd_lst	*curr;
-	pid_t	pid;
-	int		status;
-	int		fd_out;
-	int		pipe_fd[2];
+	pid_t		pid;
+	int			status;
+	int			fd_out;
+	int			pipe_fd[2];
 
 	if (!cmds)
-		return(wait_cmds(last_pid));
-	//printf("\nexecute2 !!!!!!!!!!!!\n");
+		return (wait_cmds(last_pid));
 	curr = cmds;
 	fd_out = STDOUT_FILENO;
 	if (curr->next)
 	{
-		//printf(">>curr->next exist<<\n");
 		pipe(pipe_fd);
 		fd_out = pipe_fd[WRITE];
-		//printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
-	}	
+	}
 	pid = fork();
 	if (pid == 0)
 	{
-		//printf(">>child process<<\n");
-		//printf("fd_in:%d, fd_out: %d\n", fd_in,  fd_out);
-		ft_close(pipe_fd[READ]);
-		exit(execute1(curr, env, fd_in, fd_out));
+		fd_close(pipe_fd[READ]);
+		exit(execute_single_cmd(curr, env, fd_in, fd_out));
 	}
 	waitpid(pid, &status, 0);
-	ft_close(fd_in);
-	ft_close(fd_out);
-	//printf("fd_in:%d, fd_out:%d\n", fd_in, fd_out);
-	return (execute2(curr->next, env, pipe_fd[READ], pid));
+	fd_close(fd_in);
+	fd_close(fd_out);
+	return (execute_multi_cmds(curr->next, env, pipe_fd[READ], pid));
 }
 
 void	execute(t_cmd_lst *cmds, t_env *env)
@@ -254,7 +196,7 @@ void	execute(t_cmd_lst *cmds, t_env *env)
 	curr = cmds;
 	count = cmd_lst_size(curr);
 	if (count == 1)
-		execute1(cmds, env, STDIN_FILENO, STDOUT_FILENO);
+		execute_single_cmd(cmds, env, STDIN_FILENO, STDOUT_FILENO);
 	else
-		execute2(cmds, env, STDIN_FILENO, -1);
+		execute_multi_cmds(cmds, env, STDIN_FILENO, -1);
 }

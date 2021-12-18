@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 16:25:37 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 16:42:59 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@
 # include	"token.h"
 # include	"error.h"
 # include	"builtin.h"
-# include	"redirect.h"
+# include	"redir.h"
+# include	"free.h"
+# include	"parsing.h"
+
 
 # define	DEBUG		0
 

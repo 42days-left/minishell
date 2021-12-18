@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   free.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/03 13:33:31 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 15:20:21 by yubae            ###   ########.fr       */
+/*   Created: 2021/12/14 13:10:07 by jisokang          #+#    #+#             */
+/*   Updated: 2021/12/14 13:11:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_pwd(int fd_out)
-{
-	char	*pwd;
-
-	pwd = getcwd(NULL, PATH_MAX);
-	if (pwd == NULL)
-		return (2);
-	ft_putstr_fd(pwd, fd_out);
-	ft_putstr_fd("\n", fd_out);
-	free(pwd);
-	return (EXIT_SUCCESS);
-}
+void	free_cmd_arg(t_cmd_arg *ca);
+void	free_tokens(t_lst *tokens);
+void	free_cmd(void *data);
+void	free_cmds(t_cmd_lst **lst);
+void	free_strings(char **strs);

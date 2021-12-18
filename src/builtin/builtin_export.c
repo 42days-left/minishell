@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:54:41 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int	set_export_var(int argc, char **argv, t_env *env)
 	while (i < argc)
 	{
 		if (!is_valid_key_value(argv[i]))
-		{
 			printf(YELLOW"export : '%s' : not a valid identifier\n"RESET, argv[i]);
-			return (EXIT_FAILURE);
-		}
 		else
 		{
 			argv_env = get_env_from_str(argv[i]);
