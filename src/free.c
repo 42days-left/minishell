@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 12:53:17 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/16 13:18:32 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:46:39 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void	free_cmds(t_cmd_lst **lst)
 
 void	free_strings(char **strs)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (strs[i] != NULL)
 	{
 		free(strs[i]);

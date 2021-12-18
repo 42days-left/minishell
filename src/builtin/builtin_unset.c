@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:02:58 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 17:00:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:21:44 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_valid_key(char *key)
 int	remove_env_var(int argc, char **argv, t_env *env)
 {
 	t_env	*argv_env;
-	int	i;
+	int		i;
 
 	i = 1;
 	while (i < argc)

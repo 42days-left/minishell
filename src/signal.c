@@ -6,13 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:11:14 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 14:16:30 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 14:41:28 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern void	rl_replace_line (const char *text, int clear_undo);
+extern void	rl_replace_line(const char *text, int clear_undo);
 
 void	signal_handler(int sig)
 {

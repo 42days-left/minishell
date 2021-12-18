@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 22:37:20 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 13:27:28 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:22:31 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	builtin_cd(int argc, char **argv, t_env *env)
 	t_env	*tmp;
 
 	tmp = find_env_from_env("HOME", env);
-	if (argc ==	1 && tmp)
+	if (argc == 1 && tmp)
 		path = tmp->value;
 	else if (argc == 1 && tmp == NULL)
 	{

@@ -6,14 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/14 14:41:13 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 15:15:04 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int builtin_function(t_cmd_arg *ca)
+int	builtin_function(t_cmd_arg *ca)
 {
 	if (!ft_strncmp(ca->argv[0], "pwd", 4))
 		g_exitstat = builtin_pwd(ca->fd_out);
@@ -33,8 +32,6 @@ int builtin_function(t_cmd_arg *ca)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-
-
 // static void	wait_process(t_cmd_arg *proc)
 // {
 // 	int	status;
