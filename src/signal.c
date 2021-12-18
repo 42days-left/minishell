@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:11:14 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/14 16:43:00 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 12:29:15 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	signal_handler(int sig)
 	pid = waitpid(-1, &status, WNOHANG);
 	if (pid == -1)
 	{
-		if (sig == SIGQUIT)
-			printf("");
+	//	if (sig == SIGQUIT)
+	//		printf("");
 		if (sig == SIGINT)
 			printf("\n");
 		rl_replace_line("", 0);
