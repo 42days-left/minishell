@@ -6,15 +6,15 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/10 17:08:18 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 16:02:59 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token *init_token(int type, char *word)
+t_token	*init_token(int type, char *word)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
@@ -27,7 +27,7 @@ t_token *init_token(int type, char *word)
 	return (token);
 }
 
-int get_type(char *str)
+int	get_type(char *str)
 {
 	if (ft_strncmp(str, "|", 1) == 0)
 		return (PIPE);
@@ -42,14 +42,14 @@ int get_type(char *str)
 	return (WORD);
 }
 
-int lexer(char **strs, t_lst **tokens)
+int	lexer(char **strs, t_lst **tokens)
 {
 	int		type;
 	char	*word;
 	int		i;
 
 	i = 0;
-	while(strs[i])
+	while (strs[i])
 	{
 		type = get_type(strs[i]);
 		if (type == PIPE)
@@ -69,12 +69,12 @@ int lexer(char **strs, t_lst **tokens)
 		lst_add_back(tokens, lst_new(init_token(type, word)));
 		i++;
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-int print_token(t_token *token)
+int	print_token(t_token *token)
 {
-	char  *type;
+	char	*type;
 
 	if (token->type == PIPE)
 		type = "PIPE";
@@ -96,10 +96,9 @@ int print_token(t_token *token)
 	return (1);
 }
 
-
-int print_token_list(t_lst *tokens)
+int	print_token_list(t_lst *tokens)
 {
-	t_lst *node;
+	t_lst	*node;
 
 	if (tokens == NULL)
 	{
@@ -108,7 +107,7 @@ int print_token_list(t_lst *tokens)
 	}
 	printf("--------------"GREEN"PRINT LEXER TOKEN"RESET"-------------\n");
 	node = tokens;
-	while(node != NULL)
+	while (node != NULL)
 	{
 		print_token(node->data);
 		node = node->next;
