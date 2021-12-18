@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/17 21:13:58 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:14:20 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,7 @@ void	execute(t_cmd_lst *cmds, t_env *env)
 	int				count;
 	t_cmd_lst		*curr;
 
-//	signal(SIGINT, SIG_IGN);
-//	on_echoctl();
+	on_signal();
 	curr = cmds;
 	count = cmd_lst_size(curr);
 	if (count == 1)

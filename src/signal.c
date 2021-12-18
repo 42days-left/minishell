@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:11:14 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/14 16:43:00 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/18 14:16:30 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	signal_handler(int sig)
 	pid = waitpid(-1, &status, WNOHANG);
 	if (pid == -1)
 	{
-		if (sig == SIGQUIT)
-			printf("");
-		if (sig == SIGINT)
-			printf("\n");
+		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -50,20 +47,6 @@ void	default_signal(void)
 	off_echoctl();
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
-}
-void	off_signal(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	on_echoctl(void)
-{
-	struct termios	new_term;
-
-	tcgetattr(STDOUT_FILENO, &new_term);
-	new_term.c_lflag |= ECHOCTL;
-	tcsetattr(STDOUT_FILENO, TCSANOW, &new_term);
 }
 
 void	off_echoctl(void)
