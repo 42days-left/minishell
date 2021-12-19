@@ -65,7 +65,7 @@ char	*find_key_from_str(char *str_ptr)
 t_env	*find_env_from_env(char *in_key, t_env *env)
 {
 	t_env	*curr;
-
+	
 	curr = env;
 	if (in_key[0] == '?')
 		return (new_env_node("?", ft_itoa(g_exitstat)));

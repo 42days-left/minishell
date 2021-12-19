@@ -32,6 +32,8 @@ char *find_path(char *in_path, t_env *env)
 	struct stat s;
 
 	tmp = find_env_from_env("PATH", env);
+	if (!tmp)
+		return (NULL);
 	path_arr = ft_split(tmp->value, ':');
 	//DEBUG && ////printf("----------------"GREEN"FIND NEW_PATH"RESET"---------------\n");
 	if (!stat(in_path, &s))
