@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 22:45:50 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 19:43:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new)
 {
 	t_cmd_lst	*last;
 
-	if (lst == NULL || new == NULL)
-		return ;
+	// if (lst == NULL || new == NULL)
+	// 	return ;
 	if (*lst)
 	{
 		last = cmd_lst_last(*lst);

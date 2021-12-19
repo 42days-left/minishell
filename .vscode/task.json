@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Build ft_printf_test",
+      "command": "/usr/bin/make",
+      "args": ["-C", "${workspaceFolder}", "re", "debug_make"],
+      "options": {
+        "cwd": "/usr/bin",
+        "env": {
+          "DEBUG": "true"
+        }
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ],
+  "version": "2.0.0"
+}

@@ -1,0 +1,11 @@
+exec_child_process()	[32mSTART[0m
+----------------[32mFIND NEW_PATH[0m---------------
+Makefile
+README.md
+SHLVL
+a
+include
+lib
+minishell
+src
+test.sh

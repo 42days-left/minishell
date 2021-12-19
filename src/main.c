@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 23:54:14 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 20:26:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,56 @@
 
 void	logo()
 {
+	printf(\
+	RED	"______  ________________   ________________  __________________ ______ \n"\
+	BLUE"___   |/  /____  _/___  | / /____  _/___  / / /___  ____/___  / ___  / \n"\
+	RED	"__  /|_/ /  __  /  __   |/ /  __  /  __  /_/ / __  __/   __  /  __  /  \n"\
+	BLUE"_  /  / /  __/ /   _  /|  /  __/ /   _  __  /  _  /___   _  /____  /___\n"\
+	RED	"/_/  /_/   /___/   /_/ |_/   /___/   /_/ /_/   /_____/   /_____//_____/\n"\
+	BLUE"                                                      @yubae @jisokang \n"\
+	RESET\
+	);
+}
 
-printf(\
-RED	"______  ________________   ________________  __________________ ______ \n"\
-BLUE"___   |/  /____  _/___  | / /____  _/___  / / /___  ____/___  / ___  / \n"\
-RED	"__  /|_/ /  __  /  __   |/ /  __  /  __  /_/ / __  __/   __  /  __  /  \n"\
-BLUE"_  /  / /  __/ /   _  /|  /  __/ /   _  __  /  _  /___   _  /____  /___\n"\
-RED	"/_/  /_/   /___/   /_/ |_/   /___/   /_/ /_/   /_____/   /_____//_____/\n"\
-BLUE"                                                      @yubae @jisokang \n"\
-RESET\
-);
+static t_cmd_lst	*init_cmd_lst()
+{
+	t_cmd_lst	*cmds;
 
+	cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
+	if (!cmds)
+		exit_err(EXIT_FAILURE, "Malloc Error");
+	cmds->cmd = NULL;
+	cmds->next = NULL;
+	// cmds = NULL;
+	return (cmds);
+}
+
+void	free_cmd_lst(t_cmd_lst *cmds)
+{
+	t_cmd_lst	*curr;
+	t_cmd_lst	*next_lst;
+	t_lst		*tokens;
+	t_lst		*rd;
+
+	curr = cmds;
+	while (curr != NULL)
+	{
+		next_lst = curr->next;
+		if (curr->cmd)
+		{
+			tokens = curr->cmd->tokens;
+			if (tokens)
+				free_tokens_parse(tokens);
+			free(tokens);
+			rd = curr->cmd->rd;
+			if (rd)
+				free_tokens_parse(rd);
+			free(rd);
+		}
+		free(curr->cmd);
+		curr = next_lst;
+	}
+	cmds = NULL;
 }
 
 void	main_loop(t_env *env)
@@ -37,11 +76,11 @@ void	main_loop(t_env *env)
 		signal(SIGQUIT, SIG_IGN);
 		str = readline(MAGENTA"minihell🐚"RESET": ");
 		if (!str)
-			builtin_exit(1, NULL);
+		{
+			printf("exit\n");
+			exit(EXIT_SUCCESS);
+		}
 		add_history(str);
-		cmds = (t_cmd_lst *)malloc(sizeof(t_cmd_arg));
-		if (!cmds)
-			exit_err(2, "Malloc Error");
 		cmds = NULL;
 		if (*str)
 		{
@@ -49,8 +88,8 @@ void	main_loop(t_env *env)
 				execute(cmds, env);
 		}
 		free(str);
-		// free_cmds(&cmds);
-		//free(cmds);
+		free_cmd_lst(cmds);
+		free(cmds);
 	}
 }
 

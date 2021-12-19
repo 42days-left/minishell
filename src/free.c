@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 12:53:17 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 22:42:46 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 19:01:07 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	free_cmd_arg(t_cmd_arg *ca)
 	free_strings(ca->argv);
 	fd_close(ca->fd_in);
 	fd_close(ca->fd_out);
-	// free(ca->env);
 	free(ca);
 }
 
@@ -28,7 +27,6 @@ void	free_tokens(t_lst *tokens)
 	curr = tokens;
 	while (curr)
 	{
-		// free(((t_token *)curr->data)->type);
 		free(((t_token *)curr->data)->word);
 		curr = curr->next;
 	}
@@ -40,7 +38,6 @@ void	free_cmd(void *data)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)data;
-	// free_tokens(&cmd->tokens);
 	ft_lstclear2(&cmd->tokens, free_token_without_close);
 	ft_lstclear2(&cmd->rd, free_token_without_close);
 	free(cmd);

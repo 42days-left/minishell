@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 22:39:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 14:41:38 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/19 15:37:31 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,4 @@ void	env_sort(t_env *head)
 
 	curr = head;
 	size = env_lst_size(curr);
-	printf("size is = [%d]\n", size);
 }

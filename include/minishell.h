@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/19 00:02:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 19:55:47 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	on_echoctl(void);
 void	off_echoctl(void);
 void	signal_handler(int sig);
 
-/*builtin*/
+
 
 void		execute(t_cmd_lst *cmds, t_env *env);
 void	free_strings(char **strs);

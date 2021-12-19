@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/12/18 22:24:59 by jisokang         ###   ########.fr        #
+#    Updated: 2021/12/19 17:51:55 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME	= minishell
 FSAN	= -fsanitize=address
 #-I/opt/homebrew/opt/readline/include
 FLAGS	= -Wall -Wextra -Werror
+
+DEBUG	= -fdiagnostics-color=always -g
 
 #Cluster Mac
 #CFLAGS	= -Iinclude -I/Users/$(USER)/.brew/opt/readline/include
@@ -57,7 +59,7 @@ all: $(NAME)
 	gcc $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS)
-	gcc $(CFLAGS) $(CLIB) $(SRCS) -o $(NAME)
+	gcc $(DEBUG) $(CFLAGS) $(CLIB) $(SRCS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJS)

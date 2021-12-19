@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/19 00:34:31 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/19 16:06:23 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,16 @@ char *find_path(char *in_path, t_env *env)
 		new_path = ft_strjoin(path_arr[i], tmp->value);
 		free(tmp->value);
 		//free(tmp);
+		DEBUG && printf("["BLUE"%d"RESET"] %s\n", i, new_path);
 		if (!stat(new_path, &s))
+		{
+			DEBUG && printf("--------------------------------------------\n");
 			return (new_path);
+		}
 		free(new_path);
 		i++;
 	}
+	DEBUG && printf("--------------------------------------------\n");
 	return (NULL);
 }
 
