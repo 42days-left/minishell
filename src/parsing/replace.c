@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 15:42:51 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/20 16:33:47 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ t_env	*find_env_from_env(char *in_key, t_env *env)
 static void free_compound_cmd_node(t_env *tmp)
 {
 	if (tmp && tmp->key[0] == '?')
+	{
+		free(tmp->value);
 		free(tmp);
+	}
 }
 
 int	replace_env_token(t_token *token, t_env *env)
