@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:48:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 15:02:04 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:48:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,23 @@ void	env_add_back(t_env **lst, t_env *new)
 
 void	env_lst_del(t_env *head, char *key)
 {
-	t_env	*temp;
+	t_env	*curr;
 	t_env	*prev;
 
-	temp = head;
-	if (temp != NULL && !ft_strncmp(temp->key, key, ft_strlen(key)))
+	curr = head;
+	if (curr != NULL && !ft_strncmp(curr->key, key, ft_strlen(key) + 1))
 	{
-		*head = *temp->next;
-		free(temp);
+		*head = *curr->next;
+		free(curr);
 		return ;
 	}
-	while (temp != NULL && ft_strncmp(temp->key, key, ft_strlen(key)))
+	while (curr != NULL && ft_strncmp(curr->key, key, ft_strlen(key) + 1))
 	{
-		prev = temp;
-		temp = temp->next;
+		prev = curr;
+		curr = curr->next;
 	}
-	if (temp == NULL)
+	if (curr == NULL)
 		return ;
-	prev->next = temp->next;
-	free(temp);
+	prev->next = curr->next;
+	free(curr);
 }

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 16:32:33 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/20 20:42:52 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	free_cmd_lst(t_cmd_lst *cmds)
 				free_tokens_parse(rd);
 		}
 		free(curr->cmd);
+		free(curr);
 		curr = next_lst;
 	}
-	free(cmds);
 	cmds = NULL;
 }
 
@@ -80,7 +80,8 @@ void	main_loop(t_env *env)
 			printf("exit\n");
 			exit(EXIT_SUCCESS);
 		}
-		add_history(str);
+		if (str[0] != '\0')
+			add_history(str);
 		cmds = NULL;
 		if (*str)
 		{

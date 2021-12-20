@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/12/20 15:15:50 by jisokang         ###   ########.fr        #
+#    Updated: 2021/12/20 15:25:51 by yubae            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,12 @@ FLAGS	= -Wall -Wextra -Werror
 DEBUG	= -fdiagnostics-color=always -g
 
 #Cluster Mac
-#CFLAGS	= -Iinclude -I/Users/$(USER)/.brew/opt/readline/include
-#CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+CFLAGS	= -Iinclude -I/Users/$(USER)/.brew/opt/readline/include
+CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 
 #M1 Mac
-CFLAGS	= -Iinclude -I/opt/homebrew/opt/readline/includ
-CLIB	= -L./lib/ -l_jisokang -lreadline -L/opt/homebrew/opt/readline/lib
+#CFLAGS	= -Iinclude -I/opt/homebrew/opt/readline/includ
+#CLIB	= -L./lib/ -l_jisokang -lreadline -L/opt/homebrew/opt/readline/lib
 
 FILE = cmd_arg.c cmd_lst.c error.c free.c lst.c main.c signal.c sort.c\
 	   builtin/builtin.c\
