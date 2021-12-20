@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 16:19:53 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/20 14:42:46 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	replace_env_token(t_token *token, t_env *env)
 	t_env	*tmp;
 
 	if (token->type == PIPE)
-		return (0);
+		return (EXIT_SUCCESS);
 	str_ptr = token->word;
 	buf_ptr = buf;
 	tmp = NULL;

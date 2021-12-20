@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/19 20:26:45 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/20 14:28:49 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	free_cmd_lst(t_cmd_lst *cmds)
 	t_lst		*tokens;
 	t_lst		*rd;
 
+	if (!cmds)
+		return ;
 	curr = cmds;
 	while (curr != NULL)
 	{
@@ -54,15 +56,16 @@ void	free_cmd_lst(t_cmd_lst *cmds)
 			tokens = curr->cmd->tokens;
 			if (tokens)
 				free_tokens_parse(tokens);
-			free(tokens);
+			// free(tokens);
 			rd = curr->cmd->rd;
 			if (rd)
 				free_tokens_parse(rd);
-			free(rd);
+			// free(rd);
 		}
 		free(curr->cmd);
 		curr = next_lst;
 	}
+	free(cmds);
 	cmds = NULL;
 }
 
@@ -89,7 +92,7 @@ void	main_loop(t_env *env)
 		}
 		free(str);
 		free_cmd_lst(cmds);
-		free(cmds);
+		// free(cmds);
 	}
 }
 
