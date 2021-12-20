@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/20 20:42:54 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/20 20:49:24 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int	wait_cmds(int last_pid)
 {
 	int	status;
 	waitpid(last_pid, &status, 0);
-	WEXITSTATUS(status);
+	g_exitstat = WEXITSTATUS(status);
 	while (wait(&status) != -1)
 		;
 	return (1);
