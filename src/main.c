@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 14:28:49 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:10:28 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static t_cmd_lst	*init_cmd_lst()
 		exit_err(EXIT_FAILURE, "Malloc Error");
 	cmds->cmd = NULL;
 	cmds->next = NULL;
-	// cmds = NULL;
 	return (cmds);
 }
 
@@ -56,11 +55,9 @@ void	free_cmd_lst(t_cmd_lst *cmds)
 			tokens = curr->cmd->tokens;
 			if (tokens)
 				free_tokens_parse(tokens);
-			// free(tokens);
 			rd = curr->cmd->rd;
 			if (rd)
 				free_tokens_parse(rd);
-			// free(rd);
 		}
 		free(curr->cmd);
 		curr = next_lst;
@@ -92,7 +89,6 @@ void	main_loop(t_env *env)
 		}
 		free(str);
 		free_cmd_lst(cmds);
-		// free(cmds);
 	}
 }
 
