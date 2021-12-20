@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 15:16:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/20 16:46:16 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	free_cmd_lst(t_cmd_lst *cmds)
 				free_tokens_parse(rd);
 		}
 		free(curr->cmd);
+		free(curr);
 		curr = next_lst;
 	}
-	free(cmds);
 	cmds = NULL;
 }
 
