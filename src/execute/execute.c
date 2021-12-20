@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/18 20:04:29 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/20 15:12:35 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ char *find_path(char *in_path, t_env *env)
 		check_dot_path(in_path);
 		if ((s.st_mode & S_IFMT) == S_IFDIR)
 		{
-			////printf(YELLOW"%s: "RESET, in_path);
+			printf(YELLOW"%s: "RESET, in_path);
 			exit_err(EXIT_EXCUTE, "is a directory");
 		}
-		return(in_path);
+		return (in_path);
 	}
 	if (in_path[0] == '/')
 	{
-		////printf(YELLOW"%s: "RESET, in_path);
+		printf(YELLOW"%s: "RESET, in_path);
 		exit_err(EXIT_WRONGPATH, "No such file or directory");
 	}
 	i = 0;
-	while(path_arr[i])
+	while (path_arr[i])
 	{
 		tmp->value = ft_strjoin("/", in_path);
 		new_path = ft_strjoin(path_arr[i], tmp->value);
