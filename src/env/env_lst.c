@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:48:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 19:21:29 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 22:32:08 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ void	env_lst_del(t_env *head, char *key)
 	if (curr == NULL)
 		return ;
 	prev->next = curr->next;
+	free(curr->value);
+	free(curr->key);
 	free(curr);
 }

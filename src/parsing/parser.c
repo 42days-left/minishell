@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/19 00:30:46 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 22:28:21 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_cmd	*init_cmd(void)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)malloc(sizeof (t_cmd));
+	if (!cmd)
+		exit_err(EXIT_FAILURE, "Malloc Error");
 	cmd->tokens = NULL;
 	cmd->rd = NULL;
 	return (cmd);
@@ -29,10 +31,7 @@ int	print_cmds_list(t_cmd_lst *cmds)
 	int			i;
 
 	if (cmds == NULL)
-	{
-		printf("cmds is "MAGENTA"NULL\n"RESET);
 		return (0);
-	}
 	printf("--------------"GREEN"[PRINT cmds list]"RESET"-------------\n");
 	curr = cmds;
 	i = 0;
@@ -83,10 +82,6 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 		if (curr)
 			curr = curr->next;
 	}
-	// !!!!!!!!!!!!!!!!!!!
-	// free(cmd);	여기에서 프리하면 안되지 멍청아!
-	// 				cmd_lst 안에 있는 t_cmd cmd가 날라가잖아!
-	// !!!!!!!!!!!!!!!!!!!
 	DEBUG && printf("--------------------------------------------\n");
 	return (EXIT_SUCCESS);
 }
