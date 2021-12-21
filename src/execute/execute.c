@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/20 15:16:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/20 20:49:24 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int	wait_cmds(int last_pid)
 {
 	int	status;
 	waitpid(last_pid, &status, 0);
-	WEXITSTATUS(status);
+	g_exitstat = WEXITSTATUS(status);
 	while (wait(&status) != -1)
 		;
 	return (1);
@@ -185,7 +185,8 @@ int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	if (pid == 0)
 	{
 		fd_close(pipe_fd[READ]);
-		exit(execute_single_cmd(curr, env, fd_in, fd_out));
+		execute_single_cmd(curr, env, fd_in, fd_out);
+		exit(g_exitstat);
 	}
 	waitpid(pid, &status, 0);
 	fd_close(fd_in);

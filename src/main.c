@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 16:46:16 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/20 20:42:52 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,15 @@ void	main_loop(t_env *env)
 
 	while (TRUE)
 	{
-		signal(SIGQUIT, SIG_IGN);
+		default_signal();
 		str = readline(MAGENTA"minihell🐚"RESET": ");
 		if (!str)
 		{
 			printf("exit\n");
 			exit(EXIT_SUCCESS);
 		}
-		add_history(str);
+		if (str[0] != '\0')
+			add_history(str);
 		cmds = NULL;
 		if (*str)
 		{
@@ -99,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	env = get_envp(envp);
-	default_signal();
+	//default_signal();
 	logo();
 	main_loop(env);
 	return (0);

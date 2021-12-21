@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/19 19:55:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:45:30 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # include	"parsing.h"
 
 
-# define	DEBUG		1
+# define	DEBUG	0	
 
 /* TYPE */
 # define	SCRIPT		0
@@ -68,11 +68,9 @@
 
 void	default_signal(void);
 void	on_signal(void);
-void	off_signal(void);
-void	on_echoctl(void);
 void	off_echoctl(void);
 void	signal_handler(int sig);
-
+void	signal_handler_in_heredoc(int sig);
 
 
 void		execute(t_cmd_lst *cmds, t_env *env);
