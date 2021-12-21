@@ -6,19 +6,19 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:48:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 22:32:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 22:49:17 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env_count(t_env *env)
+int	env_count(t_env *head)
 {
 	t_env	*curr;
 	int		i;
 
 	i = 0;
-	curr = env;
+	curr = head->next;
 	while (curr != NULL)
 	{
 		curr = curr->next;
@@ -40,12 +40,12 @@ t_env	*new_env_node(char *key, char *value)
 	return (new);
 }
 
-t_env	*env_lst_last(t_env *lst)
+t_env	*env_lst_last(t_env *head)
 {
 	t_env	*curr;
 
-	curr = lst;
-	if (lst == NULL)
+	curr = head;
+	if (curr == NULL)
 		return (NULL);
 	while (curr->next != NULL)
 		curr = curr->next;
@@ -73,11 +73,13 @@ void	env_lst_del(t_env *head, char *key)
 	t_env	*curr;
 	t_env	*prev;
 
-	curr = head;
+	curr = head->next;
 	if (curr != NULL && !ft_strncmp(curr->key, key, ft_strlen(key) + 1))
 	{
 		*head = *curr->next;
-		// free(curr);
+		free(curr->value);
+		free(curr->key);
+		free(curr);
 		return ;
 	}
 	while (curr != NULL && ft_strncmp(curr->key, key, ft_strlen(key) + 1))

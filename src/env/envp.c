@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 17:19:43 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 22:49:53 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	**env_to_envp(t_env *env)
 	char	*tmp;
 	int		i;
 
-	envp = (char **)malloc(sizeof(char *) * (env_count(env) + 1));
+	envp = (char **)malloc(sizeof(char *) * (env_count(env)));
 	if (!envp)
 		return (NULL);
-	curr = env;
+	curr = env->next;
 	i = 0;
 	while (curr != NULL)
 	{
@@ -78,6 +78,7 @@ t_env	*get_envp(char **envp)
 
 	env_lst = NULL;
 	i = 0;
+	env_add_back(&env_lst, new_env_node(NULL, NULL));
 	while (envp[i])
 		env_add_back(&env_lst, get_env_from_str(envp[i++]));
 	return (env_lst);

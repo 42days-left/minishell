@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:46:26 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 20:01:49 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 23:01:11 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_envp_lst(t_env *head, int fd_out)
 {
 	t_env	*curr;
 
-	curr = head;
+	curr = head->next;
 	while (curr->next != NULL)
 	{
 		print_envp_line(curr, fd_out);
