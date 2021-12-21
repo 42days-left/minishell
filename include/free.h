@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 13:10:07 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/19 19:55:51 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 23:43:56 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void	free_cmd(void *data);
 void	free_cmds(t_cmd_lst **lst);
 void	free_strings(char **strs);
 
-
 void	free_tokens_parse(t_lst *lst);
+void	free_env_node(t_env *node);

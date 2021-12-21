@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yubae <yubae@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 20:09:53 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/21 20:50:47 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/22 00:37:56 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	wait_cmds(int last_pid)
 
 	waitpid(last_pid, &status, 0);
 	g_exitstat = get_wexitstat(status);
-	printf("g_exitstat : %d\n", g_exitstat);
 	while (wait(&status) != -1)
 		;
 	return (1);

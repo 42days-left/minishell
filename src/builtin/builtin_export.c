@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 20:58:40 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 00:22:26 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ int	is_valid_key_value(char *key)
 	return (TRUE);
 }
 
+void	set_env_var(t_env *node, t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = find_env_from_env(node->key, env);
+	if (tmp)
+	{
+		free(tmp->value);
+		tmp->value = ft_strdup(node->value);
+		free_env_node(node);
+	}
+	else
+		env_add_back(&env, node);
+}
+
 int	set_export_var(int argc, char **argv, t_env *env)
 {
 	t_env	*argv_env;
@@ -39,25 +54,17 @@ int	set_export_var(int argc, char **argv, t_env *env)
 	i = 1;
 	while (i < argc)
 	{
+		printf("argv[%d] = %s\n", i, argv[i]);
 		if (!is_valid_key_value(argv[i]))
 			printf(YELLOW"export : '%s' : not a valid identifier\n"\
 			RESET, argv[i]);
 		else
 		{
 			argv_env = get_env_from_str(argv[i]);
-			tmp = find_env_from_env(argv_env->key, env);
-			if (tmp)
-				tmp->value = argv_env->value;
-			else
-				env_add_back(&env, argv_env);
+			set_env_var(argv_env, env);
 		}
 		i++;
 	}
-	// free(argv_env->key);
-	// free(argv_env->value);
-	// free(argv_env);
-	// malloc: *** error for object 0x333231: pointer being freed was not allocated
-	// malloc: *** set a breakpoint in malloc_error_break to debug
 	return (EXIT_SUCCESS);
 }
 
@@ -65,7 +72,7 @@ void	print_export_lst(t_env *env, int fd_out)
 {
 	t_env	*curr;
 
-	curr = env;
+	curr = env->next;
 	while (curr)
 	{
 		ft_putstr_fd(GRAY"declare -x "RESET, fd_out);
