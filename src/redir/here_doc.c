@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 16:34:46 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 15:58:11 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	make_here_doc(char *end_str)
 	}
 	fd_close(pipe_fd[PIPE_IN]);
 	wait(&status);
-	if (WEXITSTATUS(status) == 1)
+	if (get_wexitstat(status) == 1)
 		return (-1);
 	return (pipe_fd[PIPE_OUT]);
 }

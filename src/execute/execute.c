@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/20 20:49:24 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 16:00:47 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	exec_child_process2(t_cmd_arg *ca)
  * @return int
  */
 
-static int	get_wexitstat(int stat)
+int	get_wexitstat(int stat)
 {
 	return ((((*(int *)&(stat)) >> 8) & 0x000000ff));
 }
@@ -158,7 +158,7 @@ int	wait_cmds(int last_pid)
 {
 	int	status;
 	waitpid(last_pid, &status, 0);
-	g_exitstat = WEXITSTATUS(status);
+	g_exitstat = get_wexitstat(status);
 	while (wait(&status) != -1)
 		;
 	return (1);
