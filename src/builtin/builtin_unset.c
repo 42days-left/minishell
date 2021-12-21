@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:02:58 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 17:03:22 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 19:30:32 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	remove_env_var(int argc, char **argv, t_env *env)
 	while (i < argc)
 	{
 		if (!is_valid_key(argv[i]))
-			printf(YELLOW"unset : '%s' : not a valid identifier\n"RESET, argv[i]);
+			printf(YELLOW"unset : '%s' : not a \
+					valid identifier\n"RESET, argv[i]);
 		else
 			env_lst_del(env, argv[i]);
 		i++;
