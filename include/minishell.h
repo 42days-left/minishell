@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 16:30:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 20:47:47 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include	"redir.h"
 # include	"free.h"
 # include	"parsing.h"
+# include	"execute.h"
 
 
 # define	DEBUG	0
@@ -73,7 +74,6 @@ void	signal_handler(int sig);
 void	signal_handler_in_heredoc(int sig);
 
 
-void		execute(t_cmd_lst *cmds, t_env *env);
 void	free_strings(char **strs);
 
 char	*find_path(char *in_path, t_env *env);

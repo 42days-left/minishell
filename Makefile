@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/12/21 14:35:21 by yubae            ###   ########.fr        #
+#    Updated: 2021/12/21 20:49:16 by yubae            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ FILE = cmd_arg.c cmd_lst.c error.c free.c lst.c main.c signal.c sort.c\
 	   env/env_print.c\
 	   env/envp.c\
 	   execute/execute.c\
+	   execute/execute_path.c\
+	   execute/execute_utils.c\
 	   parsing/lexer.c\
 	   parsing/parser.c\
 	   parsing/parsing.c\
