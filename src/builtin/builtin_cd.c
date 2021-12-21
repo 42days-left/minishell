@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 22:37:20 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 16:38:45 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 17:07:15 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,23 @@ char	*builtin_cd_tilde(char **argv, t_env *tmp)
 	return (path);
 }
 
+void	builtin_cd_pwd(t_env *env)
+{
+	char	*pwd;
+	char	*argv_pwd[3];
+
+	pwd = ft_strjoin("PWD=", getcwd(NULL, PATH_MAX));
+	argv_pwd[0] = 0;
+	argv_pwd[1] = pwd;
+	argv_pwd[2] = 0;
+	set_export_var(2, argv_pwd, env);
+	free(pwd);
+}
+
 int	builtin_cd(int argc, char **argv, t_env *env)
 {
 	char	*path;
 	t_env	*tmp;
-	char	*pwd;
-	char	*argv_pwd[3];
 
 	tmp = find_env_from_env("HOME", env);
 	if (argc == 1 && tmp)
@@ -50,10 +61,6 @@ int	builtin_cd(int argc, char **argv, t_env *env)
 		chdir(".");
 		return (EXIT_FAILURE);
 	}
-	pwd = ft_strjoin("PWD=", getcwd(NULL, PATH_MAX));
-	argv_pwd[0] = 0;
-	argv_pwd[1] = pwd;
-	argv_pwd[2] = 0;
-	set_export_var(2, argv_pwd, env);
+	builtin_cd_pwd(env);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 16:08:42 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 17:19:43 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ char	**env_to_envp(t_env *env)
 
 void	free_envp(char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(envp[i])
+	while (envp[i])
 	{
 		free(envp[i]);
 		i++;

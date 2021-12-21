@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/21 15:22:11 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 17:13:09 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_dot_path(char *path)
 	}
 }
 
-char *find_path(char *in_path, t_env *env)
+char	*find_path(char *in_path, t_env *env)
 {
 	int			i;
 	t_env		*tmp;
@@ -70,7 +70,6 @@ char *find_path(char *in_path, t_env *env)
 	DEBUG && printf("--------------------------------------------\n");
 	return (NULL);
 }
-
 
 void	exec_child_process2(t_cmd_arg *ca)
 {
@@ -122,7 +121,6 @@ int	ft_dup(int fd1, int fd2)
 	fd_close(fd1);
 	return (rt);
 }
-
 
 int	extern_function(t_cmd_arg *cmd_arg)
 {
