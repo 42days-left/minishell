@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:02:58 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 14:02:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:03:22 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_valid_key(char *key)
 {
 	int	i;
 
-	if (key[0] == '\0' || ft_isdigit(key[0]) || !is_valid_env_char(key[0]) )
+	if (key[0] == '\0' || ft_isdigit(key[0]) || !is_valid_env_char(key[0]))
 		return (FALSE);
 	i = 1;
 	while (key[i])

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/21 19:10:14 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:17:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_dot_path(char *path)
 	}
 }
 
-char *find_path(char *in_path, t_env *env)
+char	*find_path(char *in_path, t_env *env)
 {
 	int			i;
 	t_env		*tmp;
@@ -71,7 +71,6 @@ char *find_path(char *in_path, t_env *env)
 	return (NULL);
 }
 
-
 void	exec_child_process2(t_cmd_arg *ca)
 {
 	char *path;
@@ -86,7 +85,9 @@ void	exec_child_process2(t_cmd_arg *ca)
 	envp = env_to_envp(ca->env);
 	path = find_path(ca->argv[0], ca->env);
 	if (path != NULL)
+	{
 		execve(path, ca->argv, envp);
+	}
 	else
 	{
 		printf(YELLOW"%s"RESET, ca->argv[0]);

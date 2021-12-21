@@ -6,17 +6,16 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/18 20:12:21 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:28:44 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
-
+#include "minishell.h"
 
 int	left_redir(char *file)
 {
 	if (!file)
-		return(ERROR);
+		return (ERROR);
 	return (open(file, O_RDONLY));
 }
 
@@ -34,15 +33,13 @@ int	left_double_redir(char *fd)
 int	right_redir(char *file)
 {
 	if (!file)
-		return(ERROR);
+		return (ERROR);
 	return (open(file, O_WRONLY | O_TRUNC | O_CREAT, 0644));
 }
 
 int	right_double_redir(char *file)
 {
 	if (!file)
-		return(ERROR);
+		return (ERROR);
 	return (open(file, O_WRONLY | O_APPEND | O_CREAT, 0644));
 }
-
-

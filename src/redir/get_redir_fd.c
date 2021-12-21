@@ -6,14 +6,14 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 16:25:33 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:17:52 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-# define	FD_IN	0
-# define	FD_OUT	1
+#define	FD_IN	0
+#define	FD_OUT	1
 
 void	fd_close(int fd)
 {

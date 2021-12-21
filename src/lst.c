@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 16:23:14 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:18:10 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_lst	*lst_new(void *value)	//int value 아님 암튼 아님;
 	return (new);
 }
 
-t_lst	*lst_init()
+t_lst	*lst_init(void)
 {
 	return (lst_new(NULL));
 }

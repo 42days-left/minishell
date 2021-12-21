@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 16:18:29 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:17:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_env	*find_env_from_env(char *in_key, t_env *env)
 	return (curr);
 }
 
-static void free_compound_cmd_node(t_env *tmp)
+static void	free_compound_cmd_node(t_env *tmp)
 {
 	if (tmp && tmp->key[0] == '?')
 	{
@@ -91,9 +91,9 @@ static void free_compound_cmd_node(t_env *tmp)
 
 static int	is_single_dollar(char next_dollar)
 {
-	if (next_dollar == '\0' || next_dollar =='\"' || ft_isspace(next_dollar))
-		return(TRUE);
-	return(FALSE);
+	if (next_dollar == '\0' || next_dollar == '\"' || ft_isspace(next_dollar))
+		return (TRUE);
+	return (FALSE);
 }
 
 int	replace_env_token(t_token *token, t_env *env)
@@ -132,7 +132,6 @@ int	replace_env_token(t_token *token, t_env *env)
 	token->word = ft_strdup(buf);
 	return (EXIT_SUCCESS);
 }
-
 
 void	remove_quote_token(t_token *token)
 {

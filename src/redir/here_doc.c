@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 15:58:11 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:17:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define	PIPE_OUT	0
 #define	PIPE_IN		1
 
-void signal_handler_heredoc(int sig)
+void	signal_handler_heredoc(int sig)
 {
 	printf("\n");
 	exit(1);
@@ -27,7 +27,7 @@ int	make_here_doc(char *end_str)
 	int		pipe_fd[2];
 	char	*str;
 
-	DEBUG && printf("----------------"GREEN"HERE DOCUMENT"RESET"---------------\n");
+	DEBUG && printf("------------"GREEN"HERE DOCUMENT"RESET"-----------\n");
 	DEBUG && printf("end_str : ["BLUE"%s"RESET"]\n", end_str);
 	signal(SIGINT, SIG_IGN);
 	pipe(pipe_fd);
@@ -35,8 +35,8 @@ int	make_here_doc(char *end_str)
 	{
 		signal(SIGINT, signal_handler_heredoc);
 		fd_close(pipe_fd[PIPE_OUT]);
-		DEBUG && printf("pipe_fd[PIPE_IN]:  ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_IN]);
-		DEBUG && printf("pipe_fd[PIPE_OUT]: ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_OUT]);
+		DEBUG && printf("pipe_fd[IN]:  ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_IN]);
+		DEBUG && printf("pipe_fd[OUT]: ["BLUE"%d"RESET"]\n", pipe_fd[PIPE_OUT]);
 		DEBUG && printf("--------------------------------------------\n");
 		while (TRUE)
 		{
