@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 16:33:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 12:44:24 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,32 @@ int	replace_env_token(t_token *token, t_env *env)
 	return (EXIT_SUCCESS);
 }
 
+
+void	remove_quote_token_2(t_token *token)
+{
+	char	buf[BUF_SIZE];
+	char	*str_ptr;
+	char	*buf_ptr;
+	char	*in_quote;
+
+	if (token->type == PIPE)
+		return ;
+	str_ptr = token->word;
+	buf_ptr = buf;
+	while (*str_ptr != '\0')
+	{
+		if (*str_ptr == '\"' || *str_ptr == '\'')
+		{
+
+			str_ptr++;
+		}
+		*buf_ptr++ = *str_ptr++;
+	}
+	*buf_ptr = '\0';
+	free(token->word);
+	token->word = ft_strdup(buf);
+}
+
 void	remove_quote_token(t_token *token)
 {
 	char	buf[BUF_SIZE];
@@ -153,6 +179,7 @@ int	replace(t_lst *tokens, t_env *env)
 	while (curr)
 	{
 		replace_env_token(curr->data, env);
+		DEBUG && print_token_list(tokens);
 		remove_quote_token(curr->data);
 		curr = curr->next;
 	}
