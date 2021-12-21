@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 12:44:24 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 15:36:22 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ static void free_compound_cmd_node(t_env *tmp)
 	}
 }
 
+static int	is_single_dollar(char next_dollar)
+{
+	if (next_dollar == '\0' || next_dollar =='\"' || ft_isspace(next_dollar))
+		return(TRUE);
+	return(FALSE);
+}
+
 int	replace_env_token(t_token *token, t_env *env)
 {
 	char	buf[BUF_SIZE];
@@ -105,6 +112,8 @@ int	replace_env_token(t_token *token, t_env *env)
 	while (copy_before_dollar(&str_ptr, &buf_ptr))
 	{
 		str_ptr++;
+		if (is_single_dollar(*str_ptr))
+			return (EXIT_SUCCESS);
 		str_key = find_key_from_str(str_ptr);
 		if (str_key == NULL)
 			break ;
@@ -125,45 +134,30 @@ int	replace_env_token(t_token *token, t_env *env)
 }
 
 
-void	remove_quote_token_2(t_token *token)
-{
-	char	buf[BUF_SIZE];
-	char	*str_ptr;
-	char	*buf_ptr;
-	char	*in_quote;
-
-	if (token->type == PIPE)
-		return ;
-	str_ptr = token->word;
-	buf_ptr = buf;
-	while (*str_ptr != '\0')
-	{
-		if (*str_ptr == '\"' || *str_ptr == '\'')
-		{
-
-			str_ptr++;
-		}
-		*buf_ptr++ = *str_ptr++;
-	}
-	*buf_ptr = '\0';
-	free(token->word);
-	token->word = ft_strdup(buf);
-}
-
 void	remove_quote_token(t_token *token)
 {
 	char	buf[BUF_SIZE];
 	char	*str_ptr;
 	char	*buf_ptr;
+	char	in_quote;
 
 	if (token->type == PIPE)
 		return ;
 	str_ptr = token->word;
 	buf_ptr = buf;
+	in_quote = 0;
 	while (*str_ptr != '\0')
 	{
-		while (*str_ptr == '\"' || *str_ptr == '\'')
+		if (in_quote == 0 && (*str_ptr == '\"' || *str_ptr == '\''))
+		{
+			in_quote = *str_ptr;
 			str_ptr++;
+		}
+		if (*str_ptr == in_quote)
+		{
+			in_quote = 0;
+			str_ptr++;
+		}
 		*buf_ptr++ = *str_ptr++;
 	}
 	*buf_ptr = '\0';
@@ -179,7 +173,6 @@ int	replace(t_lst *tokens, t_env *env)
 	while (curr)
 	{
 		replace_env_token(curr->data, env);
-		DEBUG && print_token_list(tokens);
 		remove_quote_token(curr->data);
 		curr = curr->next;
 	}
