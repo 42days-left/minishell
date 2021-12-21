@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 13:33:41 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 13:40:31 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	builtin_export(int argc, char **argv, t_env *env, int fd_out)
 {
 	if (argc == 1)
 	{
-		env_sort(env);
+		// env_sort(env);
 		print_export_lst(env, fd_out);
 		return (EXIT_SUCCESS);
 	}

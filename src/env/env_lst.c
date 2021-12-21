@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:48:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 15:48:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 13:41:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	env_lst_del(t_env *head, char *key)
 	if (curr != NULL && !ft_strncmp(curr->key, key, ft_strlen(key) + 1))
 	{
 		*head = *curr->next;
-		free(curr);
+		// free(curr);
 		return ;
 	}
 	while (curr != NULL && ft_strncmp(curr->key, key, ft_strlen(key) + 1))
