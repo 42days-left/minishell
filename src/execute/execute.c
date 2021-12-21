@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/21 16:00:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:10:14 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	exec_child_process2(t_cmd_arg *ca)
 	}
 	free(path);
 	free_envp(envp);
-	exit(42);
 }
 
 /**
@@ -122,7 +121,7 @@ int	ft_dup(int fd1, int fd2)
 }
 
 
-int	extern_function(t_cmd_arg *cmd_arg)
+void	extern_function(t_cmd_arg *cmd_arg)
 {
 	pid_t	pid;
 	int		status;
@@ -135,10 +134,10 @@ int	extern_function(t_cmd_arg *cmd_arg)
 		exec_child_process2(cmd_arg);
 		exit(1);
 	}
-	// waitpid(pid, &status, 0);
 	wait(&status);
 	g_exitstat = get_wexitstat(status);
-	return (EXIT_SUCCESS);
+	printf("extern_function : g_exitstat [%d]\n", g_exitstat);
+	// return (EXIT_SUCCESS);
 }
 
 int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
@@ -157,8 +156,11 @@ int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
 int	wait_cmds(int last_pid)
 {
 	int	status;
+
 	waitpid(last_pid, &status, 0);
+	// g_exitstat = WEXITSTATUS(status);
 	g_exitstat = get_wexitstat(status);
+	printf("g_exitstat : %d\n", g_exitstat);
 	while (wait(&status) != -1)
 		;
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 13:40:31 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:14:22 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,6 @@ int	set_export_var(int argc, char **argv, t_env *env)
 	// malloc: *** error for object 0x333231: pointer being freed was not allocated
 	// malloc: *** set a breakpoint in malloc_error_break to debug
 	return (EXIT_SUCCESS);
-}
-
-//env lst를 하나하나 버블 소팅을 할꺼야.
-//이 리스트를 직접 소팅하는게 아니라 새로 복사해서 할꺼야
-//그리고 그 리스트는 쓰고 free할 거임 GOOD
-void	sort_env_key_lst(t_env *env)
-{
-	t_env	*curr;
-	int		len;
-
-	curr = env;
-	len = env_lst_size(curr);
-	while (curr)
-	{
-		// env_add_back(z);
-		curr = curr->next;
-	}
 }
 
 void	print_export_lst(t_env *env, int fd_out)

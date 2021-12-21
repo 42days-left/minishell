@@ -6,26 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 14:48:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 13:41:45 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 19:14:15 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	env_lst_size(t_env *head)
-{
-	int		size;
-	t_env	*curr;
-
-	size = 0;
-	curr = head;
-	while (curr)
-	{
-		size++;
-		curr = curr->next;
-	}
-	return (size);
-}
 
 int	env_count(t_env *env)
 {
@@ -48,7 +33,7 @@ t_env	*new_env_node(char *key, char *value)
 
 	new = (t_env *)malloc(sizeof(t_env));
 	if (new == NULL)
-		exit(1);
+		exit_err(EXIT_FAILURE, "Malloc Error");
 	new->key = key;
 	new->value = value;
 	new->next = NULL;

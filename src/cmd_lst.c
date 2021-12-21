@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 15:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/19 19:43:44 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 16:22:38 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ t_cmd_lst	*cmd_lst_new(t_cmd *cmd)
 
 	new = (t_cmd_lst *)malloc(sizeof(t_cmd_lst));
 	if (new == NULL)
-	{
-		printf(RED"MALLOC ERROR\n"RESET);
-		exit(1);
-	}
+		exit_err(EXIT_FAILURE, "Malloc Error");
 	new->cmd = cmd;
 	new->next = NULL;
 	return (new);

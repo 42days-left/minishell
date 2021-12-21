@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 15:59:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 16:30:08 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # include	"parsing.h"
 
 
-# define	DEBUG	1
+# define	DEBUG	0
 
 /* TYPE */
 # define	SCRIPT		0
