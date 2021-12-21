@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/20 20:42:52 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 13:54:06 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	main_loop(t_env *env)
 	while (TRUE)
 	{
 		default_signal();
-		str = readline(MAGENTA"minihell🐚"RESET": ");
+		str = readline("minihell🐚: ");
 		if (!str)
 		{
 			printf("exit\n");
