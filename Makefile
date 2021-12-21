@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/12/21 14:02:39 by jisokang         ###   ########.fr        #
+#    Updated: 2021/12/21 14:35:21 by yubae            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,12 @@ FLAGS	= -Wall -Wextra -Werror
 DEBUG	= -fdiagnostics-color=always -g
 
 #Cluster Mac
-# CFLAGS	= -Iinclude -I/Users/$(USER)/.brew/opt/readline/include
-# CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+CFLAGS	= -Iinclude -I/Users/$(USER)/.brew/opt/readline/include
+CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 
 #M1 Mac
-CFLAGS	= -Iinclude -I/opt/homebrew/opt/readline/includ
-CLIB	= -L./lib/ -l_jisokang -lreadline -L/opt/homebrew/opt/readline/lib
+#CFLAGS	= -Iinclude -I/opt/homebrew/opt/readline/includ
+#CLIB	= -L./lib/ -l_jisokang -lreadline -L/opt/homebrew/opt/readline/lib
 
 #YUBAE
 #CFLAGS	= -Iinclude -I/usr/local/opt/readline/include
@@ -57,18 +57,25 @@ SRCS = $(addprefix $(SRC_DIR)/, $(FILE))
 
 OBJS = $(SRCS:%.c=%.o)
 
+LIB_DIR = ./lib/
+
 all: $(NAME)
 
 %.o: %.c
 	gcc $(CFLAGS) -c $< -o $@
 
 $(NAME) : $(OBJS)
+	make -C $(LIB_DIR)
 	gcc $(DEBUG) $(CFLAGS) $(CLIB) $(SRCS) -o $(NAME)
 
 clean:
+	make -C $(LIB_DIR) clean
 	rm -rf $(OBJS)
 
 fclean: clean
+	make -C $(LIB_DIR) fclean
 	rm -rf $(NAME)
 
 re: fclean all
+
+PHONY: all clean fclean re 

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 13:34:08 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/21 14:26:37 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ t_env	*get_env_from_str(char *str)
 		curr++;
 	}
 	if (curr != str)
-	{
-		printf("");
 		return (new_env_node(ft_strdup(str), NULL));
-	}
 	return (0);
 }
 

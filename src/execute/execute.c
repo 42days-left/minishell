@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/20 20:49:24 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/21 15:22:11 by yubae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void	exec_child_process2(t_cmd_arg *ca)
 	envp = env_to_envp(ca->env);
 	path = find_path(ca->argv[0], ca->env);
 	if (path != NULL)
+	{
 		execve(path, ca->argv, envp);
+	}
 	else
 	{
 		printf(YELLOW"%s"RESET, ca->argv[0]);
