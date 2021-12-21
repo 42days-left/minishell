@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/c,macos,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,macos,vim
 
+minishell
+
 ### C ###
 # Prerequisites
 *.d
