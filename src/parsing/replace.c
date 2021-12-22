@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 02:28:26 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 22:46:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,12 +149,13 @@ void	remove_quote_token(t_token *token)
 			in_quote = *str_ptr;
 			str_ptr++;
 		}
-		if (*str_ptr == in_quote)
+		else if (*str_ptr == in_quote)
 		{
 			in_quote = 0;
 			str_ptr++;
 		}
-		*buf_ptr++ = *str_ptr++;
+		else
+			*buf_ptr++ = *str_ptr++;
 	}
 	*buf_ptr = '\0';
 	free(token->word);

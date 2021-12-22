@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:22:30 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 17:16:07 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 20:48:50 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	here_doc(t_lst *tokens)
 			fd = make_here_doc(token->word);
 			if (fd == -1)
 			{
-				printf(RED"HERE DOC FAIL!\n"RESET);
+				g_exitstat = EXIT_FAILURE;
 				return (EXIT_FAILURE);
 			}
 			free(token->word);
