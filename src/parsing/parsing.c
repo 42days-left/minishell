@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:19:36 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 02:23:26 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 16:09:31 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	tokens = NULL;
 	if (lexer(strs, &tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	DEBUG && print_token_list(tokens);
+	DEBUG && print_token_list(tokens, "LEXER TOKENS");
 	replace(tokens, env);
-	DEBUG && print_token_list(tokens);
+	DEBUG && print_token_list(tokens, "REPLACE TOKENS");
 	if (here_doc(tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	parser(tokens, cmds);
 	free_strings(strs);
 	free_tokens_parse(tokens);
-	DEBUG && printf("["GREEN"PARSE DONE"RESET"]\n");
+	DEBUG && printf("🐚 parsing...\t["GREEN"done"RESET"]\n");
 	return (EXIT_SUCCESS);
 }

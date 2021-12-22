@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/22 02:22:47 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 16:05:09 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,32 +71,36 @@ int	lexer(char **strs, t_lst **tokens)
 	return (EXIT_SUCCESS);
 }
 
+char	*get_str_type(int type)
+{
+	char	*type_str;
+	if (type == PIPE)
+		type_str = "PIPE";
+	else if (type == COMMAND)
+		type_str = "COMMAND";
+	else if (type == WORD)
+		type_str = "WORD";
+	else if (type == REDIR_L)
+		type_str = "[ <]REDIR_L";
+	else if (type == REDIR_R)
+		type_str = "[ >]REDIR_R";
+	else if (type == D_REDIR_L)
+		type_str = "[<<]D_REDIR_L";
+	else if (type == D_REDIR_R)
+		type_str = "[>>]D_REDIR_R";
+	else
+		type_str = RED"UNKNOWN"RESET;
+	return(type_str);
+}
+
 int	print_token(t_token *token)
 {
-	char	*type;
-
-	if (token->type == PIPE)
-		type = "PIPE";
-	else if (token->type == COMMAND)
-		type = "COMMAND";
-	else if (token->type == WORD)
-		type = "WORD";
-	else if (token->type == REDIR_L)
-		type = "REDIR_L '<'";
-	else if (token->type == REDIR_R)
-		type = "REDIR_R '>'";
-	else if (token->type == D_REDIR_L)
-		type = "D_REDIR_L '<<'";
-	else if (token->type == D_REDIR_R)
-		type = "D_REDIR_R '>>'";
-	else
-		type = RED"WTF?"RESET;
-	printf("type: ["MAGENTA"%s"RESET"],\t\
-	value: ["MAGENTA"%s"RESET"]\n", type, token->word);
+	printf("{ type:["MAGENTA"%s"RESET"],\tvalue:["MAGENTA"%s"RESET"] }\n"\
+	, get_str_type(token->type), token->word);
 	return (1);
 }
 
-int	print_token_list(t_lst *tokens)
+int	print_token_list(t_lst *tokens, char *title_str)
 {
 	t_lst	*node;
 
@@ -105,13 +109,14 @@ int	print_token_list(t_lst *tokens)
 		printf("TOKEN is "MAGENTA"NULL\n"RESET);
 		return (0);
 	}
-	printf("--------------"GREEN"PRINT LEXER TOKEN"RESET"-------------\n");
+	printf("["GREEN"%s"RESET"]\n{\n", title_str);
 	node = tokens;
 	while (node != NULL)
 	{
+		printf("\t");
 		print_token(node->data);
 		node = node->next;
 	}
-	printf("--------------------------------------------\n");
+	printf("}\n");
 	return (1);
 }

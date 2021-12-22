@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/21 20:50:57 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/22 15:23:45 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	extern_function(t_cmd_arg *cmd_arg)
 	}
 	wait(&status);
 	g_exitstat = get_wexitstat(status);
-	printf("extern_function : g_exitstat [%d]\n", g_exitstat);
 	// return (EXIT_SUCCESS);
 }
 

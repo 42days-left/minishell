@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 02:08:03 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 15:56:28 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ int	print_cmds_list(t_cmd_lst *cmds)
 
 	if (cmds == NULL)
 		return (0);
-	printf("--------------"GREEN"[PRINT cmds list]"RESET"-------------\n");
+	printf("\n["GREEN"CMDS LIST"RESET"]\n{\n");
 	curr = cmds;
 	i = 0;
 	while (curr != NULL)
 	{
-		printf("cmd["BLUE"%d"RESET"]\n{\n", i++);
+		printf("\tcmd["BLUE"%d"RESET"]\n\t{\n", i++);
 		curr2 = curr->cmd->tokens;
 		while (curr2)
 		{
-			printf("\t");
+			printf("\t\t");
 			print_token(curr2->data);
 			curr2 = curr2->next;
 		}
-		printf("}\n");
+		printf("\t}\n");
 		curr = curr->next;
 	}
-	printf("--------------------------------------------\n");
+	printf("{\n");
 	return (1);
 }
 
@@ -61,19 +61,14 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 	if (tokens == NULL)
 		return (0);
 	curr = tokens;
-	DEBUG && printf("--------------------"GREEN"PARSER"RESET"------------------\n");
 	while (curr)
 	{
 		cmd = init_cmd();
 		while (curr && ((t_token *)curr->data)->type != PIPE)
 		{
-			//dup_token() here
 			token = init_token(((t_token *)curr->data)->type, ft_strdup(((t_token *)curr->data)->word));
 			if (token->type == WORD)
-			{
-				DEBUG && printf("type:[%d]\tvalue:[%s]\n", token->type, token->word);
 				lst_add_back(&cmd->tokens, lst_new(token));
-			}
 			else
 				lst_add_back(&cmd->rd, lst_new(token));
 			curr = curr->next;
@@ -82,6 +77,6 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 		if (curr)
 			curr = curr->next;
 	}
-	DEBUG && printf("--------------------------------------------\n");
+	print_cmds_list(*cmds);
 	return (EXIT_SUCCESS);
 }
