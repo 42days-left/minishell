@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 18:13:02 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/21 17:29:14 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/22 02:22:47 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,12 @@ int	lexer(char **strs, t_lst **tokens)
 		else if (type == WORD)
 			word = ft_strdup(strs[i]);
 		else if (strs[i + 1] && get_type(strs[i + 1]) == WORD)
-		{
-			word = ft_strdup(strs[i + 1]);
-			i++;
-		}
+			word = ft_strdup(strs[i++ + 1]);
 		else
 		{
-			printf(YELLOW"lexer: syntax error near unexpected token `newline'\n"RESET);
+			printf(YELLOW\
+			"lexer: syntax error near unexpected token `newline'\
+			\n"RESET);
 			return (EXIT_FAILURE);
 		}
 		lst_add_back(tokens, lst_new(init_token(type, word)));
@@ -92,7 +91,8 @@ int	print_token(t_token *token)
 		type = "D_REDIR_R '>>'";
 	else
 		type = RED"WTF?"RESET;
-	printf("type: ["MAGENTA"%s"RESET"],\tvalue: ["MAGENTA"%s"RESET"]\n", type, token->word);
+	printf("type: ["MAGENTA"%s"RESET"],\t\
+	value: ["MAGENTA"%s"RESET"]\n", type, token->word);
 	return (1);
 }
 

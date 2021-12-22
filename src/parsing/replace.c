@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 00:16:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 02:28:26 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ int	copy_before_dollar(char **ptr, char **buf)
 		{
 			*(*buf)++ = *(*ptr)++;
 			while (**ptr && **ptr != '\'')
-			{
-				DEBUG && printf("[%c]\n", **ptr);
 				*(*buf)++ = *(*ptr)++;
-			}
 		}
 		*(*buf)++ = *(*ptr)++;
 	}

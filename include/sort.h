@@ -1,14 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_quote.c                                     :+:      :+:    :+:   */
+/*   sort.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 14:27:11 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 02:07:28 by jisokang         ###   ########.fr       */
+/*   Created: 2021/12/22 14:46:14 by jisokang          #+#    #+#             */
+/*   Updated: 2021/12/22 14:51:16 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef SORT_H
+# define SORT_H
 
+# include "minishell.h"
+
+t_env	*sort_export_lst(t_env *env);
+
+#endif

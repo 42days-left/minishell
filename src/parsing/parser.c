@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 22:28:21 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 02:08:03 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 			if (token->type == WORD)
 			{
 				DEBUG && printf("type:[%d]\tvalue:[%s]\n", token->type, token->word);
-				lst_add_back(&cmd->tokens, lst_new((void *)token));
+				lst_add_back(&cmd->tokens, lst_new(token));
 			}
 			else
-				lst_add_back(&cmd->rd, lst_new((void *)token));
+				lst_add_back(&cmd->rd, lst_new(token));
 			curr = curr->next;
 		}
 		cmd_lst_add_back(cmds, cmd_lst_new(cmd));

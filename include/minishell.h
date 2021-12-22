@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 20:47:47 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/22 14:50:27 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@
 # include	"free.h"
 # include	"parsing.h"
 # include	"execute.h"
+# include	"sort.h"
 
 
-# define	DEBUG	0
+# define	DEBUG		1
 
 /* TYPE */
 # define	SCRIPT		0

@@ -6,13 +6,13 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:33 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 22:29:36 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 02:17:41 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	logo(void)
+void	print_logo(void)
 {
 	printf(\
 RED "______  ________________   ________________  __________________ ______ \n"\
@@ -100,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	env = get_envp(envp);
 	default_signal();
-	logo();
+	print_logo();
 	main_loop(env);
 	return (0);
 }

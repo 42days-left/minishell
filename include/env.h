@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 16:06:29 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 16:31:11 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/22 02:48:37 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	print_envp_lst(t_env *head, int fd_out);
 t_env	*new_env_node(char *key, char *value);
 t_env	*env_lst_last(t_env *lst);
 void	env_add_back(t_env **lst, t_env *new);
-char	*search_env_lst(t_env **lst, char *key);
 void	env_lst_del(t_env *head, char *key);
 char	*get_env_key_value(char *str);
 t_env	*get_envp(char **envp);

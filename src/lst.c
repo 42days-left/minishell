@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 19:18:10 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 02:49:20 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,6 @@
  * - lst_del?
  * ... 등등드읃응
  * */
-
-t_lst	*lst_search(t_lst *head, char *target)
-{
-	t_lst	*curr;
-
-	if (head == NULL)
-		return (0);
-	curr = head;
-	while (curr != NULL)
-	{
-		/* string search를 해야함 */
-		if (curr->data == target)
-			break ;
-		curr = curr->next;
-	}
-	return (curr);
-}
 
 t_lst	*lst_new(void *value)	//int value 아님 암튼 아님;
 {
