@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 19:17:52 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 16:42:22 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	get_redir_fd(t_lst *rds, int fds[2])
 			fds[fd_type] = right_double_redir(token->word);
 		if (fds[fd_type] == ERROR)
 		{
-			printf(YELLOW"redir: ambiguous redirect\n"RESET);
+			printf(YELLOW"%s: No such file or directory\n"RESET, token->word);
+			g_exitstat = EXIT_FAILURE;
 			return (0);
 		}
 		node = node->next;

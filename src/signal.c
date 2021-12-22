@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:11:14 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/21 15:22:29 by yubae            ###   ########.fr       */
+/*   Updated: 2021/12/22 16:51:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	signal_handler(int sig)
 		if (sig == SIGQUIT)
 			printf("^\\Quit:3\n");
 	}
+	g_exitstat = 1;
 }
 
 void	on_signal(void)

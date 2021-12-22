@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:25:19 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/22 15:23:45 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:39:39 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,11 @@ void	exec_child_process2(t_cmd_arg *ca)
 
 	DEBUG && printf("exec_child_process()\t"GREEN"START"RESET"\n");
 	if (ca->argc == 0)
-	{
-		DEBUG && printf("ca->argc == 0\t\t"GREEN"OUT"RESET"\n");
 		exit(0);
-	}
 	envp = env_to_envp(ca->env);
 	path = find_path(ca->argv[0], ca->env);
 	if (path != NULL)
-	{
 		execve(path, ca->argv, envp);
-	}
 	else
 	{
 		printf(YELLOW"%s"RESET, ca->argv[0]);
@@ -49,11 +44,10 @@ void	extern_function(t_cmd_arg *cmd_arg)
 		ft_dup(cmd_arg->fd_in, STDIN_FILENO);
 		ft_dup(cmd_arg->fd_out, STDOUT_FILENO);
 		exec_child_process2(cmd_arg);
-		exit(1);
+		exit(0);
 	}
 	wait(&status);
 	g_exitstat = get_wexitstat(status);
-	// return (EXIT_SUCCESS);
 }
 
 int	execute_single_cmd(t_cmd_lst *cmds, t_env *env, int fd_in, int fd_out)
@@ -82,6 +76,7 @@ int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 		return (wait_cmds(last_pid));
 	curr = cmds;
 	fd_out = STDOUT_FILENO;
+	// if (curr)
 	if (curr->next)
 	{
 		pipe(pipe_fd);
@@ -90,11 +85,12 @@ int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	pid = fork();
 	if (pid == 0)
 	{
+		// signal(SIGINT, SIG_IGN);
+		// signal(SIGQUIT, SIG_IGN);
 		fd_close(pipe_fd[READ]);
 		execute_single_cmd(curr, env, fd_in, fd_out);
 		exit(g_exitstat);
 	}
-	waitpid(pid, &status, 0);
 	fd_close(fd_in);
 	fd_close(fd_out);
 	return (execute_multi_cmds(curr->next, env, pipe_fd[READ], pid));

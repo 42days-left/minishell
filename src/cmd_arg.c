@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:16 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 16:01:46 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/22 16:15:26 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	print_cmd_arg(t_cmd_arg *cmd_arg)
 	printf("\targc:\t\t["BLUE"%d"RESET"]\n", cmd_arg->argc);
 	printf("\targv[0]:\t["BLUE"%s"RESET"]\n", cmd_arg->argv[0]);
 	printf("\tfd_in:\t\t["BLUE"%d"RESET"]\n", cmd_arg->fd_in);
-	printf("\tfd_out:\t\t["BLUE"%d"RESET"]\n", cmd_arg->fd_out);
-	printf("}\n");
+	printf("\tfd_out:\t\t["BLUE"%d"RESET"]\n}\n", cmd_arg->fd_out);
 	return (TRUE);
 }
 
