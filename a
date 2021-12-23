@@ -1,0 +1,14 @@
+exec_child_process()	[32mSTART[0m
+------------[32mFIND NEW_PATH[0m----------
+Makefile
+README.md
+a
+a.out
+include
+leaks_checker.sh
+lib
+minishell
+minishell.dSYM
+src
+test.sh
+test_echo.sh

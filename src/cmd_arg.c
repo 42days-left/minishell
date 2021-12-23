@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:07:16 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 16:15:26 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 00:48:58 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**get_cmd_argv(t_lst *tokens)
 	curr = tokens;
 	str = (char **)malloc(sizeof(char *) * (lst_size(curr) + 1));
 	if (!str)
-		exit_err(2, "malloc err");
+		exit_err(EXIT_FAILURE, "malloc err");
 	while (curr)
 	{
 		str[i] = ft_strdup(((t_token *)curr->data)->word);
@@ -53,7 +53,7 @@ t_cmd_arg	*parse_cmd_arg(t_cmd *cmd, t_env *env, int fd_in, int fd_out)
 
 	cmd_arg = (t_cmd_arg *)malloc(sizeof(t_cmd_arg));
 	if (!cmd_arg)
-		exit_err(2, "malloc err");
+		exit_err(EXIT_FAILURE, "Malloc Error");
 	curr = cmd;
 	cmd_arg->argc = lst_size(curr->tokens);
 	cmd_arg->argv = get_cmd_argv(curr->tokens);

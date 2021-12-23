@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:19:36 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 20:37:44 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 00:45:06 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	parse(char *script, t_env *env, t_cmd_lst **cmds)
 	if (here_doc(tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	parser(tokens, cmds);
+	DEBUG && print_cmds_list(*cmds);
 	free_strings(strs);
 	free_tokens_parse(tokens);
 	DEBUG && printf("🐚 parsing...\t["GREEN"done"RESET"]\n");

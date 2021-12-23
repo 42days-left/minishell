@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:21:56 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 22:46:34 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:18:50 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_env	*find_env_from_env(char *in_key, t_env *env)
 	return (curr);
 }
 
-static void	free_compound_cmd_node(t_env *tmp)
+void	free_compound_cmd_node(t_env *tmp)
 {
 	if (tmp && tmp->key[0] == '?')
 	{
@@ -86,7 +86,7 @@ static void	free_compound_cmd_node(t_env *tmp)
 	}
 }
 
-static int	is_single_dollar(char next_dollar)
+int	is_single_dollar(char next_dollar)
 {
 	if (next_dollar == '\0' || next_dollar == '\"' || ft_isspace(next_dollar))
 		return (TRUE);

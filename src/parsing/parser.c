@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:13:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 16:24:22 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 00:44:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,16 @@ int	print_cmds_list(t_cmd_lst *cmds)
 	return (1);
 }
 
+t_token	*get_token_from_lst(t_lst *curr)
+{
+	t_token	*token;
+	t_token	*cdata;
+
+	cdata = curr->data;
+	token = init_token(cdata->type, ft_strdup(cdata->word));
+	return (token);
+}
+
 int	parser(t_lst *tokens, t_cmd_lst **cmds)
 {
 	t_lst	*curr;
@@ -66,7 +76,7 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 		cmd = init_cmd();
 		while (curr && ((t_token *)curr->data)->type != PIPE)
 		{
-			token = init_token(((t_token *)curr->data)->type, ft_strdup(((t_token *)curr->data)->word));
+			token = get_token_from_lst(curr);
 			if (token->type == WORD)
 				lst_add_back(&cmd->tokens, lst_new(token));
 			else
@@ -77,6 +87,5 @@ int	parser(t_lst *tokens, t_cmd_lst **cmds)
 		if (curr)
 			curr = curr->next;
 	}
-	DEBUG && print_cmds_list(*cmds);
 	return (EXIT_SUCCESS);
 }

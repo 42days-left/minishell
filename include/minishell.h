@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 16:23:25 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:21:05 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # include	"sort.h"
 
 
-# define	DEBUG		0
+# define	DEBUG		1
 
 /* TYPE */
 # define	SCRIPT		0
@@ -67,12 +67,6 @@
 # define	EXIT_SYNTAXERR	2
 # define	EXIT_EXCUTE		126
 # define	EXIT_WRONGPATH	127
-
-void	default_signal(void);
-void	on_signal(void);
-void	off_echoctl(void);
-void	signal_handler(int sig);
-void	signal_handler_in_heredoc(int sig);
 
 
 void	free_strings(char **strs);

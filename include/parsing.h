@@ -6,10 +6,29 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 13:12:26 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 13:12:35 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:22:31 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PARSING_H
+# define PARSING_H
 
-int	parse(char *script, t_env *env, t_cmd_lst **cmds);
+typedef struct	s_token
+{
+	int			type;
+	char		*word;
+}				t_token;
+
+int		tokenizer(char *script, char ***strs);
+t_token	*init_token(int type, char *word);
+int		lexer(char **strs, t_lst **tokens);
+int		replace(t_lst *tokens, t_env *env);
+
+
+
+int		parse(char *script, t_env *env, t_cmd_lst **cmds);
+
+int		print_token(t_token *token);
+int		print_token_list(t_lst *tokens, char *title_str);
+
+#endif

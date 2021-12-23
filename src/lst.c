@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 20:12:15 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 02:49:20 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:22:44 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,20 +185,3 @@ void	lst_add_back(t_lst **lst, t_lst *new)
 		return ;
 	}
 }
-
-void	lst_add_back_token(t_lst **lst, t_token *new)
-{
-	lst_add_back(lst, lst_new(new));
-}
-
-/* list -> **str function */
-// char	**lst_to_str(t_lst head)
-// {
-// 	return (0);
-// }
-
-/* list <- **str function */
-// t_lst	*str_to_lst()
-// {
-// 	return (0);
-// }

@@ -6,14 +6,14 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 16:28:28 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 16:42:22 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:47:36 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define	FD_IN	0
-#define	FD_OUT	1
+#define FD_IN	0
+#define FD_OUT	1
 
 void	fd_close(int fd)
 {
@@ -31,6 +31,13 @@ static int	get_fd_type(int type)
 	if (type == REDIR_L || type == D_REDIR_L)
 		return (FD_IN);
 	return (FD_OUT);
+}
+
+static int	redir_err(char *word)
+{
+	printf(YELLOW"%s: No such file or directory\n"RESET, word);
+	g_exitstat = EXIT_FAILURE;
+	return (FALSE);
 }
 
 int	get_redir_fd(t_lst *rds, int fds[2])
@@ -54,12 +61,8 @@ int	get_redir_fd(t_lst *rds, int fds[2])
 		else if (token->type == D_REDIR_R)
 			fds[fd_type] = right_double_redir(token->word);
 		if (fds[fd_type] == ERROR)
-		{
-			printf(YELLOW"%s: No such file or directory\n"RESET, token->word);
-			g_exitstat = EXIT_FAILURE;
-			return (0);
-		}
+			return (redir_err(token->word));
 		node = node->next;
 	}
-	return (1);
+	return (TRUE);
 }

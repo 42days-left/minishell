@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:58:18 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/22 15:44:36 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:10:22 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,10 @@
 
 # include "lst.h"
 
-typedef struct	s_token
-{
-	int			type;
-	char		*word;
-	// char		*arg;
-}				t_token;
-
-t_token	*init_token(int type, char *word);
-//int		lexer(char **strs, t_lst *tokens);
-int		lexer(char **strs, t_lst **tokens);
-void	lst_add_back_token(t_lst **lst, t_token *new);
-int		print_token(t_token *token);
-int		print_token_list(t_lst *tokens, char *title_str);
+void	default_signal(void);
+void	on_signal(void);
+void	off_echoctl(void);
+void	signal_handler(int sig);
+void	signal_handler_in_heredoc(int sig);
 
 #endif

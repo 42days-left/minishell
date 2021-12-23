@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:35:03 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 12:53:02 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:16:18 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @example $prompt : 'hello "hola world" world' -> one set. not two.
  */
-int	convert_quote(char *script)
+static int	convert_quote(char *script)
 {
 	char	in_quote;
 
@@ -38,7 +38,7 @@ int	convert_quote(char *script)
 	return (EXIT_SUCCESS);
 }
 
-int	reconvert_quote(char *str)
+static int	reconvert_quote(char *str)
 {
 	while (*str != '\0')
 	{
@@ -62,7 +62,7 @@ int	reconvert_quote(char *str)
  * @example 'echo|sleep 3' -> 'echo | sleep 3'
  * base on @ycha
  */
-int	convert_symbols(char *script, char *buf)
+static int	convert_symbols(char *script, char *buf)
 {
 	while (*script != '\0')
 	{

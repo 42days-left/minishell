@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/12/23 15:42:15 by jisokang         ###   ########.fr        #
+#    Updated: 2021/12/24 01:04:04 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,9 @@ FILE = cmd_arg.c cmd_lst.c error.c free.c lst.c main.c signal.c sort.c\
 	   parsing/lexer.c\
 	   parsing/parser.c\
 	   parsing/parsing.c\
-	   parsing/remove_quote.c\
 	   parsing/replace.c\
 	   parsing/tokenizer.c\
+	   parsing/print_token_list.c\
 	   redir/get_redir_fd.c\
 	   redir/here_doc.c\
 	   redir/redirection.c
