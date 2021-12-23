@@ -57,5 +57,5 @@ t_env	*sort_export_lst(t_env *env)
 		curr = curr->next;
 	}
 	sort_alpha(copy_head);
-	return(copy_head);
+	return (copy_head);
 }

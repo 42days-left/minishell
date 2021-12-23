@@ -39,11 +39,8 @@ int	wait_cmds(int last_pid)
 {
 	int	status;
 
-	// waitpid(last_pid, &status, 0);
 	waitpid(last_pid, &status, 0);
-	// g_exitstat = get_wexitstat(status);
-	g_exitstat = WEXITSTATUS(status);;
-	printf("g_exitstat : %d\n", g_exitstat);
+	g_exitstat = WEXITSTATUS(status);
 	while (wait(&status) != -1)
 		;
 	return (1);

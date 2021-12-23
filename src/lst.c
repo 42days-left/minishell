@@ -23,7 +23,7 @@
  * ... 등등드읃응
  * */
 
-t_lst	*lst_new(void *value)	//int value 아님 암튼 아님;
+t_lst	*lst_new(void *value)
 {
 	t_lst	*new;
 
@@ -114,31 +114,25 @@ int	lst_size(t_lst *head)
 
 void	lst_del(t_lst *head, int key)
 {
-	// Store head node
 	t_lst	*temp;
 	t_lst	*prev;
 
 	temp = head;
-	// If head node itself holds the key to be deleted
 	if (temp != NULL && *(int *)(temp->data) == key)
 	{
-		*head = *temp->next; // Changed head
-		free(temp); // free old head
+		*head = *temp->next;
+		free(temp);
 		return ;
 	}
-	// Search for the key to be deleted, keep track of the
-	// previous node as we need to change 'prev->next'
 	while (temp != NULL && *(int *)(temp->data) != key)
 	{
 		prev = temp;
 		temp = temp->next;
 	}
-	// If key was not present in linked list
 	if (temp == NULL)
 		return ;
-	// Unlink the node from linked list
 	prev->next = temp->next;
-	free(temp); // Free memory
+	free(temp);
 }
 
 void	lst_add_front(t_lst **lst, t_lst *new)

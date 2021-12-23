@@ -76,7 +76,6 @@ int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 		return (wait_cmds(last_pid));
 	curr = cmds;
 	fd_out = STDOUT_FILENO;
-	// if (curr)
 	if (curr->next)
 	{
 		pipe(pipe_fd);
@@ -85,8 +84,6 @@ int	execute_multi_cmds(t_cmd_lst *cmds, t_env *env, int fd_in, pid_t last_pid)
 	pid = fork();
 	if (pid == 0)
 	{
-		// signal(SIGINT, SIG_IGN);
-		// signal(SIGQUIT, SIG_IGN);
 		fd_close(pipe_fd[READ]);
 		execute_single_cmd(curr, env, fd_in, fd_out);
 		exit(g_exitstat);

@@ -20,7 +20,7 @@ char	*builtin_cd_tilde(char **argv, t_env *tmp)
 	if (path[0] == '~' && path[1] == 0)
 	{
 		if (tmp == NULL)
-			return(ft_strdup(getenv("HOME")));
+			return (ft_strdup(getenv("HOME")));
 		else
 			path = tmp->value;
 	}

@@ -75,8 +75,6 @@ void	cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new)
 {
 	t_cmd_lst	*last;
 
-	// if (lst == NULL || new == NULL)
-	// 	return ;
 	if (*lst)
 	{
 		last = cmd_lst_last(*lst);

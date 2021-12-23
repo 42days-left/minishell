@@ -39,7 +39,8 @@ int	remove_env_var(int argc, char **argv, t_env *env)
 	while (i < argc)
 	{
 		if (!is_valid_key(argv[i]))
-			printf(YELLOW"unset : '%s' : not a valid identifier\n"RESET, argv[i]);
+			printf(YELLOW"unset : '%s' : not a valid identifier\n"\
+					RESET, argv[i]);
 		else
 			env_lst_del(env, argv[i]);
 		i++;

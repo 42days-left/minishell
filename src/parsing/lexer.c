@@ -60,8 +60,7 @@ int	lexer(char **strs, t_lst **tokens)
 			word = ft_strdup(strs[i++ + 1]);
 		else
 		{
-			printf(YELLOW\
-			"lexer: syntax error near unexpected token `newline'\
+			printf(YELLOW"lexer: syntax error near unexpected token `newline'\
 			\n"RESET);
 			return (EXIT_FAILURE);
 		}
@@ -74,6 +73,7 @@ int	lexer(char **strs, t_lst **tokens)
 char	*get_str_type(int type)
 {
 	char	*type_str;
+
 	if (type == PIPE)
 		type_str = "PIPE";
 	else if (type == COMMAND)
@@ -90,7 +90,7 @@ char	*get_str_type(int type)
 		type_str = "[>>]D_REDIR_R";
 	else
 		type_str = RED"UNKNOWN"RESET;
-	return(type_str);
+	return (type_str);
 }
 
 int	print_token(t_token *token)

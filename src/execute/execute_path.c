@@ -41,7 +41,6 @@ char	*find_path_extern(char *in_path, t_env *env)
 		tmp->value = ft_strjoin("/", in_path);
 		new_path = ft_strjoin(path_arr[i], tmp->value);
 		free(tmp->value);
-		//free(tmp);
 		if (!stat(new_path, &s))
 			return (new_path);
 		free(new_path);
