@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 15:19:28 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/23 17:16:46 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	set_node_to_env_var(t_env *node, t_env *env)
 	if (tmp)
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup(node->value);
+		if (node->value)
+			tmp->value = ft_strdup(node->value);
 		free_env_node(node);
 	}
 	else

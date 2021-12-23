@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 15:36:42 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/21 22:49:53 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/23 17:20:49 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	**env_to_envp(t_env *env)
 	{
 		tmp = ft_strjoin("=", curr->value);
 		envp[i] = ft_strjoin(curr->key, tmp);
-		free(tmp);
 		curr = curr->next;
 		i++;
 	}

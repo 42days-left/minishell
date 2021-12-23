@@ -6,13 +6,12 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/12/21 20:56:33 by jisokang         ###   ########.fr        #
+#    Updated: 2021/12/23 15:42:15 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
 FSAN	= -fsanitize=address
-#-I/opt/homebrew/opt/readline/include
 FLAGS	= -Wall -Wextra -Werror
 
 DEBUG	= -fdiagnostics-color=always -g
