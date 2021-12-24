@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 07:05:12 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/02 23:11:44 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 15:01:48 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -39,7 +39,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *haystack,
-	const char *needle, size_t len);
+						const char *needle, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memset(void *b, int c, size_t len);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -67,9 +67,10 @@ void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-	void (*del)(void *));
+						void (*del)(void *));
 char				**ft_split(char const *s, char c);
 void				ft_swap_int(int *a, int*b);
-int					ft_num_tobase(int *num_box, long long num, unsigned int base);
+int					ft_num_tobase(int *num_box,
+						long long num, unsigned int base);
 
 #endif

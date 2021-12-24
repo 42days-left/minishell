@@ -6,7 +6,7 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/19 15:58:12 by sashin            #+#    #+#              #
-#    Updated: 2021/12/02 23:11:18 by jisokang         ###   ########.fr        #
+#    Updated: 2021/12/24 15:12:00 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,6 @@ ARFLAGS			= -rcs
 
 INCLUDES_DIR	= include
 LIBFT_DIR		= src/libft
-FT_PRINTF_DIR	= src/ft_printf
-GNL_DIR			= src/get_next_line
 
 LIBFT			= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 				ft_memchr.c ft_memcmp.c ft_strlen.c ft_strlcpy.c ft_strlcat.c \
@@ -37,27 +35,18 @@ LIBFT			= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 				ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_swap_int.c \
 				ft_num_tobase.c ft_isspace.c
 
-FT_PRINTF		= ft_printf.c ft_printf_char.c ft_printf_num_print.c \
-				ft_printf_num.c ft_printf_parse.c ft_printf_string.c \
-
-GNL				= get_next_line.c get_next_line_utils.c
-
 all: $(NAME)
 
-$(NAME): libft ft_printf gnl
+$(NAME): libft
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $^
 	$(AR) $(ARFLAGS) $(NAME) $@
 
 libft: $(addprefix $(LIBFT_DIR)/, $(LIBFT:.c=.o))
-ft_printf: $(addprefix $(FT_PRINTF_DIR)/, $(FT_PRINTF:.c=.o))
-gnl: $(addprefix $(GNL_DIR)/, $(GNL:.c=.o))
 
 clean:
 	rm -rf $(addprefix $(LIBFT_DIR)/, $(LIBFT:.c=.o))
-	rm -rf $(addprefix $(FT_PRINTF_DIR)/, $(FT_PRINTF:.c=.o))
-	rm -rf $(addprefix $(GNL_DIR)/, $(GNL:.c=.o))
 
 fclean: clean
 	rm -rf $(NAME)

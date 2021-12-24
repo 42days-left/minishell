@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 03:40:37 by jisokang          #+#    #+#             */
-/*   Updated: 2021/06/23 19:29:41 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 15:02:57 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	if (n == 0)
 		return (0);
-	return (*(unsigned char*)s1 - *(unsigned char*)s2);
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/24 14:56:42 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 15:10:18 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include	"color.h"
 # include	"lst.h"
 # include	"env.h"
-# include	"tokenizer.h"
 # include	"cmd.h"
 # include	"token.h"
 # include	"error.h"
