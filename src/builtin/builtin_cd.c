@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 22:37:20 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 00:34:41 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 13:13:51 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	builtin_cd(int argc, char **argv, t_env *env)
 		path = tmp->value;
 	else if (argc == 1 && tmp == NULL)
 	{
-		printf("cd: HOME not set\n");
+		printf(YELLOW"cd: HOME not set\n"RESET);
 		return (EXIT_FAILURE);
 	}
 	else if (argc == 2)
@@ -48,5 +48,7 @@ int	builtin_cd(int argc, char **argv, t_env *env)
 		chdir(".");
 		return (EXIT_FAILURE);
 	}
+	if (!tmp && argv[1][0] == '~' && argv[1][1] == '\0')
+		free(path);
 	return (EXIT_SUCCESS);
 }
