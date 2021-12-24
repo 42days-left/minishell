@@ -6,12 +6,22 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 13:12:26 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/24 17:03:17 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 17:17:12 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
+
+/* PARSING TOKEN TYPE */
+# define SCRIPT		0
+# define COMMAND	1
+# define WORD		2
+# define PIPE		3
+# define REDIR_L	4
+# define REDIR_R	5
+# define D_REDIR_L	6
+# define D_REDIR_R	7
 
 typedef struct s_token
 {

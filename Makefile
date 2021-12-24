@@ -6,25 +6,26 @@
 #    By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/30 15:48:36 by jisokang          #+#    #+#              #
-#    Updated: 2021/12/24 17:02:09 by jisokang         ###   ########.fr        #
+#    Updated: 2021/12/24 17:21:47 by jisokang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
-FSAN	= -fsanitize=address
+
 FLAGS	= -Wall -Wextra -Werror
 
+FSAN	= -fsanitize=address
 DEBUG	= -fdiagnostics-color=always -g
 
 #Cluster Mac
-# CFLAGS	= -Iinclude -I/Users/$(USER)/.brew/opt/readline/include
-# CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
+CFLAGS	= -Iinclude -I/Users/$(USER)/.brew/opt/readline/include
+CLIB	= -L./lib/ -l_jisokang -lreadline -L/Users/$(USER)/.brew/opt/readline/lib
 
 #M1 Mac
-CFLAGS	= -Iinclude -I/opt/homebrew/opt/readline/includ
-CLIB	= -L./lib/ -l_jisokang -lreadline -L/opt/homebrew/opt/readline/lib
+# CFLAGS	= -Iinclude -I/opt/homebrew/opt/readline/includ
+# CLIB	= -L./lib/ -l_jisokang -lreadline -L/opt/homebrew/opt/readline/lib
 
-#YUBAE
+#yubae Mac
 #CFLAGS	= -Iinclude -I/usr/local/opt/readline/include
 #CLIB	= -L./lib/ -l_jisokang -lreadline -L/usr/local/opt/readline/lib
 
@@ -73,7 +74,7 @@ all: $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C $(LIB_DIR)
-	gcc $(DEBUG) $(CFLAGS) $(CLIB) $(SRCS) -o $(NAME)
+	gcc $(CFLAGS) $(CLIB) $(SRCS) -o $(NAME)
 
 clean:
 	make -C $(LIB_DIR) clean

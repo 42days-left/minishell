@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 20:09:53 by yubae             #+#    #+#             */
-/*   Updated: 2021/12/22 18:22:56 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 17:19:32 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
  * @param stat
  * @return int
  */
-
 int	get_wexitstat(int stat)
 {
 	return ((((*(int *)&(stat)) >> 8) & 0x000000ff));
@@ -40,7 +39,7 @@ int	wait_cmds(int last_pid)
 	int	status;
 
 	waitpid(last_pid, &status, 0);
-	g_exitstat = WEXITSTATUS(status);
+	g_exitstat = get_wexitstat(status);
 	while (wait(&status) != -1)
 		;
 	return (1);

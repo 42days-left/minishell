@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:37:55 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/24 14:55:53 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 17:12:07 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ void		cmd_lst_clear(t_cmd_lst *head);
 int			cmd_lst_size(t_cmd_lst *head);
 t_cmd_lst	*cmd_lst_last(t_cmd_lst *lst);
 void		cmd_lst_add_back(t_cmd_lst **lst, t_cmd_lst *new);
-
 
 #endif
