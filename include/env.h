@@ -25,16 +25,25 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
-int		replace(t_lst *tokens, t_env *env);
-int		print_envp(char **envp);
-void	print_envp_lst(t_env *head, int fd_out);
+/* env_lst */
+int		env_count(t_env *head);
 t_env	*new_env_node(char *key, char *value);
 t_env	*env_lst_last(t_env *lst);
 void	env_add_back(t_env **lst, t_env *new);
 void	env_lst_del(t_env *head, char *key);
-char	*get_env_key_value(char *str);
-t_env	*get_envp(char **envp);
+
+/* env_print */
+int		print_envp(char **envp);
+void	print_envp_lst(t_env *head, int fd_out);
+
+/* envp */
+char	**env_to_envp(t_env *env);
+void	free_envp(char **envp);
 t_env	*get_env_from_str(char *str);
+t_env	*get_envp(char **envp);
+
+int		replace(t_lst *tokens, t_env *env);
+char	*get_env_key_value(char *str);
 char	*find_key_from_str(char *str_ptr);
 int		is_valid_env_char(char c);
 int		is_valid_key(char *key);

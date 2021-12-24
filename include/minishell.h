@@ -65,19 +65,6 @@
 # define EXIT_EXCUTE		126
 # define EXIT_WRONGPATH	127
 
-void	free_strings(char **strs);
-
-char	*find_path(char *in_path, t_env *env);
-void	exec_child_process(char *str, t_env *env);
-int		exec_fork(char *cmd_name, t_env *env);
-t_env	*find_env_from_env(char *in_key, t_env *env);
-char	**env_to_envp(t_env *env);
-int		print_envp(char **envp);
-void	free_envp(char **envp);
-int		env_count(t_env *env);
-
-int		get_wexitstat(int stat);
-
 int		g_exitstat;
 
 #endif

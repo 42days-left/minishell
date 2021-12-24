@@ -19,16 +19,28 @@ typedef struct s_token
 	char	*word;
 }			t_token;
 
-int		tokenizer(char *script, char ***strs);
+/* lexer */
 t_token	*init_token(int type, char *word);
 int		lexer(char **strs, t_lst **tokens);
-int		replace(t_lst *tokens, t_env *env);
 
+/* parser */
+int		parser(t_lst *tokens, t_cmd_lst **cmds);
+int		print_cmds_list(t_cmd_lst *cmds);
+
+/* parsing */
 int		parse(char *script, t_env *env, t_cmd_lst **cmds);
 int		replace_env_token(t_token *token, t_env *env);
 void	remove_quote_token(t_token *token);
 
+/* print_token_list */
 int		print_token(t_token *token);
 int		print_token_list(t_lst *tokens, char *title_str);
+
+/* replace */
+t_env	*find_env_from_env(char *in_key, t_env *env);
+int		replace(t_lst *tokens, t_env *env);
+
+/* tokenizer */
+int		tokenizer(char *script, char ***strs);
 
 #endif
