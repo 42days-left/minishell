@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 16:06:29 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/22 02:48:37 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 17:00:37 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_env	*get_env_from_str(char *str);
 char	*find_key_from_str(char *str_ptr);
 int		is_valid_env_char(char c);
 int		is_valid_key(char *key);
+int		is_valid_key_value(char *key);
 int		env_lst_size(t_env *head);
 int		set_export_var(int argc, char **argv, t_env *env);
 

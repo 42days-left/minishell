@@ -6,29 +6,11 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:11:54 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/23 17:16:46 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 16:54:29 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_valid_key_value(char *key)
-{
-	int	i;
-
-	if (key[0] == '\0' || ft_isdigit(key[0]) || !is_valid_env_char(key[0]))
-		return (FALSE);
-	i = 1;
-	while (key[i])
-	{
-		if (key[i] == '=')
-			break ;
-		else if (!is_valid_env_char(key[i]))
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
-}
 
 void	set_node_to_env_var(t_env *node, t_env *env)
 {
