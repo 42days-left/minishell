@@ -13,9 +13,13 @@
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
+/* execute */
 void	execute(t_cmd_lst *cmds, t_env *env);
+
+/* execute_path */
 char	*find_path(char *in_path, t_env *env);
 
+/* execute_utils */
 int		get_wexitstat(int stat);
 int		ft_dup(int fd1, int fd2);
 int		wait_cmds(int last_pid);
