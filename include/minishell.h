@@ -6,13 +6,12 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 12:29:51 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/24 01:21:05 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 14:56:42 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 
 # include	<unistd.h>
 # include	<fcntl.h>
@@ -39,41 +38,39 @@
 # include	"execute.h"
 # include	"sort.h"
 
-
-# define	DEBUG		1
+# define DEBUG		1
 
 /* TYPE */
-# define	SCRIPT		0
-# define	COMMAND		1
-# define	WORD		2
-# define	PIPE		3
-# define	REDIR_L		4
-# define	REDIR_R		5
-# define	D_REDIR_L	6
-# define	D_REDIR_R	7
+# define SCRIPT		0
+# define COMMAND		1
+# define WORD		2
+# define PIPE		3
+# define REDIR_L		4
+# define REDIR_R		5
+# define D_REDIR_L	6
+# define D_REDIR_R	7
 
-# define	TRUE		1
-# define	FALSE		0
-# define	ERROR		-1
-# define	SAME		0
+# define TRUE		1
+# define FALSE		0
+# define ERROR		-1
+# define SAME		0
 
-# define	PATH_MAX	1024
+# define PATH_MAX	1024
 
-# define	BUF_SIZE	10000
+# define BUF_SIZE	10000
 
-# define	READ		0
-# define	WRITE		1
+# define READ		0
+# define WRITE		1
 
-# define	EXIT_SYNTAXERR	2
-# define	EXIT_EXCUTE		126
-# define	EXIT_WRONGPATH	127
-
+# define EXIT_SYNTAXERR	2
+# define EXIT_EXCUTE		126
+# define EXIT_WRONGPATH	127
 
 void	free_strings(char **strs);
 
 char	*find_path(char *in_path, t_env *env);
 void	exec_child_process(char *str, t_env *env);
-int		exec_fork(char *cmd_name, t_env  *env);
+int		exec_fork(char *cmd_name, t_env *env);
 t_env	*find_env_from_env(char *in_key, t_env *env);
 char	**env_to_envp(t_env *env);
 int		print_envp(char **envp);
@@ -85,5 +82,3 @@ int		get_wexitstat(int stat);
 int		g_exitstat;
 
 #endif
-
-

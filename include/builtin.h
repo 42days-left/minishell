@@ -6,7 +6,7 @@
 /*   By: jisokang <jisokang@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 16:12:41 by jisokang          #+#    #+#             */
-/*   Updated: 2021/12/14 14:35:43 by jisokang         ###   ########.fr       */
+/*   Updated: 2021/12/24 14:51:34 by jisokang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	builtin_export(int argc, char **argv, t_env *env, int fd_out);
 int	builtin_pwd(int fd_out);
 int	builtin_unset(int argc, char **argv, t_env *env);
 int	builtin_echo(int argc, char **argv, int fd);
-int builtin_function(t_cmd_arg *ca);
+int	builtin_function(t_cmd_arg *ca);
 
 #endif
